@@ -31,4 +31,11 @@ public class RidePostTransaction {
 			return listRidePosts;
 		}
 	}
+	
+	public static ArrayList<RidePost> getAllRidePosts(String restrictions)
+	{
+		ArrayList<RidePost> listRidePosts = null;
+		
+		return listRidePosts;
+	}
 }
