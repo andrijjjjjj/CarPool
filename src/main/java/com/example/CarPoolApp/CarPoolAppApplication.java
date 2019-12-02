@@ -23,7 +23,7 @@ public class CarPoolAppApplication {
 	}
 	
 	//Testing hibernate stuff with logger.
-	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
+//	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
 	
 //	@Bean
 //	  public CommandLineRunner demo(UserTransaction repository) {
