@@ -26,7 +26,9 @@ public class CarPoolAppApplication {
 	
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() {
-	    User user = new User("apokhva", "abc123", 0, "1234567890", "Michael", "Reyes");
+		// User(String userID, String password, int status, String phoneNumber, String fName, String lName)
+		// userID is ULID
+	    User user = new User("USERID", "PASSWORD", 0, "1234567890", "FIRSTNAME", "LASTNAME");
 		Email email = new Email();
 		email.emailReminder(user);
 		email.emailPassengerCancelled(user);
