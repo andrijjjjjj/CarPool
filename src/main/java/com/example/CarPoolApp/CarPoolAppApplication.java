@@ -6,9 +6,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 //@Configuration
@@ -22,8 +24,20 @@ public class CarPoolAppApplication {
 		SpringApplication.run(CarPoolAppApplication.class, args);
 	}
 	
+	@EventListener(ApplicationReadyEvent.class)
+	public void doSomethingAfterStartup() {
+	    User user = new User("mjreyes", "abc123", 0, "1234567890", "Michael", "Reyes");
+		EmailReminder reminder = new EmailReminder(user);
+		reminder.email(user);
+	}
+	
+	
+	
 	//Testing hibernate stuff with logger.
 	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
+	
+	//public User(String userID, String password, int status, String phoneNumber, String fName, String lName)
+	
 	
 //	@Bean
 //	  public CommandLineRunner demo(UserTransaction repository) {
