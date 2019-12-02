@@ -5,6 +5,11 @@ package com.example.CarPoolApp;
 
 import java.util.ArrayList;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
+
+//@Configuration
+//@Controller
 public class Handler {
 
 	public ArrayList<RidePost> viewAllRides() {
