@@ -21,11 +21,13 @@ public class Handler {
 	public String enterLogin(Model model) {
 		model.addAttribute("users", new User());
 		return "users";
+		
 	}
 
 	@PostMapping("/users")
 	public String exitLogin(@ModelAttribute User user) {
-		return "result";
+		return "home";
 	}
+	
 
 }

@@ -1,5 +1,7 @@
 package com.example.CarPoolApp;
 
-public class UserTransaction {
+
+public class UserTransaction{
+
 	private DatabaseQuery query;
 }
