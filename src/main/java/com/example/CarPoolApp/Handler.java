@@ -5,6 +5,11 @@ package com.example.CarPoolApp;
 
 import java.util.ArrayList;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
+
+//@Configuration
+//@Controller
 public class Handler {
 
 	public ArrayList<RidePost> viewAllRides() {
@@ -13,12 +18,10 @@ public class Handler {
 		return RidePostTransaction.getAllRidePosts();
 	}
 
-	public ArrayList<RidePost> viewAllRides(String restrictions) {
-		//Call the method getAllRidePosts(String restrictions) from RidePostTransaction.
-		//Return the resulting arrayList of RidePosts.
-		return RidePostTransaction.getAllRidePosts(restrictions);
-	}
-
+//	public ArrayList<RidePost> viewAllRides(String restrictions) {
+//
+//	}
+//
 //	public String removeRidePost(int ridePostID) // confirmation
 //	{
 //
