@@ -26,9 +26,12 @@ public class CarPoolAppApplication {
 	
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() {
-	    User user = new User("mjreyes", "abc123", 0, "1234567890", "Michael", "Reyes");
-		EmailReminder reminder = new EmailReminder(user);
-		reminder.email(user);
+	    User user = new User("apokhva", "abc123", 0, "1234567890", "Michael", "Reyes");
+		Email email = new Email();
+		email.emailReminder(user);
+		email.emailPassengerCancelled(user);
+		email.emailRideCancelled(user);
+		email.emailSignUp(user);
 	}
 	
 	
