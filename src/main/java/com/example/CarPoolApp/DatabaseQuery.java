@@ -27,13 +27,13 @@ public class DatabaseQuery {
 		}
 	}
 
-	public String sendRemoveQuery(String query) {
-		// TODO
-	}
-
-	public String sendSaveQuery(String query) {
-		// TODO
-	}
+//	public String sendRemoveQuery(String query) {
+//		// TODO
+//	}
+//
+//	public String sendSaveQuery(String query) {
+//		// TODO
+//	}
 
 	public ResultSet sendQuery(String query) {
 		ResultSet result = null;

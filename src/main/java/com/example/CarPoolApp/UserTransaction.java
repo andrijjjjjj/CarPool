@@ -1,5 +1,14 @@
 package com.example.CarPoolApp;
 
-public class UserTransaction {
-	private DatabaseQuery query;
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface UserTransaction extends CrudRepository<User, String> {
+	
+	//private DatabaseQuery query;
+	
+	List<User> findListByStatus(int status);
+	
+	User findUserByID(String userID);
 }
