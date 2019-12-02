@@ -13,13 +13,20 @@ public class User {
 	
 	private int status;
 	
+	private Profile profile;
+	
 	//May need default constructor for JPA.
 	
-	public User(String userID, String password, int status)
+	public User(String userID, String password, int status, String phoneNumber, String fName, String lName)
 	{
 		this.userID = userID;
 		this.password = password;
 		this.status = status;
+		this.profile = new Profile(fName, lName, phoneNumber);
+	}
+	
+	public Profile getProfile() {
+		return profile;
 	}
 	
 	public String getUserID() {
