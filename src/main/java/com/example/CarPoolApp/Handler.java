@@ -39,17 +39,18 @@ public class Handler {
 	String index() {
 		return "index";
 	}
-	
+//	String userID;
+//	String password;
 	@GetMapping("/login")
-	public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String userID = request.getParameter("userID");
-//		String password = request.getParameter("password");
-//		System.out.println(userID);
-//		userTransaction.verifyLogin(userID, password);
+	public String getLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		userID = request.getParameter("userid");
+//		password = request.getParameter("password");
 		return "login";
 	}
-	@PostMapping("/login")
-	public String exitLogin(@ModelAttribute User user) {
+	@PostMapping("/home")
+	public String postLogin() {
+//		userTransaction.verifyLogin(userID, password);
+		
 		return "home";
 	}
 		
