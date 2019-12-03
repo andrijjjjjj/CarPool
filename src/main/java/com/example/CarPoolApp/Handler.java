@@ -39,7 +39,9 @@ public class Handler {
 		return "login";
 
 	}
-
+public void editProfile(String username,String phoneNumber,String emailAddress,String firstName,String lastName) {
+		userTransaction.updateProfile(phoneNumber,emailAddress,firstName,lastName);
+}
 	@PostMapping("/login")
 	public String exitLogin(@ModelAttribute User user) {
 		return "home";

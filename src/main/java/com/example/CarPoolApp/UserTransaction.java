@@ -18,7 +18,12 @@ public class UserTransaction {
 		users.deleteById(username);
 		return "deleted Account "+username;
 	}
-
+public void updateProfile(String username,String phoneNumber,String emailAddress,String firstName,String lastName) {
+	User temp=users.findById(username).get();
+	users.delete(temp);
+	
+	
+}
 	public boolean saveNewUser(User user_obj) {
 		User temp = users.save(user_obj);
 		if (temp == user_obj) {
