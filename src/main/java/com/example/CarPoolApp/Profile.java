@@ -1,5 +1,8 @@
 package com.example.CarPoolApp;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Profile {
 	
 	private String fName;
@@ -7,6 +10,8 @@ public class Profile {
 	private String phoneNumber;
 	private String email;
 
+	protected Profile() {}
+	
 	public Profile(String fName, String lName, String phoneNumber, String email) {
 		this.fName = fName;
 		this.lName = lName;
