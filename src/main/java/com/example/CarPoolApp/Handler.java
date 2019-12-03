@@ -29,6 +29,10 @@ public class Handler {
 	@Autowired
 	ObjectFactory objFactory;
 
+	/**
+	 * 
+	 * WE NEED TO STORE THE USERS USERNAME WHO IS RUNNING THE PROGRAM
+	 */
 	@GetMapping("/login")
 	public String enterLogin(Model model) {
 		model.addAttribute("users", new User());
@@ -45,6 +49,11 @@ public class Handler {
 			String lastName) {
 		User temp = objFactory.createUser(username, password, phoneNumber, emailAddress, firstName, lastName);
 		return userTransaction.saveNewUser(temp);
+	}
+
+	public String deleteUser() {
+		
+		return userTransaction.deleteAccount(String username);
 	}
 
 	public ArrayList<RidePost> viewAllRides() {
