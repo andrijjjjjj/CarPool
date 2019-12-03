@@ -1,12 +1,9 @@
 package com.example.CarPoolApp;
 
-import java.util.ArrayList;
-
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import org.hibernate.annotations.Entity;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 @Entity
 public class RidePost {

@@ -5,27 +5,30 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
-	
-	@Id //The userID should be the ID for the user in database.
+
+	@Id // The userID should be the ID for the user in database.
 	private String userID;
-	
+
 	private String password;
+	
 	private Profile profile;
 	private int status;
-	
-	protected User() {} 	//May need default constructor for JPA.
-	
-	public User(String username, String password, String firstName, String lastName, String phoneNumber, String email, int status) {
+
+	protected User() {
+	} // May need default constructor for JPA.
+
+	public User(String username, String password, String firstName, String lastName, String phoneNumber, String email,
+			int status) {
 		this.userID = username;
 		this.password = password;
 		this.profile = new Profile(firstName, lastName, phoneNumber, email);
 		this.status = status;
-	}	
-	
+	}
+
 	public Profile getProfile() {
 		return profile;
 	}
-	
+
 	public String getUserID() {
 		return userID;
 	}
@@ -51,8 +54,7 @@ public class User {
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "User: " + userID + " ; Password: " + password + "/";
 	}
 }

@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 //@EnableAutoConfiguration
 //@ComponentScan
 @SpringBootApplication
-@EnableJpaRepositories("com.pharmacy.persistence.users.dao")
+//@EnableJpaRepositories("com.pharmacy.persistence.users.dao")
 public class CarPoolAppApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
