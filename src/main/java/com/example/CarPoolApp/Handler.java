@@ -3,7 +3,12 @@
  */
 package com.example.CarPoolApp;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,11 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Controller
+@EnableWebMvc
 public class Handler {
 	
 	//Transaction classes go here? Autowired?
@@ -24,12 +32,21 @@ public class Handler {
 	RidePostTransaction ridePostTransaction;
 	@Autowired
 	PassengerRequestTransaction passengerRequestTransaction;
+	@Autowired
+	UserTransaction userTransaction;
 
+	@RequestMapping("/")
+	String index() {
+		return "index";
+	}
+	
 	@GetMapping("/login")
-	public String enterLogin(Model model) {
-		model.addAttribute("users", new User(null, null, null, null, null, null, 0));
+	public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		String userID = request.getParameter("userID");
+//		String password = request.getParameter("password");
+//		System.out.println(userID);
+//		userTransaction.verifyLogin(userID, password);
 		return "login";
-		
 	}
 	@PostMapping("/login")
 	public String exitLogin(@ModelAttribute User user) {
