@@ -34,22 +34,37 @@ public class Handler {
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
 	UserTransaction userTransaction;
+	
+	UserTransaction user = new UserTransaction();
 
 	@RequestMapping("/")
 	String index() {
 		return "index";
 	}
-	
+	String userID;
+	String password;
 	@GetMapping("/login")
-	public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String userID = request.getParameter("userID");
-//		String password = request.getParameter("password");
-//		System.out.println(userID);
-//		userTransaction.verifyLogin(userID, password);
+	public String getLogin() throws ServletException, IOException {
+
 		return "login";
 	}
 	@PostMapping("/login")
-	public String exitLogin(@ModelAttribute User user) {
+	public String postLogin(HttpServletRequest request, HttpServletResponse response) {
+//		request.login(userID, password);
+//		userID = request.getParameter("userid");
+//		password = request.getParameter("password");
+//		System.out.println(userID);
+//		user.verifyLogin(userID, password);
+
+		return "home";
+	}
+	@GetMapping("/home")
+	public String getHome() {
+		return "home";
+		
+	}
+	@PostMapping("/home")
+	public String postHome() {
 		return "home";
 	}
 		
