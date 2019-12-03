@@ -18,10 +18,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Controller
 public class Handler {
-	
-	//Transaction classes go here? Autowired?
+
+	// Transaction classes go here? Autowired?
 	@Autowired
 	RidePostTransaction ridePostTransaction;
+	@Autowired
+	UserTransaction userTransaction;
 	@Autowired
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
@@ -31,22 +33,28 @@ public class Handler {
 	public String enterLogin(Model model) {
 		model.addAttribute("users", new User());
 		return "login";
-		
+
 	}
+
 	@PostMapping("/login")
 	public String exitLogin(@ModelAttribute User user) {
 		return "home";
 	}
-	
-	public boolean signUp(String username, String password, String phoneNumber, String emailAddress, String firstName, String lastName) {
-		return objFactory.createUser(username,password,phoneNumber,emailAddress,firstName,lastName);
+
+	public boolean signUp(String username, String password, String phoneNumber, String emailAddress, String firstName,
+			String lastName) {
+		User temp = objFactory.createUser(username, password, phoneNumber, emailAddress, firstName, lastName);
+		return userTransaction.saveNewUser(temp);
 	}
+
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
 	}
 
-	public ArrayList<RidePost> viewAllRides(int driverGender, int driverRating, String carPreference, int cost, boolean luggageAllowance) {//Leave box blank if no preference for variable //driverGender(0 = dont care, 1 = male, 2 = female, 3 = other). 
-		return ridePostTransaction.getAllRidePosts(driverGender,driverRating,carPreference,cost,luggageAllowance);
+	public ArrayList<RidePost> viewAllRides(int driverGender, int driverRating, String carPreference, int cost,
+			boolean luggageAllowance) {// Leave box blank if no preference for variable //driverGender(0 = dont care, 1
+										// = male, 2 = female, 3 = other).
+		return ridePostTransaction.getAllRidePosts(driverGender, driverRating, carPreference, cost, luggageAllowance);
 	}
 
 	public String removeRidePost(int ridePostID) // confirmation
@@ -59,8 +67,7 @@ public class Handler {
 	}
 
 	public String makePassengerRequest(int ridePostID, String passengerUsername) {
-		return passengerRequestTransaction.savePassengerRequest(ridePostID,passengerUsername);
+		return passengerRequestTransaction.savePassengerRequest(ridePostID, passengerUsername);
 	}
-	
 
 }

@@ -21,12 +21,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class CarPoolAppApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(CarPoolAppApplication.class);
 	}
 
-	
 //	//Testing email notifications.
 //	@EventListener(ApplicationReadyEvent.class)
 //	public void doSomethingAfterStartup() {
@@ -39,15 +38,13 @@ public class CarPoolAppApplication {
 //		email.emailRideCancelled(user);
 //		email.emailSignUp(user);
 //	}
-	
-	
-	
-	//Testing hibernate stuff with logger.
+
+	// Testing hibernate stuff with logger.
 //	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
-	
-	//public User(String userID, String password, int status, String phoneNumber, String fName, String lName)
-	
-	
+
+	// public User(String userID, String password, int status, String phoneNumber,
+	// String fName, String lName)
+
 //	@Bean
 //	  public CommandLineRunner demo(UserTransaction repository) {
 //	    return (args) -> {

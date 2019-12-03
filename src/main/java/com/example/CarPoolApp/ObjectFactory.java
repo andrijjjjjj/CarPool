@@ -6,14 +6,13 @@ public class ObjectFactory {
 //
 //		// Save to database using passengerRequestTransaction.
 //	}
-	public boolean createUser(String username,String password,String phoneNumber,String emailAddress,String firstName,String lastName) {
-		boolean validated=false;
-		validate(username,password,phoneNumber,emailAddress,firstName,lastName);
-		Profile new_profile= new Profile(firstName,lastName,phoneNumber,emailAddress);
-		User new_user= new User(username,password,new_profile); 
-		return new_user.
+	public User createUser(String username, String password, String phoneNumber, String emailAddress, String firstName,
+			String lastName) {
+		// boolean validated=false;
+		// validate(username,password,phoneNumber,emailAddress,firstName,lastName);
+		Profile new_profile = new Profile(firstName, lastName, phoneNumber, emailAddress);
+		User new_user = new User(username, password, new_profile);
+		return new_user;
 	}
-	private boolean validate(String username,String password,String phoneNumber,String emailAddress,String firstName,String lastName) {
-		
-	}
+
 }
