@@ -1,6 +1,5 @@
 package com.example.CarPoolApp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -18,11 +17,11 @@ public class User {
 	protected User() {
 	} // May need default constructor for JPA.
 
-	public User(String username, String password, String firstName, String lastName, String phoneNumber, String email,
+	public User(String username, String password, String firstName, String lastName, String gender, String phoneNumber, String email,
 			int status) {
 		this.userID = username;
 		this.password = password;
-		this.profile = new Profile(firstName, lastName, phoneNumber, email);
+		this.profile = new Profile(firstName, lastName, gender, phoneNumber, email);
 		this.status = status;
 	}
 

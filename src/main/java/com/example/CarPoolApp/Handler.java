@@ -27,7 +27,7 @@ public class Handler {
 
 	@GetMapping("/login")
 	public String enterLogin(Model model) {
-		model.addAttribute("users", new User(null, null, null, null, null, null, 0));
+		model.addAttribute("users", new User(null, null, null, null, null, null, null, 0));
 		return "login";
 		
 	}
@@ -40,7 +40,7 @@ public class Handler {
 		return ridePostTransaction.getAllRidePosts();
 	}
 
-	public ArrayList<RidePost> viewAllRides(int driverGender, int driverRating, String carPreference, int cost, boolean luggageAllowance) {//Leave box blank if no preference for variable //driverGender(0 = dont care, 1 = male, 2 = female, 3 = other). 
+	public ArrayList<RidePost> viewAllRides(String driverGender, int driverRating, String carPreference, String cost, boolean luggageAllowance) {//Leave box blank if no preference for variable. 
 		return ridePostTransaction.getAllRidePosts(driverGender,driverRating,carPreference,cost,luggageAllowance);
 	}
 
