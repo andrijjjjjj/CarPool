@@ -17,14 +17,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Controller
 public class Handler {
 
-	@GetMapping("/users")
+	@GetMapping("/login")
 	public String enterLogin(Model model) {
 		model.addAttribute("users", new User());
-		return "users";
+		return "login";
 		
 	}
-
-	@PostMapping("/users")
+	@PostMapping("/login")
 	public String exitLogin(@ModelAttribute User user) {
 		return "home";
 	}

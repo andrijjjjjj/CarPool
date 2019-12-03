@@ -1,7 +1,10 @@
 package com.example.CarPoolApp;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class UserTransaction{
+import java.util.List;
 
-	private DatabaseQuery query;
+public interface UserTransaction extends JpaRepository<User, Long> {
+
+	List<User> findByUsernameStartsWithIgnoreCase(String password);
 }
