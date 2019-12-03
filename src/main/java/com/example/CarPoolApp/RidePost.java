@@ -19,7 +19,7 @@ public class RidePost {
 	private String startLocation;
 	private String endLocation;
 	private String cost;
-	private boolean luggageAllowance;
+	private boolean hasLuggageAllowance;
 	
 	protected RidePost() {}
 
@@ -32,7 +32,7 @@ public class RidePost {
 		this.startLocation = startLocation;
 		this.endLocation = endLocation;
 		this.cost = cost;
-		this.luggageAllowance = luggageAllowance;
+		this.hasLuggageAllowance = luggageAllowance;
 	}
 
 	public int getRidePostID() {
@@ -99,12 +99,12 @@ public class RidePost {
 		this.cost = cost;
 	}
 
-	public boolean isLuggageAllowance() {
-		return luggageAllowance;
+	public boolean getHasLuggageAllowance() {
+		return hasLuggageAllowance;
 	}
 
-	public void setLuggageAllowance(boolean luggageAllowance) {
-		this.luggageAllowance = luggageAllowance;
+	public void setHasLuggageAllowance(boolean hasLuggageAllowance) {
+		this.hasLuggageAllowance = hasLuggageAllowance;
 	}
 
 	public void setRidePostID(Integer ridePostID) {
@@ -115,6 +115,6 @@ public class RidePost {
 	public String toString() {
 		return "RidePost [ridePostID=" + ridePostID + ", driverUsername=" + driverUsername + ", maxNumPassengers="
 				+ maxNumPassengers + ", time=" + time + ", car=" + car + ", startLocation=" + startLocation
-				+ ", endLocation=" + endLocation + ", cost=" + cost + ", luggageAllowance=" + luggageAllowance + "]";
+				+ ", endLocation=" + endLocation + ", cost=" + cost + ", luggageAllowance=" + hasLuggageAllowance + "]";
 	}
 }
