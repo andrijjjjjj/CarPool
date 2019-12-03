@@ -20,10 +20,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class Handler {
 	
 	//Transaction classes go here? Autowired?
-//	@Autowired
-//	RidePostTransaction ridePostTransaction;
-//	@Autowired
-//	PassengerRequestTransaction passengerRequestTransaction;
+	@Autowired
+	RidePostTransaction ridePostTransaction;
+	@Autowired
+	PassengerRequestTransaction passengerRequestTransaction;
 
 	@GetMapping("/login")
 	public String enterLogin(Model model) {
@@ -36,26 +36,26 @@ public class Handler {
 		return "home";
 	}
 		
-//	public ArrayList<RidePost> viewAllRides() {
-//		return ridePostTransaction.getAllRidePosts();
-//	}
-//
-//	public ArrayList<RidePost> viewAllRides(int driverGender, int driverRating, String carPreference, int cost, boolean luggageAllowance) {//Leave box blank if no preference for variable //driverGender(0 = dont care, 1 = male, 2 = female, 3 = other). 
-//		return ridePostTransaction.getAllRidePosts(driverGender,driverRating,carPreference,cost,luggageAllowance);
-//	}
-//
-//	public String removeRidePost(int ridePostID) // confirmation
-//	{
-//		return ridePostTransaction.removeRidePost(ridePostID);
-//	}
-//
-//	public String cancelRide(int passengerRequestID) {
-//		return passengerRequestTransaction.cancelRide(passengerRequestID);
-//	}
-//
-//	public String makePassengerRequest(int ridePostID, String passengerUsername) {
-//		return passengerRequestTransaction.savePassengerRequest(ridePostID,passengerUsername);
-//	}
+	public ArrayList<RidePost> viewAllRides() {
+		return ridePostTransaction.getAllRidePosts();
+	}
+
+	public ArrayList<RidePost> viewAllRides(int driverGender, int driverRating, String carPreference, int cost, boolean luggageAllowance) {//Leave box blank if no preference for variable //driverGender(0 = dont care, 1 = male, 2 = female, 3 = other). 
+		return ridePostTransaction.getAllRidePosts(driverGender,driverRating,carPreference,cost,luggageAllowance);
+	}
+
+	public String removeRidePost(int ridePostID) // confirmation
+	{
+		return ridePostTransaction.removeRidePost(ridePostID);
+	}
+
+	public String cancelRide(int passengerRequestID) {
+		return passengerRequestTransaction.cancelRide(passengerRequestID);
+	}
+
+	public String makePassengerRequest(int ridePostID, String passengerUsername) {
+		return passengerRequestTransaction.savePassengerRequest(ridePostID,passengerUsername);
+	}
 	
 
 }
