@@ -50,15 +50,18 @@ public class RidePostTransaction {
 	public String removeRidePost(int ridePostID)
 	{
 		//Prompt are you sure? If yes, delete. If no, end.
-		//TODO How do?
+		//TODO How do? Similar prompt method as other use case. 
 				
 		//Get all passengerRequests for ridePostID. Loop through and send emails to passengerRequestOwners.
 		ArrayList<PassengerRequest> passengerRequests = passengerRequestTransaction.getAllPassengerRequests(ridePostID);
 		User requestOwner;
+		Email email;
 		for(PassengerRequest request : passengerRequests)
 		{
 			requestOwner = userTransaction.getUser(request.getPassengerUsername());
-			//TODO Send email with requestOwner.
+			//Send email with requestOwner.
+			email = new Email();
+			email.emailRideCancelled(requestOwner);
 			//Delete passengerRequest.
 			passengerRequestTransaction.deletePassengerRequest(request.getPassengerRequestID());
 		}
