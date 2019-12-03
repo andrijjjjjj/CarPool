@@ -54,15 +54,18 @@ public class PassengerRequestTransaction {
 	
 	public String cancelRide(int passengerRequestID)
 	{
-		//Prompt are you sure? If yes, delete. If no, end.
-		//TODO How do?
+		//Prompt are you sure? If yes, delete. If no, end. 
+		//TODO How do? Make another method that brings up a different UI to confirm. If confirmed, call this method!
 
 		//Get passengerRequest. Get ridePost. Get owner User. Send notification.
 		int ridePostID = passengerRequests.findById(passengerRequestID).get().getRidePostID();
 		RidePost ridePost = ridePostTransaction.getRidePost(ridePostID);
 		String driverID = ridePost.getDriverUsername();
 		User driver = userTransaction.getUser(driverID);
-		//TODO Send email to driver
+		
+		//Send email to driver
+		Email email = new Email();
+		email.emailPassengerCancelled(driver); //TODO Test that this works!
 		
 		//Delete passengerRequest.
 		passengerRequests.deleteById(passengerRequestID);
@@ -94,7 +97,13 @@ public class PassengerRequestTransaction {
 		{
 			//Make new passenger request object.
 			PassengerRequest newRequest = new PassengerRequest(ridePostID, passengerUsername);
-
+			
+			//Send email notification to driver.
+			String driverID = ride.getDriverUsername();
+			User driver = userTransaction.getUser(driverID);
+			Email email = new Email();
+			email.emailDriverPassengerRequested(driver);
+			
 			//Save to database.
 			passengerRequests.save(newRequest);
 
