@@ -71,10 +71,10 @@ public class PassengerRequestTransaction {
 		return "Passenger request " + passengerRequestID + " was deleted.";
 	}
 	
-	public ArrayList<PassengerRequest> getAcceptedRequests(String driverUsername){
+	public ArrayList<PassengerRequest> getAcceptedRequests(String passengerUsername){
 		
 		//Stores the accepted requests. Used in ridePostTransaction to viewUpcomingRides
-		ArrayList<PassengerRequest> acceptedRequests = passengerRequests.findAllByDriverUsername(driverUsername);
+		ArrayList<PassengerRequest> acceptedRequests = passengerRequests.findAllByPassengerUsername(passengerUsername);
 		
 		return acceptedRequests;
 	}

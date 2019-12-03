@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PassengerRequestRepository extends JpaRepository<PassengerRequest, Integer> {
 	
 	ArrayList<PassengerRequest> findAllByRidePostID(int ridePostID);
-	ArrayList<PassengerRequest> findAllByDriverUsername(String driverUsername);
+	ArrayList<PassengerRequest> findAllByPassengerUsername(String passengerUsername);
 	
 	
 }
