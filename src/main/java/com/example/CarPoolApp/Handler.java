@@ -56,6 +56,9 @@ public class Handler {
 	public String makePassengerRequest(int ridePostID, String passengerUsername) {
 		return passengerRequestTransaction.savePassengerRequest(ridePostID,passengerUsername);
 	}
+	public ArrayList<RidePost> viewUpcomingRides(String username){
+		return ridePostTransaction.viewUpcomingRides(username);
+	}
 	
 
 }

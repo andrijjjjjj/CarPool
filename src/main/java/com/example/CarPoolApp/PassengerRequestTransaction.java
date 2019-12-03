@@ -70,6 +70,15 @@ public class PassengerRequestTransaction {
 		//Print confirmation.
 		return "Passenger request " + passengerRequestID + " was deleted.";
 	}
+	
+	public ArrayList<PassengerRequest> getAcceptedRequests(String driverUsername){
+		
+		//Stores the accepted requests. Used in ridePostTransaction to viewUpcomingRides
+		ArrayList<PassengerRequest> acceptedRequests = passengerRequests.findAllByDriverUsername(driverUsername);
+		
+		return acceptedRequests;
+	}
+	
 
 	public String savePassengerRequest(int ridePostID, String passengerUsername)
 	{
