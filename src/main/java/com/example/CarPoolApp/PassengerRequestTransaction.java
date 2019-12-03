@@ -88,7 +88,13 @@ public class PassengerRequestTransaction {
 		{
 			//Make new passenger request object.
 			PassengerRequest newRequest = new PassengerRequest(ridePostID, passengerUsername);
-
+			
+			//Send email notification to driver.
+			String driverID = ride.getDriverUsername();
+			User driver = userTransaction.getUser(driverID);
+			Email email = new Email();
+			email.emailDriverPassengerRequested(driver);
+			
 			//Save to database.
 			passengerRequests.save(newRequest);
 
