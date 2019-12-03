@@ -8,9 +8,15 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//@Configuration
-//@Controller
+@Controller
 public class Handler {
 	
 	//Transaction classes go here? Autowired?
@@ -19,6 +25,17 @@ public class Handler {
 	@Autowired
 	PassengerRequestTransaction passengerRequestTransaction;
 
+	@GetMapping("/login")
+	public String enterLogin(Model model) {
+		model.addAttribute("users", new User());
+		return "login";
+		
+	}
+	@PostMapping("/login")
+	public String exitLogin(@ModelAttribute User user) {
+		return "home";
+	}
+		
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
 	}
@@ -39,7 +56,6 @@ public class Handler {
 	public String makePassengerRequest(int ridePostID, String passengerUsername) {
 		return passengerRequestTransaction.savePassengerRequest(ridePostID,passengerUsername);
 	}
+	
 
-	// Static classes arent static in here. They are their own objects/classes with
-	// static methods!
 }

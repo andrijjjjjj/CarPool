@@ -1,7 +1,7 @@
 package com.example.CarPoolApp;
 
-import org.hibernate.annotations.Entity;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class User {
@@ -10,20 +10,17 @@ public class User {
 	private String userID;
 	
 	private String password;
-	
+	private Profile profile;
 	private int status;
 	
-	private Profile profile;
+	protected User() {} 	//May need default constructor for JPA.
 	
-	//May need default constructor for JPA.
-	
-	public User(String userID, String password, int status, String phoneNumber, String fName, String lName)
-	{
-		this.userID = userID;
+	public User(String username, String password, String firstName, String lastName, String phoneNumber, String email, int status) {
+		this.userID = username;
 		this.password = password;
+		this.profile = new Profile(firstName, lastName, phoneNumber, email);
 		this.status = status;
-		this.profile = new Profile(fName, lName, phoneNumber);
-	}
+	}	
 	
 	public Profile getProfile() {
 		return profile;
