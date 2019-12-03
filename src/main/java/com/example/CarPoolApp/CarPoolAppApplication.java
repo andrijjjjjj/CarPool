@@ -30,14 +30,14 @@ public class CarPoolAppApplication {
 	public CommandLineRunner loadData(UserRepository repository) {
 		return (args) -> {
 			// save a couple of userAccounts
-			repository.save(new User("Dick", "Nose", null, null, null, null, 0));
-			repository.save(new User("AdeptDave", "icryeverytim", null, null, null, null, 0));
-			repository.save(new User("monkey", "Banyanyas!", null, null, null, null, 0));
-			repository.save(new User("cookieMonsta", "cookies", null, null, null, null, 0));
-			repository.save(new User("CLUNT", "THEchristmas*****", null, null, null, null, 0));
+			repository.save(new User("Dick", "Nose", null, null, null, null, null, 0));
+			repository.save(new User("AdeptDave", "icryeverytim", null, null, null, null, null, 0));
+			repository.save(new User("monkey", "Banyanyas!", null, null, null, null, null, 0));
+			repository.save(new User("cookieMonsta", "cookies", null, null, null, null, null, 0));
+			repository.save(new User("CLUNT", "THEchristmas*****", null, null, null, null, null, 0));
 			
-			repository.save(new User("David", "Palmer", null, null, null, null, 0));
-			repository.save(new User("Michelle", "Dessler", null, null, null, null, 0));
+			repository.save(new User("David", "Palmer", null, null, null, null, null, 0));
+			repository.save(new User("Michelle", "Dessler", null, null, null, null, null, 0));
 
 			// fetch all userAccounts
 			log.info("All users listed");

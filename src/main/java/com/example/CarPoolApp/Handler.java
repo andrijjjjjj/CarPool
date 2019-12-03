@@ -72,7 +72,7 @@ public class Handler {
 		return ridePostTransaction.getAllRidePosts();
 	}
 
-	public ArrayList<RidePost> viewAllRides(int driverGender, int driverRating, String carPreference, int cost, boolean luggageAllowance) {//Leave box blank if no preference for variable //driverGender(0 = dont care, 1 = male, 2 = female, 3 = other). 
+	public ArrayList<RidePost> viewAllRides(String driverGender, int driverRating, String carPreference, String cost, boolean luggageAllowance) {//Leave box blank if no preference for variable. 
 		return ridePostTransaction.getAllRidePosts(driverGender,driverRating,carPreference,cost,luggageAllowance);
 	}
 
@@ -87,6 +87,9 @@ public class Handler {
 
 	public String makePassengerRequest(int ridePostID, String passengerUsername) {
 		return passengerRequestTransaction.savePassengerRequest(ridePostID,passengerUsername);
+	}
+	public ArrayList<RidePost> viewUpcomingRides(String username){
+		return ridePostTransaction.viewUpcomingRides(username);
 	}
 	
 
