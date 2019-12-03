@@ -29,7 +29,7 @@ public class RidePostTransaction {
 		return result;
 	}
 	
-	public ArrayList<RidePost> getAllRidePosts(int driverGender, int driverRating, String carPreference, int cost, boolean luggageAllowance)
+	public ArrayList<RidePost> getAllRidePosts(String driverGender, int driverRating, String carPreference, String costPreference, boolean luggageAllowance)
 	{
 		//Get all rideposts OR find way to get very specific ridePosts from database.
 		ArrayList<RidePost> rides = getAllRidePosts();
@@ -40,7 +40,12 @@ public class RidePostTransaction {
 		for( RidePost ride : rides)
 		{
 			driver = userTransaction.getUser(ride.getDriverUsername());
-			//if()//TODO compare all restrictions. //1. driver gender. //2. driver rating. //3. ridePost car and carPreference. //4. ridePost cost and cost. //5. ridePost luggageAllowance and luggageAllowance.
+			//Compare restrictions. //1. driver gender. //2. driver rating. //3. ridePost car and carPreference. //4. ridePost cost and cost. //5. ridePost luggageAllowance and luggageAllowance.
+			if((driver.getProfile().getGender().equals(driverGender) || driverGender.isEmpty() || driverGender.equals("")) && 
+					(driver.getProfile().getRating()==driverRating || driverRating==-1) && 
+					(ride.getCar().equals(carPreference) || carPreference.isEmpty() || carPreference.equals("")) && 
+					(ride.getCost().equals(costPreference) || costPreference.isEmpty() || costPreference.equals("")) && 
+					(ride.getHasLuggageAllowance()==luggageAllowance)) 
 			result.add(ride);
 		}
 		
@@ -50,15 +55,18 @@ public class RidePostTransaction {
 	public String removeRidePost(int ridePostID)
 	{
 		//Prompt are you sure? If yes, delete. If no, end.
-		//TODO How do?
+		//TODO How do? Similar prompt method as other use case. 
 				
 		//Get all passengerRequests for ridePostID. Loop through and send emails to passengerRequestOwners.
 		ArrayList<PassengerRequest> passengerRequests = passengerRequestTransaction.getAllPassengerRequests(ridePostID);
 		User requestOwner;
+		Email email;
 		for(PassengerRequest request : passengerRequests)
 		{
 			requestOwner = userTransaction.getUser(request.getPassengerUsername());
-			//TODO Send email with requestOwner.
+			//Send email with requestOwner.
+			email = new Email();
+			email.emailRideCancelled(requestOwner);
 			//Delete passengerRequest.
 			passengerRequestTransaction.deletePassengerRequest(request.getPassengerRequestID());
 		}
