@@ -15,11 +15,11 @@ public class User {
 	
 	protected User() {} 	//May need default constructor for JPA.
 	
-	public User(String username, String password, String firstName, String lastName, String phoneNumber, String email, int status) {
+	public User(String username, String password, Profile new_profile) {
 		this.userID = username;
 		this.password = password;
-		this.profile = new Profile(firstName, lastName, phoneNumber, email);
-		this.status = status;
+		this.profile = new_profile;
+		this.status = 0;
 	}	
 	
 	public Profile getProfile() {

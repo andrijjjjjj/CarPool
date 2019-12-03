@@ -24,6 +24,8 @@ public class Handler {
 	RidePostTransaction ridePostTransaction;
 	@Autowired
 	PassengerRequestTransaction passengerRequestTransaction;
+	@Autowired
+	ObjectFactory objFactory;
 
 	@GetMapping("/login")
 	public String enterLogin(Model model) {
@@ -35,7 +37,10 @@ public class Handler {
 	public String exitLogin(@ModelAttribute User user) {
 		return "home";
 	}
-		
+	
+	public boolean signUp(String username, String password, String phoneNumber, String emailAddress, String firstName, String lastName) {
+		return objFactory.createUser(username,password,phoneNumber,emailAddress,firstName,lastName);
+	}
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
 	}
