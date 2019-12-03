@@ -27,7 +27,7 @@ public class Handler {
 
 	@GetMapping("/login")
 	public String enterLogin(Model model) {
-		model.addAttribute("users", new User());
+		model.addAttribute("users", new User(null, null, null, null, null, null, 0));
 		return "login";
 		
 	}
