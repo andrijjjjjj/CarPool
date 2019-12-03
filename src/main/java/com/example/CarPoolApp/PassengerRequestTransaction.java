@@ -74,6 +74,7 @@ public class PassengerRequestTransaction {
 		return "Passenger request " + passengerRequestID + " was deleted.";
 	}
 	
+	//this actually returns all of the rideRequests. Filters them out in  ridePostTransaction viewUpcomingRides
 	public ArrayList<PassengerRequest> getAcceptedRequests(String passengerUsername){
 		
 		//Stores the accepted requests. Used in ridePostTransaction to viewUpcomingRides
@@ -81,7 +82,6 @@ public class PassengerRequestTransaction {
 		
 		return acceptedRequests;
 	}
-	
 
 	public String savePassengerRequest(int ridePostID, String passengerUsername)
 	{
@@ -116,4 +116,12 @@ public class PassengerRequestTransaction {
 	{
 		passengerRequests.deleteById(passengerRequestID);
 	}
+
+	
+	public ArrayList<PassengerRequest> viewPendingRides(String username){
+		
+		ArrayList<PassengerRequest> pendingRequests = passengerRequests.findAllByPassengerUsername(username);
+		return pendingRequests;
+	}
+	
 }

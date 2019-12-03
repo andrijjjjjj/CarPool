@@ -91,6 +91,9 @@ public class Handler {
 	public ArrayList<RidePost> viewUpcomingRides(String username){
 		return ridePostTransaction.viewUpcomingRides(username);
 	}
+	public ArrayList<PassengerRequest> viewPendingRides(String username){
+		return passengerRequestTransaction.viewPendingRides(username);
+	}
 	
 
 }
