@@ -52,6 +52,32 @@ public class RidePostTransaction {
 		return result;
 	}
 	
+	public ArrayList<RidePost> viewUpcomingRides(String driverUsername){
+		
+		//Stores the ride posts the user has posted themselves
+		ArrayList<RidePost> rides = ridePosts.findByDriverUsername(driverUsername);
+		
+		ArrayList<PassengerRequest> rides2 = passengerRequestTransaction.getAcceptedRequests(driverUsername);
+		
+		//filter out the passengerRequests to only those accepted
+		for(int i = 0; i<rides2.size(); i++) {
+			if(!(rides2.get(i).getWaitingAcceptedDeclined() == 2)) {
+				rides2.remove(i);
+			}
+		}
+		
+		//find the corresponding ridePosts of the passengerRequests. based on ridePostID. add them to original list
+		for(int i = 0; i<rides2.size(); i++) {
+			Integer ID = rides2.get(i).getRidePostID();
+			RidePost ridePost = ridePosts.findById(ID).get();
+			rides.add(ridePost);
+			
+		}
+		return rides;
+	}
+	
+	
+	
 	public String removeRidePost(int ridePostID)
 	{
 		//Prompt are you sure? If yes, delete. If no, end.
