@@ -13,6 +13,14 @@ public class UserTransaction {
 	{
 		return users.findById(userID).get();
 	}
+	public void verifyLogin(String userID, String password) {
+		if(users.existsById(userID) && users.existsById(password)) {
+			System.out.println("User: " + userID + " has been logged in.");
+		} else {
+			
+		}
+		
+	}
 	
 	//private DatabaseQuery query;
 	
