@@ -1,10 +1,20 @@
 package com.example.CarPoolApp;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
-public interface UserTransaction extends JpaRepository<User, Long> {
-
-	List<User> findByUsernameStartsWithIgnoreCase(String password);
+public class UserTransaction {
+	
+	@Autowired
+	UserRepository users;
+	
+	public User getUser(String userID)
+	{
+		return users.findById(userID).get();
+	}
+	
+	//private DatabaseQuery query;
+	
+//	List<User> findListByStatus(int status);
+//	
+//	User findUserByID(String userID);
 }
