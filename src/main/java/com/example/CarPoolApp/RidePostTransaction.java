@@ -9,7 +9,7 @@ public class RidePostTransaction {
 	
 	@Autowired
 	PassengerRequestTransaction passengerRequestTransaction;
-	
+	 
 	@Autowired
 	RidePostRepository ridePosts;
 	
@@ -23,10 +23,13 @@ public class RidePostTransaction {
 	
 	public ArrayList<RidePost> getAllRidePosts()
 	{
-		Iterable<RidePost> iterable = ridePosts.findAll();
-		ArrayList<RidePost> result = new ArrayList<RidePost>();
-		iterable.forEach(result::add);
-		return result;
+		return ridePosts.findAll();
+		
+		//DONT REMOVE. TEST THIS METHOD WORKS FIRST.
+//		Iterable<RidePost> iterable = ridePosts.findAll();
+//		ArrayList<RidePost> result = new ArrayList<RidePost>();
+//		iterable.forEach(result::add);
+//		return result;
 	}
 	
 	public ArrayList<RidePost> getAllRidePosts(String driverGender, int driverRating, String carPreference, String costPreference, boolean luggageAllowance)

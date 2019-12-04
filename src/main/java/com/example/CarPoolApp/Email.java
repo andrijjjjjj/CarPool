@@ -15,7 +15,7 @@ public class Email {
 	final String username = "carpool.isu@gmail.com";
 	final String password = "IT326CarPool";
 	
-	
+	 
 	public Email() {}
 //	public Email(User user) {
 //		this.user = user;

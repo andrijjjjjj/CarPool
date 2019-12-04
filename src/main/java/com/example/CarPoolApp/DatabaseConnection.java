@@ -9,7 +9,7 @@ public class DatabaseConnection {
 	private final String USERNAME = "user";
 	private final String PASSWORD = "password";
 	private Connection connection;
-
+ 
 	public DatabaseConnection() {
 		try {
 			Class.forName(JDBC_DRIVER);

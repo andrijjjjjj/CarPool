@@ -10,9 +10,8 @@ public class User {
 
 	@Id // The userID should be the ID for the user in database.
 	private String userID;
-
+ 
 	private String password;
-	
 	private Profile profile;
 	
 	private int status;
@@ -22,8 +21,7 @@ public class User {
 	// Favorites 
 	ArrayList<String> favorites = new ArrayList<String>();
 
-	protected User() {
-	} // May need default constructor for JPA.
+	protected User() {} // May need default constructor for JPA.
 
 	public User(String username, String password, String firstName, String lastName, String gender, String phoneNumber, int status) {
 		this.userID = username;

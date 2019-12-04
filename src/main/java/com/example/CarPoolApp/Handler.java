@@ -29,45 +29,47 @@ import org.springframework.web.bind.annotation.GetMapping;
 @EnableWebMvc
 public class Handler {
 	
-	//Transaction classes go here? Autowired?
+	//Transaction classes go here. Autowire them.
 	@Autowired
 	RidePostTransaction ridePostTransaction;
 	@Autowired
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
 	UserTransaction userTransaction;
+	 
+	String currentUserID = "Michael"; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
 	
-	UserTransaction user = new UserTransaction();
-
-	@RequestMapping("/")
-	String index() {
-		return "index";
+	@RequestMapping("/")//The initial page of the website. Should have buttons for sign-up, login, forgot password.
+	public String loadInitialPage() {
+		return "welcomepage";
 	}
-	String userID;
-	String password;
-	@GetMapping("/login")
-	public String getLogin() throws ServletException, IOException {
+	
+	@RequestMapping("/login")//The login page of the website.
+	public String loadLoginPage() throws ServletException, IOException {
 
-		return "login";
+		return "loginpage";
 	}
-	@PostMapping("/login")
-	public String postLogin(HttpServletRequest request, HttpServletResponse response) {
-//		request.login(userID, password);
-//		userID = request.getParameter("userid");
-//		password = request.getParameter("password");
-//		System.out.println(userID);
-//		user.verifyLogin(userID, password);
-
-		return "home";
-	}
-	@GetMapping("/home")
-	public String getHome() {
-		return "home";
+	
+	@RequestMapping("/home")//The home page of the website. Should have buttons for most use cases... EX: view all rides.
+	public String loadHomePage(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		model.addAttribute("currentUserID", currentUserID); //This allows the html page to access the currentUserID variable. Can put methods in this call too.
 		
+		return "homepage";
 	}
-	@PostMapping("/home")
-	public String postHome() {
-		return "home";
+	
+	@RequestMapping("/home/viewallrides")//The viewallrides page of the website. Will show all rideposts.
+	public String loadViewAllRidesPage(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		model.addAttribute("allrideposts", viewAllRides()); //Puts arraylist of all ride posts in html page.
+		
+		return "homepage";//TODO need to make html page for viewallridespage.html.
 	}
 	
 	@GetMapping("/favorites")
@@ -80,8 +82,21 @@ public class Handler {
 		return "favorites";
 	}
 	
-	
+	@RequestMapping("/home/viewallrides/{ridePostID}")//A page for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON TO MAKE PASSENGER REQUEST ON POST?
+	public String loadViewOneRidePostPage(Model model) {//TODO need to add @Param something in parameters for ridePostID.
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		//model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID)); //TODO ^^^
 		
+		return "homepage";//TODO need to make html page for loadviewoneridepostpage.html.
+	}
+	//TODO Make mappings/pages for all use cases.
+	
+	//Mapping methods! ^^^^^
+	//Logic methods! vvvvv
+	
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
 	}
