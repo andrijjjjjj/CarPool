@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserTransaction {
-	
+	 
 	@Autowired
 	UserRepository users;
 	

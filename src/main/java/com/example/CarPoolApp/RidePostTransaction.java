@@ -9,7 +9,7 @@ public class RidePostTransaction {
 	
 	@Autowired
 	PassengerRequestTransaction passengerRequestTransaction;
-	
+	 
 	@Autowired
 	RidePostRepository ridePosts;
 	

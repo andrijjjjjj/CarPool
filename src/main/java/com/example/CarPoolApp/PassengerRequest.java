@@ -15,7 +15,7 @@ public class PassengerRequest {
 	private int waitingAcceptedDeclined;//1 = waiting, 2 = accepted, 3 = declined.
 	private int ridePostID;
 	private String passengerUsername;
-	
+	 
 	protected PassengerRequest() {}
 
 	public PassengerRequest(int ridePostID, String passengerUsername) {

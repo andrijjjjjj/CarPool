@@ -13,7 +13,7 @@ public class ErrorHandler implements ErrorController{
     public String error() {
         return "errorpage";
     }
-
+ 
     @Override
     public String getErrorPath() {
         return PATH;

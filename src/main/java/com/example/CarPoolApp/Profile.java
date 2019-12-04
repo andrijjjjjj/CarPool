@@ -12,7 +12,7 @@ public class Profile {
 	private int rating;
 
 	protected Profile() {}
-	
+	 
 	public Profile(String fName, String lName, String gender, String phoneNumber) {
 		this.fName = fName;
 		this.lName = lName;

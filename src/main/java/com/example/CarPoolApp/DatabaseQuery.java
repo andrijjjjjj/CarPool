@@ -11,7 +11,7 @@ public class DatabaseQuery {
 	 * steps: Establishing a connection. Create a statement. Execute the query.
 	 * Process the ResultSet object. Close the connection.
 	 */
-
+ 
 	private DatabaseConnection databaseConnection;
 	private Connection connection;
 	private Statement queryStatement;
