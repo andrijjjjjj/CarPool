@@ -9,16 +9,14 @@ public class Profile {
 	private String lName;
 	private String gender;
 	private String phoneNumber;
-	private String email;
 	private int rating;
 
 	protected Profile() {}
 	
-	public Profile(String fName, String lName, String gender, String phoneNumber, String email) {
+	public Profile(String fName, String lName, String gender, String phoneNumber) {
 		this.fName = fName;
 		this.lName = lName;
 		this.phoneNumber = phoneNumber;
-		this.email = email;
 		this.rating = 10;//10/10?
 	}
 
@@ -54,14 +52,6 @@ public class Profile {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public int getRating() {
 		return rating;
 	}
@@ -73,6 +63,6 @@ public class Profile {
 	@Override
 	public String toString() {
 		return "Profile [fName=" + fName + ", lName=" + lName + ", gender=" + gender + ", phoneNumber=" + phoneNumber
-				+ ", email=" + email + ", rating=" + rating + "]";
+				+ ", rating=" + rating + "]";
 	}
 }

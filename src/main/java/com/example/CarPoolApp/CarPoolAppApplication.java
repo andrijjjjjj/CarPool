@@ -30,14 +30,14 @@ public class CarPoolAppApplication {
 	public CommandLineRunner loadData(UserRepository repository) {
 		return (args) -> {
 			// save a couple of userAccounts
-			repository.save(new User("Dick", "Nose", null, null, null, null, null, 0));
-			repository.save(new User("AdeptDave", "icryeverytim", null, null, null, null, null, 0));
-			repository.save(new User("monkey", "Banyanyas!", null, null, null, null, null, 0));
-			repository.save(new User("cookieMonsta", "cookies", null, null, null, null, null, 0));
-			repository.save(new User("CLUNT", "THEchristmas*****", null, null, null, null, null, 0));
+			repository.save(new User("Nick", "Nose", null, null, null, null, 0));
+			repository.save(new User("AdeptDave", "icryeverytim", null, null, null, null, 0));
+			repository.save(new User("monkey", "Banyanyas!", null, null, null, null, 0));
+			repository.save(new User("cookieMonsta", "cookies", null, null, null, null, 0));
+			repository.save(new User("Merry", "christmas", null, null, null, null, 0));
 			
-			repository.save(new User("David", "Palmer", null, null, null, null, null, 0));
-			repository.save(new User("Michelle", "Dessler", null, null, null, null, null, 0));
+			repository.save(new User("David", "PG", null, null, null, null, 0));
+			repository.save(new User("Michelle", "Please", null, null, null, null, 0));
 
 			// fetch all userAccounts
 			log.info("All users listed");
@@ -48,10 +48,10 @@ public class CarPoolAppApplication {
 			log.info("");
 
 			// fetch an individual userAccount by ID
-//			User userAccount = repository.findById(1L).get();
-//			log.info("User found in database findOne(1L):");
-//			log.info(userAccount.toString());
-//			log.info("");
+			User userAccount = repository.findById("Nick").get();
+			log.info("User found in database findOne(\"Nick\"):");
+			log.info(userAccount.toString());
+			log.info("");
 
 			// fetch userAccounts by last name
 //			log.info("Username found with adeptdave:");

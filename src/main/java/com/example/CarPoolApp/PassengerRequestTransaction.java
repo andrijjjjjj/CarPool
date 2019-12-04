@@ -17,8 +17,8 @@ public class PassengerRequestTransaction {
 	@Autowired
 	UserTransaction userTransaction;
 	
-	@Autowired
-	UserRepository userRepo;
+//	@Autowired
+//	UserRepository userRepo; DONT USE THIS ONE. USE TRANSACTION CLASS.
 
 	public PassengerRequest getPassengerRequest(int passengerRequestID)
 	{
@@ -27,32 +27,20 @@ public class PassengerRequestTransaction {
 	
 	public ArrayList<PassengerRequest> getAllPassengerRequests()
 	{
-		Iterable<PassengerRequest> iterable = passengerRequests.findAll();
-		ArrayList<PassengerRequest> result = new ArrayList<PassengerRequest>();
-		iterable.forEach(result::add);
-		return result;
+		return passengerRequests.findAll();
+		
+		//DONT REMOVE. TEST THIS METHOD WORKS FIRST.
+//		Iterable<PassengerRequest> iterable = passengerRequests.findAll();
+//		ArrayList<PassengerRequest> result = new ArrayList<PassengerRequest>();
+//		iterable.forEach(result::add);
+//		return result;
 	}
 	
 	public ArrayList<PassengerRequest> getAllPassengerRequests(int ridePostID)
 	{
-		Iterable<PassengerRequest> iterable = passengerRequests.findAllByRidePostID(ridePostID); //If this doesnt work, do commented part below.
-		ArrayList<PassengerRequest> result = new ArrayList<PassengerRequest>();
-		iterable.forEach(result::add);
+		//Get all passenger requests for a specific ridePost, using that ridePost's ID.
+		ArrayList<PassengerRequest> result = passengerRequests.findAllByRidePostID(ridePostID);
 		return result;
-//		//Get all passengerRequests OR find way to get very specific passengerRequests from database.
-//		ArrayList<PassengerRequest> requests = getAllPassengerRequests()
-//
-//		//Loop through each ride post and compare to ridePostID. If they match, add to result list.
-//		ArrayList<PassengerRequest> result = new ArrayList<PassengerRequest>();
-//
-//		for(PassengerRequest request : requests)
-//		{
-//			//If...
-//			if(request.getRidePostID() == ridePostID)
-//			result.add(request);
-//		}
-//
-//		return result;
 	}
 	
 	public String cancelRide(int passengerRequestID)
