@@ -81,11 +81,15 @@ public class User {
 	
 	// Favorites
 	public void addToFavorites(String userID) {
-		favorites.add(userID);
+		if(!favorites.contains(userID)) {
+			favorites.add(userID);
+		}
 	}
 	
 	public void removeFromFavorites(String userID) {
-		favorites.remove(userID);
+		if(favorites.contains(userID)) {
+			favorites.remove(userID);
+		}
 	}
 	
 	public ArrayList<String> getFavorites() {
