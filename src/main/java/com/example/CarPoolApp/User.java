@@ -12,20 +12,17 @@ public class User {
 	private String userID;
 
 	private String password;
-	
 	private Profile profile;
 	private int status;
 	
 	ArrayList<String> blockedUsers = new ArrayList<String>();
 
-	protected User() {
-	} // May need default constructor for JPA.
+	protected User() {} // May need default constructor for JPA.
 
-	public User(String username, String password, String firstName, String lastName, String gender, String phoneNumber, String email,
-			int status) {
+	public User(String username, String password, String firstName, String lastName, String gender, String phoneNumber, int status) {
 		this.userID = username;
 		this.password = password;
-		this.profile = new Profile(firstName, lastName, gender, phoneNumber, email);
+		this.profile = new Profile(firstName, lastName, gender, phoneNumber);
 		this.status = status;
 	}
 
