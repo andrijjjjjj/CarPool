@@ -94,4 +94,7 @@ public class Handler {
 	public ArrayList<PassengerRequest> viewPendingRides(String username){
 		return passengerRequestTransaction.viewPendingRides(username);
 	}
+	public ArrayList<PassengerRequest> viewPassengerRequests(String username, int ridePostID){
+		return passengerRequestTransaction.viewPassengerRequests(username, ridePostID);
+	}
 }
