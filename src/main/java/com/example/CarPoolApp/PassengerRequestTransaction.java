@@ -124,4 +124,13 @@ public class PassengerRequestTransaction {
 		return pendingRequests;
 	}
 	
+	//returns an array list of requests for a specific ride post. 
+	public ArrayList<PassengerRequest> viewPassengerRequests(String username, int ridePostID){
+		ArrayList<PassengerRequest> thePassengerRequests = passengerRequests.findAllByRidePostID(ridePostID);
+		
+		//Driver still has to make decision, not just view them.
+		
+		return thePassengerRequests;
+	}
+	
 }
