@@ -9,5 +9,5 @@ public interface RidePostRepository extends JpaRepository<RidePost, Integer> {
 	ArrayList<RidePost> findAll(); //This may not work! If so, just remove and uncomment commented code in Transaction class for  getAllRidePosts().
 	
 	ArrayList<RidePost> findByDriverUsername(String driverUsername);
-	
+	 
 }

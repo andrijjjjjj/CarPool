@@ -11,7 +11,7 @@ public class RidePost {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer ridePostID;
-	
+	 
 	private String driverUsername;
 	private int maxNumPassengers;
 	private String time;

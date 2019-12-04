@@ -10,7 +10,7 @@ public class User {
 
 	@Id // The userID should be the ID for the user in database.
 	private String userID;
-
+ 
 	private String password;
 	private Profile profile;
 	private int status;

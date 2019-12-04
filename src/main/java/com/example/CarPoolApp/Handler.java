@@ -34,7 +34,7 @@ public class Handler {
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
 	UserTransaction userTransaction;
-	
+	 
 	String currentUserID = "Michael"; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
 	
 	@RequestMapping("/")//The initial page of the website. Should have buttons for sign-up, login, forgot password.
@@ -50,11 +50,36 @@ public class Handler {
 	
 	@RequestMapping("/home")//The home page of the website. Should have buttons for most use cases... EX: view all rides.
 	public String loadHomePage(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
 		model.addAttribute("currentUserID", currentUserID); //This allows the html page to access the currentUserID variable. Can put methods in this call too.
 		
 		return "homepage";
 	}
+	
+	@RequestMapping("/home/viewallrides")//The viewallrides page of the website. Will show all rideposts.
+	public String loadViewAllRidesPage(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		model.addAttribute("allrideposts", viewAllRides()); //Puts arraylist of all ride posts in html page.
 		
+		return "homepage";//TODO need to make html page for viewallridespage.html.
+	}
+	@RequestMapping("/home/viewallrides/{ridePostID}")//A page for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON TO MAKE PASSENGER REQUEST ON POST?
+	public String loadViewOneRidePostPage(Model model) {//TODO need to add @Param something in parameters for ridePostID.
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		//model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID)); //TODO ^^^
+		
+		return "homepage";//TODO need to make html page for loadviewoneridepostpage.html.
+	}
+	//TODO Make mappings/pages for all use cases.
 	
 	//Mapping methods! ^^^^^
 	//Logic methods! vvvvv
