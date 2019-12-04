@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 @EnableWebMvc
@@ -67,6 +69,18 @@ public class Handler {
 	public String postHome() {
 		return "home";
 	}
+	
+	@GetMapping("/favorites")
+	public String getFavorites() {
+		return "favorites";
+		
+	}
+	@PostMapping("/favorites")
+	public String postFavorites() {
+		return "favorites";
+	}
+	
+	
 		
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
