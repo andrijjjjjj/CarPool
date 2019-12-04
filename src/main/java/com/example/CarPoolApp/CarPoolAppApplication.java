@@ -13,11 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-//@Configuration
-//@EnableAutoConfiguration
-//@ComponentScan
 @SpringBootApplication
-//@EnableJpaRepositories("com.pharmacy.persistence.users.dao")
 public class CarPoolAppApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);

@@ -27,7 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class Handler {
 	
-	//Transaction classes go here? Autowired?
+	//Transaction classes go here. Autowire them.
 	@Autowired
 	RidePostTransaction ridePostTransaction;
 	@Autowired
@@ -35,39 +35,30 @@ public class Handler {
 	@Autowired
 	UserTransaction userTransaction;
 	
-	UserTransaction user = new UserTransaction();
-
-	@RequestMapping("/")
-	String index() {
-		return "index";
+	String currentUserID = "Michael"; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
+	
+	@RequestMapping("/")//The initial page of the website. Should have buttons for sign-up, login, forgot password.
+	public String loadInitialPage() {
+		return "welcomepage";
 	}
-	String userID;
-	String password;
-	@GetMapping("/login")
-	public String getLogin() throws ServletException, IOException {
+	
+	@RequestMapping("/login")//The login page of the website.
+	public String loadLoginPage() throws ServletException, IOException {
 
-		return "login";
+		return "loginpage";
 	}
-	@PostMapping("/login")
-	public String postLogin(HttpServletRequest request, HttpServletResponse response) {
-//		request.login(userID, password);
-//		userID = request.getParameter("userid");
-//		password = request.getParameter("password");
-//		System.out.println(userID);
-//		user.verifyLogin(userID, password);
-
-		return "home";
-	}
-	@GetMapping("/home")
-	public String getHome() {
-		return "home";
+	
+	@RequestMapping("/home")//The home page of the website. Should have buttons for most use cases... EX: view all rides.
+	public String loadHomePage(Model model) {
+		model.addAttribute("currentUserID", currentUserID); //This allows the html page to access the currentUserID variable. Can put methods in this call too.
 		
-	}
-	@PostMapping("/home")
-	public String postHome() {
-		return "home";
+		return "homepage";
 	}
 		
+	
+	//Mapping methods! ^^^^^
+	//Logic methods! vvvvv
+	
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
 	}
