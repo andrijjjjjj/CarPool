@@ -16,6 +16,9 @@ public class PassengerRequestTransaction {
 	
 	@Autowired
 	UserTransaction userTransaction;
+	
+	@Autowired
+	UserRepository userRepo;
 
 	public PassengerRequest getPassengerRequest(int passengerRequestID)
 	{
@@ -126,11 +129,35 @@ public class PassengerRequestTransaction {
 	
 	//returns an array list of requests for a specific ride post. 
 	public ArrayList<PassengerRequest> viewPassengerRequests(String username, int ridePostID){
+		
+		//stores all passenger requests for a ride post
 		ArrayList<PassengerRequest> thePassengerRequests = passengerRequests.findAllByRidePostID(ridePostID);
+		
+		//remove the blocked users from the lists. calls helper method
+		thePassengerRequests = removeBlockedUsers(username, thePassengerRequests);
 		
 		//Driver still has to make decision, not just view them.
 		
 		return thePassengerRequests;
 	}
-	
+	//removes all of the blocked users from an arrayList
+	public ArrayList<PassengerRequest> removeBlockedUsers(String username, ArrayList<PassengerRequest> theArray) {
+		//We must remove the blocked user, if there are any, from the list before returning
+				//retrieving the Users blocked list
+				User theUser = userTransaction.getUser(username);
+				ArrayList<String> blockedList = theUser.getBlockedList();
+				
+				// Loop through passenger requests
+				for(int i = 0; i<theArray.size(); i++) {
+					// Loop through blocked list
+					for(int j = 0; j < blockedList.size(); j++) {
+						
+						if(theArray.get(i).getPassengerUsername() == blockedList.get(j)) {
+							//remove the blocked person from the list
+							theArray.remove(i);
+						}
+					}
+				}
+				return theArray;
+	}
 }

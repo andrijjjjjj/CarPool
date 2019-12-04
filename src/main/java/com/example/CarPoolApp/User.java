@@ -1,5 +1,7 @@
 package com.example.CarPoolApp;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -13,6 +15,8 @@ public class User {
 	
 	private Profile profile;
 	private int status;
+	
+	ArrayList<String> blockedUsers = new ArrayList<String>();
 
 	protected User() {
 	} // May need default constructor for JPA.
@@ -61,4 +65,15 @@ public class User {
 	public String toString() {
 		return "User: " + userID + " ; Password: " + password + "/";
 	}
+	
+	public void blockUser(String userID) {
+		blockedUsers.add(userID);
+	}
+	public void unBlockUser(String userID) {
+		blockedUsers.remove(userID);
+	}
+	public ArrayList<String> getBlockedList() {
+		return blockedUsers;
+	}
+	
 }
