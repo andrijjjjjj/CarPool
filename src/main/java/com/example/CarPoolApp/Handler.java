@@ -5,6 +5,7 @@ package com.example.CarPoolApp;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,7 @@ public class Handler {
 	 
 	String currentUserID = "Michael"; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
 	int ridepostid = 1;
+
 	
 	@RequestMapping("/")//The initial page of the website. Should have buttons for sign-up, login, forgot password.
 	public String loadInitialPage() {
@@ -133,14 +135,16 @@ public class Handler {
 		return "pendingRides";//TODO need to make html page for viewallridespage.html.
 	}
 	
-	
-	@GetMapping("/favorites")
-	public String getFavorites() {
-		return "favorites";
+	@RequestMapping("/favorites")
+	public String getFavorites(Model model) {
+		if(currentUserID == null)
+		{
+			return "loginpage";
+		}
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		
-	}
-	@PostMapping("/favorites")
-	public String postFavorites() {
+		model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
+		
 		return "favorites";
 	}
 	
