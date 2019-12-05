@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <form action="#" th:action="login" th:object="${data}" method="post">
+            <table>
+                <tr>
+                    <td>Username:</td>
+                    <td><input type="text" th:field="*{userid}" /></td>
+                    <td th:if="${#fields.hasErrors('userid')}" th:errors="*{userid}">Incorrect password</td>
+                    
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="text" th:field="*{password}" /></td>
+                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Submit</button></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
