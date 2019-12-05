@@ -327,6 +327,9 @@ public class Handler {
 	
 	@RequestMapping("/favorites")
     public String getFavorites(Model model) {
+		userTransaction.getUser(currentUserID).addToFavorites("userA");
+		userTransaction.getUser(currentUserID).addToFavorites("userB");
+		userTransaction.getUser(currentUserID).addToFavorites("userC");
         if(currentUserID == null)
         {
             return "loginpage";
@@ -334,6 +337,9 @@ public class Handler {
         model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
         if(userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
             model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
+        }
+        else {
+        	model.addAttribute("favorites", "You have no favorites!");
         }
 
         return "favorites";
