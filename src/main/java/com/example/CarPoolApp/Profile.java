@@ -1,17 +1,24 @@
 package com.example.CarPoolApp;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Profile {
 	
 	private String fName;
 	private String lName;
+	private String gender;
 	private String phoneNumber;
-	private String email;
+	private String emailAddress;
+	private int rating;
 
-	public Profile(String fName, String lName, String phoneNumber, String email) {
+	protected Profile() {}
+	
+	public Profile(String fName, String lName, String gender, String phoneNumber) {
 		this.fName = fName;
 		this.lName = lName;
 		this.phoneNumber = phoneNumber;
-		this.email = email;
+		this.rating = 10;//10/10?
 	}
 
 	public String getfName() {
@@ -30,6 +37,14 @@ public class Profile {
 		this.lName = lName;
 	}
 
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -38,17 +53,18 @@ public class Profile {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getEmail() {
-		return email;
+	public int getRating() {
+		return rating;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	@Override
 	public String toString() {
-		return "Profile [fName=" + fName + ", lName=" + lName + ", phoneNumber=" + phoneNumber + ", email=" + email
-				+ "]";
+		return "Profile [fName=" + fName + ", lName=" + lName + ", gender=" + gender + ", phoneNumber=" + phoneNumber
+				+ ", rating=" + rating + "]";
 	}
+
 }

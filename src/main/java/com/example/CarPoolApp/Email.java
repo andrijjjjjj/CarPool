@@ -15,7 +15,7 @@ public class Email {
 	final String username = "carpool.isu@gmail.com";
 	final String password = "IT326CarPool";
 	
-	
+	 
 	public Email() {}
 //	public Email(User user) {
 //		this.user = user;
@@ -159,6 +159,78 @@ public class Email {
 			Transport.send(message);
 	
 			System.out.println("Carpool cancellation email sent to: \""+user.getUserID()+"@ilstu.edu"+"\" sucessfully.");
+	
+	       } catch (MessagingException e) {
+	           e.printStackTrace();
+	       }
+	}
+	
+	public void emailDriverPassengerRequested(User user) {
+		this.user = user;
+		
+		// Gmail settings
+		Properties prop = new Properties();
+		prop.put("mail.smtp.host", "smtp.gmail.com");
+		prop.put("mail.smtp.port", "587");
+		prop.put("mail.smtp.auth", "true");
+		
+		// TLS Authentication (security)
+		prop.put("mail.smtp.starttls.enable", "true"); 
+	   
+		// Check email credentials
+		Session session = Session.getInstance(prop,
+	           new javax.mail.Authenticator() {
+	               protected PasswordAuthentication getPasswordAuthentication() {
+	                   return new PasswordAuthentication(username, password);
+	               }
+	           });
+	
+		// Try: Creating Message and Sending to User object's email address
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(
+	               Message.RecipientType.TO,
+	               InternetAddress.parse(user.getUserID()+"@ilstu.edu")
+	       );
+			
+			// Header/Subject of Email
+			message.setSubject("Passenger request: ISU Carpool");
+		
+	         // This email has 2 parts: the body and the embedded banner image
+	         MimeMultipart multipart = new MimeMultipart("related");
+
+	         // first part (the html)
+	         BodyPart messageBodyPart = new MimeBodyPart();
+	         String htmlText = 
+	        		  "<img src=\"cid:image\">"
+	         		+ "<H1>Hello "+user.getProfile().getfName()+",</H1>"
+	         		+ "<H2>A person has requested to be a passenger of your carpool on: </H2>"
+	         		+ "<p>Tuesday, November 26 2019 @ 5:00 PM</p>"
+	         		+ "<H3>Thanks for using ISU Carpool!</H3>"
+	         		+ "<H3>http://illinoisstate.edu</H3>";
+	         messageBodyPart.setContent(htmlText, "text/html");
+	         
+	         // add it
+	         multipart.addBodyPart(messageBodyPart);
+
+	         // second part (the image)
+	         messageBodyPart = new MimeBodyPart();
+	         DataSource fds = new FileDataSource(
+	            "reminder.png");//TODO Need to make a new one!
+
+	         messageBodyPart.setDataHandler(new DataHandler(fds));
+	         messageBodyPart.setHeader("Content-ID", "<image>");
+
+	         // add image to the multipart
+	         multipart.addBodyPart(messageBodyPart);
+
+	         // put everything together
+	         message.setContent(multipart);
+			
+			Transport.send(message);
+	
+			System.out.println("Passenger request notification email sent to: \""+user.getUserID()+"@ilstu.edu"+"\" sucessfully.");
 	
 	       } catch (MessagingException e) {
 	           e.printStackTrace();

@@ -1,9 +1,11 @@
 package com.example.CarPoolApp;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-z
+
 @Entity
 public class PassengerRequest {
 	
@@ -14,7 +16,7 @@ public class PassengerRequest {
 	private int waitingAcceptedDeclined;//1 = waiting, 2 = accepted, 3 = declined.
 	private int ridePostID;
 	private String passengerUsername;
-	
+	 
 	protected PassengerRequest() {}
 
 	public PassengerRequest(int ridePostID, String passengerUsername) {
