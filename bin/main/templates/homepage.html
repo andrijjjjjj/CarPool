@@ -1,23 +1,102 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<html lang="en">
+<head>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 30%;
+  height: 300px; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article {
+  float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
 </head>
 <body>
-	<h1>Carpool Home</h1>
-    <p th:text="'Welcome ' + ${currentUserID}" />
-    <a href="/login">Logout</a>
-    
-    <h1>View all rides</h1>
-   <a href="/home/viewallrides">All Current Ride Posts</a>
-    <h1>upcoming rides</h1>
-    <a href="/home/upcomingRides">upcoming rides</a>
-    <h1>Pending Rides</h1>
-    <a href="/home/pendingRides">pending rides</a>
-    
+<header>
+  <h2>Illinois State Car Pool Home</h2>
+</header>
+
+<section>
+  <nav>
+    <ul>
+      <li><a href="/home/viewallrides">All current Ride posts</a></li>
+      <li><a href="/home/upcomingRides">upcoming rides</a></li>
+      <li><a href="/home/pendingRides">pending rides</a></li>
+    </ul>
+  </nav>
+  
+ <article>
+ With your help, current and future generations of Redbirds will soar to advance themselves and the University in ways unprecedented.
  
-    
-    
+ </article>
+</section>
+
+<footer>
+  <p>  
+    <a href="/login">Logout</a></p>
+</footer>
+
 </body>
 </html>
+
+
+
