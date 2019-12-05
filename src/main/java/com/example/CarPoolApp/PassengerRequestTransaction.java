@@ -34,10 +34,11 @@ public class PassengerRequestTransaction {
 //		ArrayList<PassengerRequest> result = new ArrayList<PassengerRequest>();
 //		iterable.forEach(result::add);
 //		return result;
+
 	}
 	
 	public void passengerAcceptedForRide(String username) {
-	
+
 	}
 	
 	public ArrayList<PassengerRequest> getAllPassengerRequests(int ridePostID)

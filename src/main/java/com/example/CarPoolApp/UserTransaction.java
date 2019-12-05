@@ -1,7 +1,9 @@
 package com.example.CarPoolApp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserTransaction {
 
 	@Autowired
@@ -14,19 +16,29 @@ public class UserTransaction {
 	}
 
 	public String deleteAccount(String username) {
-		
+
 		users.deleteById(username);
-		return "deleted Account "+username;
+		return "deleted Account " + username;
 	}
-public void updateProfile(String username,String phoneNumber,String firstName,String lastName) {
-	User temp=users.findById(username).get();
-	users.delete(temp);
-	temp.getProfile().setfName(firstName);
-	temp.getProfile().setlName(lastName);
-	temp.getProfile().setPhoneNumber(phoneNumber);
-	users.save(temp);
-	
-}
+
+	public void updateProfile(String username, String phoneNumber, String firstName, String lastName) {
+		User temp = users.findById(username).get();
+		users.delete(temp);
+		temp.getProfile().setfName(firstName);
+		temp.getProfile().setlName(lastName);
+		temp.getProfile().setPhoneNumber(phoneNumber);
+		users.save(temp);
+	}
+
+	public void verifyLogin(String userID, String password) {
+		if (users.existsById(userID) && users.existsById(password)) {
+			System.out.println("User: " + userID + " has been logged in.");
+		} else {
+			System.out.println("fuck");
+		}
+
+	}
+
 	public boolean saveNewUser(User user_obj) {
 		User temp = users.save(user_obj);
 		if (temp == user_obj) {
@@ -35,7 +47,7 @@ public void updateProfile(String username,String phoneNumber,String firstName,St
 		} else {
 			return false;
 		}
-		
+
 	}
 	// private DatabaseQuery query;
 

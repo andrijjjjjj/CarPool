@@ -9,7 +9,8 @@ public class Profile {
 	private String lName;
 	private String gender;
 	private String phoneNumber;
-	private String emailAddress;
+
+
 	private int rating;
 
 	protected Profile() {}

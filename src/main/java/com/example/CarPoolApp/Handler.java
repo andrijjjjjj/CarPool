@@ -37,6 +37,7 @@ public class Handler {
 	@Autowired
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
+
 	ObjectFactory objFactory;
 
 	 
@@ -58,7 +59,6 @@ public class Handler {
 		model.addAttribute("users", new User());
 		return "login";
 	}
-
 	
 	@RequestMapping("/login")//The login page of the website.
 	public String loadLoginPage() throws ServletException, IOException {
@@ -66,15 +66,6 @@ public class Handler {
 		return "loginpage";
 	}
 	
-	@RequestMapping("/login/forgotpassword")//The forgot password.
-	public String loadForgottenPassword() throws ServletException, IOException {
-		//This page will have a form where the user enters their email. Then a button.
-		//Once button pressed, send email to that email.
-		//In the email, the link should be to a specific page used to set a new password for the account. 
-		//The email will also send a verification code to verify that user is who they say they are on the website. //TODO where do we store this in backend? User class?
-		
-		return "loginpage";//Go back to loginpage page.
-	}
 	
 	@RequestMapping("/login/changeforgotpassword/useraccount")//The change forgot password page.
 	public String loadChangeForgottenFassword() throws ServletException, IOException {//TODO need to make @param something to access specific user account.
@@ -83,17 +74,6 @@ public class Handler {
 		//If not, change verification code in User class to null, and redirect user back to home. They will have to resend the verification email and repeat the process.
 		
 		return "loginpage";//Go back to loginpage page.
-	}
-	
-	@RequestMapping("/home")//The home page of the website. Should have buttons for most use cases... EX: view all rides.
-	public String loadHomePage(Model model) {
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
-		{
-			return "loginpage";
-		}
-		model.addAttribute("currentUserID", currentUserID); //This allows the html page to access the currentUserID variable. Can put methods in this call too.
-		
-		return "homepage";
 	}
 	
 	@RequestMapping("/home/viewallrides")//The viewallrides page of the website. Will show all rideposts.
@@ -118,10 +98,35 @@ public class Handler {
 		return "upcomingRides";//TODO need to make html page for viewallridespage.html.
 	}
 	
+	
+	
 	@GetMapping("/favorites")
 	public String getFavorites() {
 		return "favorites";
 
+	}
+
+
+	
+	@RequestMapping("/login/forgotpassword")//The forgot password.
+	public String loadForgottenPassword() throws ServletException, IOException {
+		//This page will have a form where the user enters their email. Then a button.
+		//Once button pressed, send email to that email.
+		//In the email, the link should be to a specific page used to set a new password for the account. 
+		//The email will also send a verification code to verify that user is who they say they are on the website. //TODO where do we store this in backend? User class?
+		
+		return "loginpage";//Go back to loginpage page.
+	}
+	
+	@RequestMapping("/home")//The home page of the website. Should have buttons for most use cases... EX: view all rides.
+	public String loadHomePage(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		model.addAttribute("currentUserID", currentUserID); //This allows the html page to access the currentUserID variable. Can put methods in this call too.
+		
+		return "homepage";
 	}
 	
 	public void acceptedForRide(String username) {
@@ -137,25 +142,11 @@ public class Handler {
 	public String exitLogin(@ModelAttribute User user) {
 		return "home";
 	}
-	
 	@PostMapping("/favorites")
 	public String postFavorites() {
 		return "favorites";
 
 	}
-
-
-	public boolean signUp(String username, String password, String phoneNumber, String emailAddress, String firstName,
-			String lastName) {
-		User temp = objFactory.createUser(username, password, phoneNumber, emailAddress, firstName, lastName);
-		return userTransaction.saveNewUser(temp);
-	}
-
-	public String deleteUser(String username) {
-
-		return userTransaction.deleteAccount(username);
-	}
-
 	
 	@RequestMapping("/home/viewallrides/{ridePostID}")//A page for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON TO MAKE PASSENGER REQUEST ON POST?
 	public String loadViewOneRidePostPage(Model model) {//TODO need to add @Param something in parameters for ridePostID.
@@ -190,6 +181,29 @@ public class Handler {
 		return "currentuseraccountpage";//TODO Make this html.
 	}
 	
+	
+	//TODO Make mappings/pages for all use cases.
+	
+	//Mapping methods! ^^^^^
+	//Logic methods! vvvvv
+	
+	public ArrayList<RidePost> viewAllRides() {
+		return ridePostTransaction.getAllRidePosts();
+
+	}
+
+	public boolean signUp(String username, String password, String phoneNumber, String emailAddress, String firstName,
+			String lastName) {
+		User temp = objFactory.createUser(username, password, phoneNumber, emailAddress, firstName, lastName);
+		return userTransaction.saveNewUser(temp);
+	}
+
+	public String deleteUser(String username) {
+
+		return userTransaction.deleteAccount(username);
+	}
+
+	
 	@RequestMapping("/home/currentuseraccount/deleteaccountprompt")//The "are you sure" prompt before a user deletes their account. 
 	public String loadDeleteAccountPromptPage(Model model) {
 		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
@@ -212,12 +226,10 @@ public class Handler {
 //		return ridePostTransaction.getAllRidePosts();
 //	}
 
+	
 
-	public ArrayList<RidePost> viewAllRides(int driverGender, int driverRating, String carPreference, int cost,
-			boolean luggageAllowance) {// Leave box blank if no preference for variable //driverGender(0 = dont care, 1
-										// = male, 2 = female, 3 = other).
-		return ridePostTransaction.getAllRidePosts(driverGender, driverRating, carPreference, cost, luggageAllowance);
-
+	public ArrayList<RidePost> viewAllRides(String driverGender, int driverRating, String carPreference, String cost, boolean luggageAllowance) {//Leave box blank if no preference for variable. 
+		return ridePostTransaction.getAllRidePosts(driverGender,driverRating,carPreference,cost,luggageAllowance);
 	}
 
 	public String removeRidePost(int ridePostID) // confirmation
@@ -232,7 +244,6 @@ public class Handler {
 	public String makePassengerRequest(int ridePostID, String passengerUsername) {
 		return passengerRequestTransaction.savePassengerRequest(ridePostID, passengerUsername);
 	}
-
 
 
 	public ArrayList<RidePost> viewUpcomingRides(String username){
