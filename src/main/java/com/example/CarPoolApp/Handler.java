@@ -179,17 +179,6 @@ public class Handler {
 		return "pendingRides";// TODO need to make html  for viewallrides.html.
 	}
 
-	@GetMapping("/favorites")
-	public String getFavorites() {
-		return "favorites";
-
-	}
-
-	@PostMapping("/favorites")
-	public String postFavorites() {
-		return "favorites";
-	}
-
 	@RequestMapping("/home/viewallrides/{ridePostID}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
 	public String loadViewOneRidePost(Model model) {// TODO need to add @Param something in parameters for
 														// ridePostID.
@@ -303,4 +292,18 @@ public class Handler {
 	public ArrayList<PassengerRequest> viewPassengerRequests(String username, int ridePostID) {
 		return passengerRequestTransaction.viewPassengerRequests(username, ridePostID);
 	}
+	
+	@RequestMapping("/favorites")
+    public String getFavorites(Model model) {
+        if(currentUserID == null)
+        {
+            return "loginpage";
+        }
+        model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
+        if(userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
+            model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
+        }
+
+        return "favorites";
+    }
 }
