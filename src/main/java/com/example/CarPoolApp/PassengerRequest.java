@@ -3,9 +3,7 @@ package com.example.CarPoolApp;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-import org.hibernate.annotations.Entity;
-import org.springframework.data.annotation.Id;
-
+z
 @Entity
 public class PassengerRequest {
 	
