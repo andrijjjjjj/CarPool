@@ -5,13 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Carpool Home</h1>
-    <p th:text="'Welcome ' + ${currentUserID}" />
+	<h1>Upcoming Rides</h1>
+    <p th:text="'your upcoming rides: ' + ${theUpcomingRides}" />
     <a href="/login">Logout</a>
-    
-    <h1>upcoming rides</h1>
-    <a href="/home/upcomingRides">upcoming rides</a>
-    
-    
 </body>
 </html>
