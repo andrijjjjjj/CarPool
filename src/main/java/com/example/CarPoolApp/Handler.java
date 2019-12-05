@@ -281,30 +281,12 @@ public class Handler {
 
 	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
-		ArrayList<RidePost> tmp = ridePostTransaction.getAllRidePosts();
-		ArrayList<RidePost> result = new ArrayList<RidePost>();
-		for(RidePost ride : tmp)
-		{
-			if(ridePostTransaction.isRidePresent(ride.getTime()))
-			{
-				result.add(ride);
-			}
-		}
-		return result;
+		return ridePostTransaction.getAllPresentRidePosts();
 	}
 
 	public ArrayList<RidePost> viewAllRides(String driverGender, int driverRating, String carPreference, String cost,
 			boolean luggageAllowance) {
-		ArrayList<RidePost> tmp = ridePostTransaction.getAllRidePosts(driverGender, driverRating, carPreference, cost, luggageAllowance);
-		ArrayList<RidePost> result = new ArrayList<RidePost>();
-		for(RidePost ride : tmp)
-		{
-			if(ridePostTransaction.isRidePresent(ride.getTime()))
-			{
-				result.add(ride);
-			}
-		}
-		return result;
+		return ridePostTransaction.getAllPresentRidePosts(driverGender, driverRating, carPreference, cost, luggageAllowance);
 	}
 
 	public String removeRidePost(int ridePostID) // confirmation
@@ -321,16 +303,12 @@ public class Handler {
 	}
 
 	public ArrayList<RidePost> viewUpcomingRides(String username) {
-		ArrayList<RidePost> tmp = ridePostTransaction.viewUpcomingRides(username);
-		ArrayList<RidePost> result = new ArrayList<RidePost>();
-		for(RidePost ride : tmp)
-		{
-			if(ridePostTransaction.isRidePresent(ride.getTime()))
-			{
-				result.add(ride);
-			}
-		}
-		return result;
+		return ridePostTransaction.viewUpcomingRides(username);
+	}
+	
+	public ArrayList<RidePost> viewPastRides(String username) 
+	{
+		return ridePostTransaction.viewPastRides(username);
 	}
 
 	public ArrayList<PassengerRequest> viewPendingRides(String username) {

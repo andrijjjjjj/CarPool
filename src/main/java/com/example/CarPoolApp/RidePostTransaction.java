@@ -46,6 +46,32 @@ public class RidePostTransaction {
         return true;
     }
 	
+	public ArrayList<RidePost> getConvertedPresentRidePosts(ArrayList<RidePost> rides)
+	{
+		ArrayList<RidePost> result = new ArrayList<RidePost>();
+		for(RidePost ride : rides)
+		{
+			if(isRidePresent(ride.getTime()))
+			{
+				result.add(ride);
+			}
+		}
+		return result;
+	}
+	
+	public ArrayList<RidePost> getConvertedPastRidePosts(ArrayList<RidePost> rides)
+	{
+		ArrayList<RidePost> result = new ArrayList<RidePost>();
+		for(RidePost ride : rides)
+		{
+			if(!isRidePresent(ride.getTime()))
+			{
+				result.add(ride);
+			}
+		}
+		return result;
+	}
+	
 	public RidePost getRidePost(int ridePostID)
 	{
 		return ridePosts.findById(ridePostID).get();
@@ -60,6 +86,11 @@ public class RidePostTransaction {
 //		ArrayList<RidePost> result = new ArrayList<RidePost>();
 //		iterable.forEach(result::add);
 //		return result;
+	}
+	
+	public ArrayList<RidePost> getAllPresentRidePosts()
+	{
+		return getConvertedPresentRidePosts(getAllRidePosts());
 	}
 	
 	public ArrayList<RidePost> getAllRidePosts(String driverGender, int driverRating, String carPreference, String costPreference, boolean luggageAllowance)
@@ -85,7 +116,12 @@ public class RidePostTransaction {
 		return result;
 	}
 	
-	public ArrayList<RidePost> viewUpcomingRides(String driverUsername){
+	public ArrayList<RidePost> getAllPresentRidePosts(String driverGender, int driverRating, String carPreference, String costPreference, boolean luggageAllowance)
+	{
+		return getConvertedPresentRidePosts(getAllRidePosts(driverGender, driverRating, carPreference, costPreference, luggageAllowance));
+	}
+	
+	public ArrayList<RidePost> viewRelatedRides(String driverUsername){
 		
 		//Stores the ride posts the user has posted themselves
 		ArrayList<RidePost> rides = ridePosts.findByDriverUsername(driverUsername);
@@ -109,7 +145,14 @@ public class RidePostTransaction {
 		return rides;
 	}
 	
+	public ArrayList<RidePost> viewUpcomingRides(String currentUsername)
+	{
+		return getConvertedPresentRidePosts(viewRelatedRides(currentUsername));
+	}
 	
+	public ArrayList<RidePost> viewPastRides(String currentUsername){
+		return getConvertedPastRidePosts(viewRelatedRides(currentUsername));		
+	}
 	
 	public String removeRidePost(int ridePostID)
 	{
