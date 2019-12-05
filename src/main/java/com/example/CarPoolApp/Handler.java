@@ -344,4 +344,42 @@ public class Handler {
 
         return "favorites";
     }
+	
+	@RequestMapping("/profile")
+    public String getProfile(Model model) {
+        if(currentUserID == null)
+        {
+            return "loginpage";
+        }
+        
+        // First Last Name
+        model.addAttribute("fullName", userTransaction.getUser(currentUserID).getProfile().getfName()+" "+userTransaction.getUser(currentUserID).getProfile().getlName());
+        
+        // ULID
+        model.addAttribute("ulid", userTransaction.getUser(currentUserID).getUserID());
+        
+        // Gender
+        model.addAttribute("gender", userTransaction.getUser(currentUserID).getProfile().getGender());
+        
+        // Phone
+        model.addAttribute("phone", userTransaction.getUser(currentUserID).getProfile().getPhoneNumber());
+        
+        // Rating
+        if(userTransaction.getUser(currentUserID).getProfile().getRatings().size() != 0) {
+            model.addAttribute("rating", userTransaction.getUser(currentUserID).getProfile().getRating());
+        }
+        else {
+        	model.addAttribute("rating", "No Ratings");
+        }
+        
+        // Comments
+        if(userTransaction.getUser(currentUserID).getProfile().getComments().size() != 0) {
+            model.addAttribute("comments", userTransaction.getUser(currentUserID).getProfile().getComments());
+        }
+        else {
+        	model.addAttribute("comments", "No Comments");
+        }
+        
+        return "profile";
+    }
 }
