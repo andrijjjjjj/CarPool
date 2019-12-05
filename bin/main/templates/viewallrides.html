@@ -72,34 +72,28 @@ footer {
 </head>
 <body>
 <header>
-  <h2>Illinois State Car Pool Home</h2>
+  <h2>Make a ride post</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-    
-   
-    
-      <li><a href="/home/viewallrides">All current Ride posts</a></li>
-      <li><a href="/home/upcomingRides">upcoming rides</a></li>
-      <li><a href="/home/pendingRides">pending rides</a></li>
+   <li><a href="/home/viewallrides/makeridepost">Create a Post</a></li>
     </ul>
   </nav>
   
  <article>
- With your help, current and future generations of Redbirds will soar to advance themselves and the University in ways unprecedented.
- 
+  <p th:text="'All ride Posts ' + ${allrideposts}" />
  </article>
 </section>
 
 <footer>
   <p>  
-    <a href="/login">Logout</a></p>
+    <a href="/login">Logout</a>
+     <a href="/home">back</a>
+    </p>
 </footer>
 
 </body>
 </html>
-
-
 
