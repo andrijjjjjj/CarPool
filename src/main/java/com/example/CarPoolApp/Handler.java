@@ -75,12 +75,22 @@ public class Handler {
 	
 	@RequestMapping("/favorites")
 	public String getFavorites(Model model) {
+		userTransaction.getUser(currentUserID).addToFavorites("123");
+		userTransaction.getUser(currentUserID).addToFavorites("12sfsd3");
+		userTransaction.getUser(currentUserID).addToFavorites("12d3");
+		userTransaction.getUser(currentUserID).addToFavorites("1sdgdsgdsgdsgds23");
+		userTransaction.getUser(currentUserID).addToFavorites("124gret3");
 		if(currentUserID == null)
 		{
 			return "loginpage";
 		}
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
+		//String favoritesList = "";
+//		for(int i = 0; i < userTransaction.getUser(currentUserID).getFavorites().size(); i++) {
+//			favoritesList += userTransaction.getUser(currentUserID).getFavorites().get(i)+"/n";
+//		}
 		model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
+		//model.addAttribute("favorites", favoritesList);
 		
 		return "favorites";
 	}

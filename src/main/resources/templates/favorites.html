@@ -7,6 +7,9 @@
 <body>
 	<h1>Favorite Users</h1>
     <p th:text="${firstName} + 's favorite users:'" />
-    <p th:text="${favorites}" />
+    
+    <ul th:each="favorites : ${favorites}">
+    <li th:text="${favorites}"></li>
+</ul>
 </body>
 </html>
