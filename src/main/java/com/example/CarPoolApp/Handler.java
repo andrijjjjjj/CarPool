@@ -281,12 +281,12 @@ public class Handler {
 
 	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
-		return ridePostTransaction.getAllRidePosts();
+		return ridePostTransaction.getAllPresentRidePosts();
 	}
 
 	public ArrayList<RidePost> viewAllRides(String driverGender, int driverRating, String carPreference, String cost,
-			boolean luggageAllowance) {// Leave box blank if no preference for variable.
-		return ridePostTransaction.getAllRidePosts(driverGender, driverRating, carPreference, cost, luggageAllowance);
+			boolean luggageAllowance) {
+		return ridePostTransaction.getAllPresentRidePosts(driverGender, driverRating, carPreference, cost, luggageAllowance);
 	}
 
 	public String removeRidePost(int ridePostID) // confirmation
@@ -304,6 +304,11 @@ public class Handler {
 
 	public ArrayList<RidePost> viewUpcomingRides(String username) {
 		return ridePostTransaction.viewUpcomingRides(username);
+	}
+	
+	public ArrayList<RidePost> viewPastRides(String username) 
+	{
+		return ridePostTransaction.viewPastRides(username);
 	}
 
 	public ArrayList<PassengerRequest> viewPendingRides(String username) {

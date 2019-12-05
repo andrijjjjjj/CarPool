@@ -1,6 +1,10 @@
 package com.example.CarPoolApp;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +20,58 @@ public class RidePostTransaction {
 	@Autowired
 	UserTransaction userTransaction;
 	
+	public boolean isRidePresent(String date) {
+        //Date is in format yyyy/mm/dd
+        //Tokenize the date to be checked
+        StringTokenizer dateToCheck = new StringTokenizer(date, "/");
+
+        //Get the current date
+        LocalDateTime currentDate = LocalDateTime.now();
+
+        //format the current date
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String theCurrentDate = dtf.format(currentDate);
+
+        //tokenize the current date
+        StringTokenizer current = new StringTokenizer(theCurrentDate, "/");
+
+        //check if date to check is in the past
+        for(int i = 0; i < 3; i++) {
+            int dateCheck = Integer.parseInt(dateToCheck.nextToken());
+            int currentInt = Integer.parseInt(current.nextToken());
+            if(dateCheck < currentInt) {
+                return false;
+            }
+        }
+        return true;
+    }
+	
+	public ArrayList<RidePost> getConvertedPresentRidePosts(ArrayList<RidePost> rides)
+	{
+		ArrayList<RidePost> result = new ArrayList<RidePost>();
+		for(RidePost ride : rides)
+		{
+			if(isRidePresent(ride.getTime()))
+			{
+				result.add(ride);
+			}
+		}
+		return result;
+	}
+	
+	public ArrayList<RidePost> getConvertedPastRidePosts(ArrayList<RidePost> rides)
+	{
+		ArrayList<RidePost> result = new ArrayList<RidePost>();
+		for(RidePost ride : rides)
+		{
+			if(!isRidePresent(ride.getTime()))
+			{
+				result.add(ride);
+			}
+		}
+		return result;
+	}
+	
 	public RidePost getRidePost(int ridePostID)
 	{
 		return ridePosts.findById(ridePostID).get();
@@ -30,6 +86,11 @@ public class RidePostTransaction {
 //		ArrayList<RidePost> result = new ArrayList<RidePost>();
 //		iterable.forEach(result::add);
 //		return result;
+	}
+	
+	public ArrayList<RidePost> getAllPresentRidePosts()
+	{
+		return getConvertedPresentRidePosts(getAllRidePosts());
 	}
 	
 	public ArrayList<RidePost> getAllRidePosts(String driverGender, int driverRating, String carPreference, String costPreference, boolean luggageAllowance)
@@ -55,7 +116,12 @@ public class RidePostTransaction {
 		return result;
 	}
 	
-	public ArrayList<RidePost> viewUpcomingRides(String driverUsername){
+	public ArrayList<RidePost> getAllPresentRidePosts(String driverGender, int driverRating, String carPreference, String costPreference, boolean luggageAllowance)
+	{
+		return getConvertedPresentRidePosts(getAllRidePosts(driverGender, driverRating, carPreference, costPreference, luggageAllowance));
+	}
+	
+	public ArrayList<RidePost> viewRelatedRides(String driverUsername){
 		
 		//Stores the ride posts the user has posted themselves
 		ArrayList<RidePost> rides = ridePosts.findByDriverUsername(driverUsername);
@@ -79,7 +145,14 @@ public class RidePostTransaction {
 		return rides;
 	}
 	
+	public ArrayList<RidePost> viewUpcomingRides(String currentUsername)
+	{
+		return getConvertedPresentRidePosts(viewRelatedRides(currentUsername));
+	}
 	
+	public ArrayList<RidePost> viewPastRides(String currentUsername){
+		return getConvertedPastRidePosts(viewRelatedRides(currentUsername));		
+	}
 	
 	public String removeRidePost(int ridePostID)
 	{
