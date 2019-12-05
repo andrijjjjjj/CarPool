@@ -297,7 +297,7 @@ public class Handler {
     public String getFavorites(Model model) {
         if(currentUserID == null)
         {
-            return "loginpage";
+            return "login";
         }
         model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
         if(userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
