@@ -216,6 +216,7 @@ public class Handler {
 		userTransaction.updateProfile(username, phoneNumber, firstName, lastName);
 	}
 
+	
 	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
