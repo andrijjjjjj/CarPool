@@ -1,6 +1,10 @@
 package com.example.CarPoolApp;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +19,32 @@ public class RidePostTransaction {
 	
 	@Autowired
 	UserTransaction userTransaction;
+	
+	public boolean isRidePresent(String date) {
+        //Date is in format yyyy/mm/dd
+        //Tokenize the date to be checked
+        StringTokenizer dateToCheck = new StringTokenizer(date, "/");
+
+        //Get the current date
+        LocalDateTime currentDate = LocalDateTime.now();
+
+        //format the current date
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String theCurrentDate = dtf.format(currentDate);
+
+        //tokenize the current date
+        StringTokenizer current = new StringTokenizer(theCurrentDate, "/");
+
+        //check if date to check is in the past
+        for(int i = 0; i < 3; i++) {
+            int dateCheck = Integer.parseInt(dateToCheck.nextToken());
+            int currentInt = Integer.parseInt(current.nextToken());
+            if(dateCheck < currentInt) {
+                return false;
+            }
+        }
+        return true;
+    }
 	
 	public RidePost getRidePost(int ridePostID)
 	{
