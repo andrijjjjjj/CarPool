@@ -38,6 +38,7 @@ public class Handler {
 	UserTransaction userTransaction;
 	 
 	String currentUserID = "Michael"; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
+	int ridepostid = 1;
 	
 	@RequestMapping("/")//The initial page of the website. Should have buttons for sign-up, login, forgot password.
 	public String loadInitialPage() {
@@ -109,6 +110,28 @@ public class Handler {
 		return "upcomingRides";//TODO need to make html page for viewallridespage.html.
 	}
 	
+	//ride in URL must be changed to the ridePostID
+	@RequestMapping("/home/ride/passengerRequests")//The viewallrides page of the website. Will show all rideposts.
+	public String viewPassengerRequests(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+	//	model.addAttribute("passRequests", viewPassengerRequests(currentUserID, ridepostid)); //Puts arraylist of all ride posts in html page.
+		
+		return "passengerRequests";//TODO need to make html page for viewallridespage.html.
+	}
+
+	@RequestMapping("/home/pendingRides")//The viewallrides page of the website. Will show all rideposts.
+	public String viewPendingRides(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		model.addAttribute("pendingRides", viewPendingRides(currentUserID)); //Puts arraylist of all ride posts in html page.
+		
+		return "pendingRides";//TODO need to make html page for viewallridespage.html.
+	}
 	
 	
 	@GetMapping("/favorites")
