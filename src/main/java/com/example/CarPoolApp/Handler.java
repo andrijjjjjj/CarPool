@@ -183,14 +183,14 @@ public class Handler {
 		return "pendingrides";// TODO need to make html  for viewallrides.html.
 	}
 	
-	@RequestMapping("/home/pastRides") // The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/pastrides") // The viewallrides  of the website. Will show all rideposts.
 	public String viewPastRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
 		model.addAttribute("pastRides", viewPendingRides(currentUserID)); // Puts arraylist of all past ride posts in html.
-		return "pastRides";// TODO need to make html  for viewallrides.html.
+		return "pastrides";// TODO need to make html  for viewallrides.html.
 	}
 	
 	@RequestMapping("/home/pastrides/{rideostid}") //TODO need to add @param or something in parameters to access ridepostID.
@@ -288,12 +288,12 @@ public class Handler {
 
 	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
-		return ridePostTransaction.getAllRidePosts();
+		return ridePostTransaction.getAllPresentRidePosts();
 	}
 
 	public ArrayList<RidePost> viewAllRides(String driverGender, int driverRating, String carPreference, String cost,
-			boolean luggageAllowance) {// Leave box blank if no preference for variable.
-		return ridePostTransaction.getAllRidePosts(driverGender, driverRating, carPreference, cost, luggageAllowance);
+			boolean luggageAllowance) {
+		return ridePostTransaction.getAllPresentRidePosts(driverGender, driverRating, carPreference, cost, luggageAllowance);
 	}
 
 	public String removeRidePost(int ridePostID) // confirmation
@@ -311,6 +311,11 @@ public class Handler {
 
 	public ArrayList<RidePost> viewUpcomingRides(String username) {
 		return ridePostTransaction.viewUpcomingRides(username);
+	}
+	
+	public ArrayList<RidePost> viewPastRides(String username) 
+	{
+		return ridePostTransaction.viewPastRides(username);
 	}
 
 	public ArrayList<PassengerRequest> viewPendingRides(String username) {
