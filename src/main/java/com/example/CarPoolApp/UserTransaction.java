@@ -8,6 +8,8 @@ public class UserTransaction {
 
 	@Autowired
 	UserRepository users;
+	@Autowired
+	Email emailSender;
 
 	public User getUser(String userID) {
 		return users.findById(userID).get();
@@ -35,6 +37,15 @@ public class UserTransaction {
 			System.out.println("fuck");
 		}
 
+	}
+	public boolean saveNewUser(User user_obj) {
+		User temp = users.save(user_obj);
+		if (temp == user_obj) {
+			emailSender.emailSignUp(temp);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// private DatabaseQuery query;
