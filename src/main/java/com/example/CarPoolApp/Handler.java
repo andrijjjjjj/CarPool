@@ -182,20 +182,30 @@ public class Handler {
 
 		return "pendingrides";// TODO need to make html  for viewallrides.html.
 	}
-
-	@GetMapping("/favorites")
-	public String getFavorites() {
-		return "favorites";
-
+	
+	@RequestMapping("/home/pastRides") // The viewallrides  of the website. Will show all rideposts.
+	public String viewPastRides(Model model) {
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("pastRides", viewPendingRides(currentUserID)); // Puts arraylist of all past ride posts in html.
+		return "pastRides";// TODO need to make html  for viewallrides.html.
+	}
+	
+	@RequestMapping("/home/pastrides/{rideostid}") //TODO need to add @param or something in parameters to access ridepostID.
+	public String viewOnePastRidePost(Model model)
+	{
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		// model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID)); //TODO method to view past ride from url param.
+		return "viewonepastridepost"; //TODO make html.
 	}
 
-	@PostMapping("/favorites")
-	public String postFavorites() {
-		return "favorites";
-	}
-
-	@RequestMapping("/home/viewallrides/{ridePostID}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
-	public String loadViewOneRidePost(Model model) {// TODO need to add @Param something in parameters for
+	@RequestMapping("/home/viewallrides/{ridepostid}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
+	public String viewOneRidePost(Model model) {// TODO need to add @Param something in parameters for
 														// ridePostID.
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -310,4 +320,18 @@ public class Handler {
 	public ArrayList<PassengerRequest> viewPassengerRequests(String username, int ridePostID) {
 		return passengerRequestTransaction.viewPassengerRequests(username, ridePostID);
 	}
+	
+	@RequestMapping("/favorites")
+    public String getFavorites(Model model) {
+        if(currentUserID == null)
+        {
+            return "loginpage";
+        }
+        model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
+        if(userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
+            model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
+        }
+
+        return "favorites";
+    }
 }
