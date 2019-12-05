@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +39,22 @@ public class Handler {
 	@Autowired
 	UserTransaction userTransaction;
 	 
-	String currentUserID = "Michael"; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
+	String currentUserID; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
+
+	@GetMapping("/loginpage")
+	public String getlogin(Data data) {
+		return "loginpage";
+	}
+
+	@PostMapping("/loginpage")
+	public String checklogin(Data data, BindingResult bindingResult) {
+		if(userTransaction.verifyLogin(data.getUserid(), data.getPassword()) == true) {
+			currentUserID = data.getUserid();
+			return "homepage";
+		} else {
+			return "loginpage";
+		}
+	}
 	
 	@RequestMapping("/")//The initial page of the website. Should have buttons for sign-up, login, forgot password.
 	public String loadInitialPage() {
@@ -49,12 +66,6 @@ public class Handler {
 
 		//User enters in info to all boxes, clicks button. Button calls signup use case method, then redirects to login page.
 		return "signuppage";//TODO Make html.
-	}
-	
-	@RequestMapping("/login")//The login page of the website.
-	public String loadLoginPage() throws ServletException, IOException {
-
-		return "loginpage";
 	}
 	
 	@RequestMapping("/login/forgotpassword")//The forgot password.
@@ -76,7 +87,7 @@ public class Handler {
 		return "loginpage";//Go back to loginpage page.
 	}
 	
-	@RequestMapping("/home")//The home page of the website. Should have buttons for most use cases... EX: view all rides.
+	@RequestMapping("/homepage")//The home page of the website. Should have buttons for most use cases... EX: view all rides.
 	public String loadHomePage(Model model) {
 		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
 		{

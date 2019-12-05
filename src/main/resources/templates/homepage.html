@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
     <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta th:action="homepage" http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<h1>Carpool Home</h1>
     <p th:text="'Welcome ' + ${currentUserID}" />
-    <a href="/login">Logout</a>
+    <a href="/loginpage">Logout</a>
     
     <h1>View all rides</h1>
    <a href="/home/viewallrides">All Current Ride Posts</a>
