@@ -163,8 +163,9 @@ public class Handler {
 		}
 		//Have button on viewallrides page that when clicked, moves to this page. User will enter info into boxes. Pushes button that calls the make ridepost use case method, then redirects to viewallridepostspage OR viewoneridepostpage.
 		
-		return "makeridepostpage";//TODO need to make html page for making a ridepost.
+		return "ridePost";//TODO need to make html page for making a ridepost.
 	}
+	
 	
 	@RequestMapping("/home/currentuseraccount")//The account/profile page for the currently logged in user.
 	public String loadCurrentUserAccountPage(Model model) {

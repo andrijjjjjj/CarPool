@@ -72,18 +72,40 @@ footer {
 </head>
 <body>
 <header>
-  <h2>Make a ride post</h2>
+  <h2>Create a Ride Post</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-   <li><a href="/home/viewallrides/makeridepost">Create a Post</a></li>
+  
     </ul>
   </nav>
   
  <article>
-  <p th:text="'All ride Posts ' + ${allrideposts}" />
+ 
+ <p Enter your ride information />
+ 
+  	 <label for="Time/Date"><b>Time</b></label>
+    <input type="Time" placeholder="Enter " name="Time" required>
+    
+     <label for="Car"><b>Car</b></label>
+    <input type="Car" placeholder="Enter Car" name="Car" required>
+ 
+	 <label for="Start Location"><b>Start Location</b></label>
+    <input type="text" placeholder="Enter Start Location" name="start" required>
+
+    <label for="End Location"><b>End Location</b></label>
+    <input type="End Location" placeholder="Enter End Location" name="End" required>
+    
+    <label for="Cost"><b>Cost</b></label>
+    <input type="Cost" placeholder="Enter Cost" name="Cost" required>
+
+	<label for="MaxNumPassengers"><b>MaxNumPassengers</b></label>
+    <input type="MaxNumPassengers" placeholder="Enter MaxPass" name="MaxPass" required>
+
+ 
+ 
  </article>
 </section>
 
@@ -96,4 +118,3 @@ footer {
 
 </body>
 </html>
-
