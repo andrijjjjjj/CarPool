@@ -17,6 +17,7 @@ public class PassengerRequestTransaction {
 	@Autowired
 	UserTransaction userTransaction;
 	 
+	Email emailSender;
 //	@Autowired
 //	UserRepository userRepo; DONT USE THIS ONE. USE TRANSACTION CLASS.
 
@@ -34,6 +35,11 @@ public class PassengerRequestTransaction {
 //		ArrayList<PassengerRequest> result = new ArrayList<PassengerRequest>();
 //		iterable.forEach(result::add);
 //		return result;
+
+	}
+	
+	public void passengerAcceptedForRide(String username) {
+
 	}
 	
 	public ArrayList<PassengerRequest> getAllPassengerRequests(int ridePostID)

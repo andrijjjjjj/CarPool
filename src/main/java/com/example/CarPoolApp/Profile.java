@@ -17,11 +17,11 @@ public class Profile {
 	
 	protected Profile() {}
 	
-	public Profile(String fName, String lName, String gender, String phoneNumber) {
+	public Profile(String fName, String lName, String phoneNumber, String gender) {
 		this.fName = fName;
 		this.lName = lName;
 		this.phoneNumber = phoneNumber;
-		//this.rating = 10;//10/10?
+		this.gender=gender;
 	}
 
 	public String getfName() {

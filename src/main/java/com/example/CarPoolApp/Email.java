@@ -309,9 +309,8 @@ public class Email {
 	       }
 	}
 
-	public void emailSignUp(User user) {
-		this.user = user;
-		
+	public void emailSignUp(User new_user) {
+		user = new_user;
 		// Gmail settings
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");

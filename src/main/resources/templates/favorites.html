@@ -1,68 +1,15 @@
-<!DOCTYPE html>
-
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-<style>
-
-body {
-  font-size: 28px;
-  background-color: gainsboro;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: #f5404f;
-}
-
-.active {
-  background-color: #e30e1f;
-}
-</style>
+<head> 
+    <title>Favorites</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<div class="header">
-	<img src="https://i.imgur.com/DoR9Bgt.png"
-	style="width:-webkit-sticky;height:200px;"/>
-	</div>
-
-	<ul>
-	  <li><a href="homepage">Home</a></li>
-	  <li><a href="#Profile">Profile</a></li>
-	  <li><a href="#PendingRides">Pending Rides</a></li>
-	  <li><a href="#favorites">Favorites</a></li>
-	  <li style="float:right"><a class="active" href="#logOff">Log Off</a></li>
-	</ul>
-
-
-	<ul th:each="favorites : ${favorites}">
+	<h1>Favorite Users</h1>
+    <p th:text="${firstName} + 's favorite users:'" />
+    
+    <ul th:each="favorites : ${favorites}">
     <li th:text="${favorites}"></li>
-	</ul>
-
-
-userTransaction.getUser(currentUserID).getFavorites()
+</ul>
 </body>
 </html>
-
