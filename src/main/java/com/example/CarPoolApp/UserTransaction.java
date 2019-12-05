@@ -43,7 +43,8 @@ public class UserTransaction {
 	public boolean saveNewUser(User user_obj) {
 		User temp = users.save(user_obj);
 		if (temp.getUserID() == user_obj.getUserID()) {
-			 //emailSender.emailSignUp(user_obj);
+			 //3
+			emailSender.emailSignUp(user_obj);
 			return true;
 		} else {
 			return false;
