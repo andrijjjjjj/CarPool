@@ -16,6 +16,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableJpaRepositories()
 public class CarPoolAppApplication {
  
 	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
@@ -25,7 +26,7 @@ public class CarPoolAppApplication {
 	}
 
 	@Bean
-	public CommandLineRunner loadData(UserRepository repository) {
+	public CommandLineRunner loadData(UserRepository repository,Handler handleMe) {
 		return (args) -> {
 			// save a couple of userAccounts
 
@@ -37,7 +38,12 @@ public class CarPoolAppApplication {
 			
 			repository.save(new User("David", "PG", null, null, null, null, 0));
 			repository.save(new User("Michelle", "Please", null, null, null, null, 0));
-
+			
+			boolean workPlease=handleMe.signUp("Mjdevi1", "1234", "123-456-7890","Clunt", "TheChristmasBlunt","male");
+			System.out.println(workPlease);
+			handleMe.editProfile("Mjdevi1", "630-137-5309", "Dave", "isGay","female");
+			String test=handleMe.deleteUser("Mjdevi1");
+			System.out.println(test);
 			// fetch all userAccounts
 			log.info("All users listed");
 			log.info("-------------------------------");

@@ -10,20 +10,29 @@ public class User {
 
 	@Id // The userID should be the ID for the user in database.
 	private String userID;
- 
+
 	private String password;
 	private Profile profile;
-	
+
 	private int status;
-	
+
 	ArrayList<String> blockedUsers = new ArrayList<String>();
-	
-	// Favorites 
+
+	// Favorites
 	ArrayList<String> favorites = new ArrayList<String>();
 
-	protected User() {} // May need default constructor for JPA.
+	protected User() {
+	} // May need default constructor for JPA.
 
-	public User(String username, String password, String firstName, String lastName, String gender, String phoneNumber, int status) {
+	public User(String username, String password, Profile new_profile) {
+		this.userID = username;
+		this.password = password;
+		this.profile = new_profile;
+		this.status = 0;
+	}
+
+	public User(String username, String password, String firstName, String lastName, String gender, String phoneNumber,
+			int status) {
 		this.userID = username;
 		this.password = password;
 		this.profile = new Profile(firstName, lastName, gender, phoneNumber);
@@ -64,34 +73,36 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User: " + userID + " ; Password: " + password + "/";
+		return "User: " + userID + "  Password: " + password;
 	}
-	
+
 	public void blockUser(String userID) {
 		blockedUsers.add(userID);
 	}
+
 	public void unBlockUser(String userID) {
 		blockedUsers.remove(userID);
 	}
+
 	public ArrayList<String> getBlockedList() {
 		return blockedUsers;
 	}
-	
+
 	// Favorites
 	public void addToFavorites(String userID) {
-		if(!favorites.contains(userID)) {
+		if (!favorites.contains(userID)) {
 			favorites.add(userID);
 		}
 	}
-	
+
 	public void removeFromFavorites(String userID) {
-		if(favorites.contains(userID)) {
+		if (favorites.contains(userID)) {
 			favorites.remove(userID);
 		}
 	}
-	
+
 	public ArrayList<String> getFavorites() {
 		return favorites;
 	}
-	
+
 }
