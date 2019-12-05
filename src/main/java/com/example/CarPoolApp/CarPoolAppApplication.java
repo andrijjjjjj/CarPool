@@ -70,7 +70,7 @@ public class CarPoolAppApplication {
 			log.info("--------------------------");
 			user.addToFavorites(user2.getUserID());
 			user.addToFavorites(user3.getUserID());
-			user.addToFavorites(user2.getUserID());
+			//user.addToFavorites(user2.getUserID());
 			List<String> favorites = user.getFavorites();
 			log.info("User Favorites:");
 			for (String temp : favorites) {

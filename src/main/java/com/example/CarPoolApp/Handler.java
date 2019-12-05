@@ -80,12 +80,7 @@ public class Handler {
 			return "loginpage";
 		}
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
-		
-		String myFavorites = "";
-		for(int i = 0; i < userTransaction.getUser(currentUserID).getFavorites().size(); i++) {
-			myFavorites += userTransaction.getUser(currentUserID).getFavorites().get(i)+"\n";
-		}
-		model.addAttribute("favorites", myFavorites);
+		model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
 		
 		return "favorites";
 	}

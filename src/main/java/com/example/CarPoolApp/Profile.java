@@ -17,6 +17,7 @@ public class Profile {
 		this.fName = fName;
 		this.lName = lName;
 		this.phoneNumber = phoneNumber;
+		this.gender = gender;
 		this.rating = 10;//10/10?
 	}
 
