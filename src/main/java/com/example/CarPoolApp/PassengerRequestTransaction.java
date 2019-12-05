@@ -28,6 +28,10 @@ public class PassengerRequestTransaction {
 		return result;
 	}
 	
+	public void passengerAcceptedForRide(String username) {
+	
+	}
+	
 	public ArrayList<PassengerRequest> getAllPassengerRequests(int ridePostID)
 	{
 		Iterable<PassengerRequest> iterable = passengerRequests.findAllByRidePostID(ridePostID); //If this doesnt work, do commented part below.

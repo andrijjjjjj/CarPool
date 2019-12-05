@@ -39,9 +39,16 @@ public class Handler {
 		return "login";
 
 	}
-public void editProfile(String username,String phoneNumber,String emailAddress,String firstName,String lastName) {
-		userTransaction.updateProfile(phoneNumber,emailAddress,firstName,lastName);
-}
+	
+	public void acceptedForRide(String username) {
+		passengerRequestTransaction.passengerAcceptedForRide(username);
+	}
+
+	public void editProfile(String username, String phoneNumber, String emailAddress, String firstName,
+			String lastName) {
+		userTransaction.updateProfile(username, phoneNumber, emailAddress, firstName, lastName);
+	}
+
 	@PostMapping("/login")
 	public String exitLogin(@ModelAttribute User user) {
 		return "home";
@@ -53,9 +60,9 @@ public void editProfile(String username,String phoneNumber,String emailAddress,S
 		return userTransaction.saveNewUser(temp);
 	}
 
-	public String deleteUser() {
-		
-		return userTransaction.deleteAccount(String username);
+	public String deleteUser(String username) {
+
+		return userTransaction.deleteAccount(username);
 	}
 
 	public ArrayList<RidePost> viewAllRides() {
