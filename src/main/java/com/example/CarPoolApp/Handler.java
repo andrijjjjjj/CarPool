@@ -189,7 +189,7 @@ public class Handler {
 		return "pastRides";// TODO need to make html  for viewallrides.html.
 	}
 	
-	@RequestMapping("/home/pastRides/{ridepostID}") //TODO need to add @param or something in parameters to access ridepostID.
+	@RequestMapping("/home/pastrides/{rideostid}") //TODO need to add @param or something in parameters to access ridepostID.
 	public String viewOnePastRidePost(Model model)
 	{
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
@@ -200,7 +200,7 @@ public class Handler {
 		return "viewonepastridepost"; //TODO make html.
 	}
 
-	@RequestMapping("/home/viewallrides/{ridePostID}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
+	@RequestMapping("/home/viewallrides/{ridepostid}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
 	public String viewOneRidePost(Model model) {// TODO need to add @Param something in parameters for
 														// ridePostID.
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
