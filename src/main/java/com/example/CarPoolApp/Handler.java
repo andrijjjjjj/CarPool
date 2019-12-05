@@ -172,7 +172,10 @@ public class Handler {
 	
 	//Mapping methods! ^^^^^
 	//Logic methods! vvvvv
+	//---------Mike Devitt's method zone--------------
 	
+	
+	//---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
 	}
