@@ -1,15 +1,92 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-    <title>ISU Carpool</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<html lang="en">
+<head>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #404040;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+button {
+  background-color: #404040; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
+}
+
+input {
+  background-color: #404040; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
+}
+
+/* Create two columns/boxes that floats next to each other */
+
+
+/* Style the list inside the menu */
+
+
+
+
+/* Clear floats after the columns */
+
+
+/* Style the footer */
+
+middle {
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+
+</style>
 </head>
 <body>
-    <h1>ISU Carpool</h1>
-    <h2>Welcome to the ISU Carpooling Website</h2>
+<header>
+  <h2>Welocme to ISU Carpool</h2>
+</header>
+
+
+
+  
+<body>
+  <middle>
      <form method="get" action="/login">
         <button type="submit">Login</button>
         <input type="submit" formaction="/signup" value="Sign Up"/>        
      </form>
+     </middle>
+</body>
+
+
+
+
+
 </body>
 </html>
