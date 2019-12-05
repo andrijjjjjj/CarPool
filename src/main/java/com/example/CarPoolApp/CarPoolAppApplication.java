@@ -89,6 +89,34 @@ public class CarPoolAppApplication {
 //				System.out.println(temp);
 //			}
 //			log.info("--------------------------");
+//			
+//			// Testing Feedback
+//			
+//			log.info("Ratings:");
+//			user.getProfile().setRating(1);
+//			user.getProfile().setRating(2);
+//			user.getProfile().setRating(3);
+//			user.getProfile().setRating(4);
+//			user.getProfile().setRating(5);
+//			List<Integer> ratings = user.getProfile().getRatings();
+//			for (int temp : ratings) {
+//				System.out.println(temp);
+//			}
+//			
+//			log.info("Rating total:");
+//			System.out.println(user.getProfile().getRating());
+//			
+//			log.info("Comments:");
+//			user.getProfile().addComment("Good driver!");
+//			user.getProfile().addComment("Okay driver!");
+//			user.getProfile().addComment("Shit driver!");
+//			user.getProfile().addComment("stupid ass driver!");
+//			user.getProfile().addComment("i like this driver!");
+//			List<String> comments = user.getProfile().getComments();
+//			for (String temp : comments) {
+//				System.out.println(temp);
+//			}
+			
 		};
 	}
 	

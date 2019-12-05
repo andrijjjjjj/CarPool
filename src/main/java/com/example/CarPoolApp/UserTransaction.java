@@ -8,11 +8,21 @@ public class UserTransaction {
 
 	@Autowired
 	UserRepository users;
-
+	
+	
 	Email emailSender = new Email();
 
 	public User getUser(String userID) {
+
 		return users.findById(userID).get();
+	}
+	public boolean verifyLogin(String userID, String password) {
+		if(users.existsById(userID)) {
+			if(users.findById(userID).get().getPassword().equals(password)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String deleteAccount(String username) {
@@ -31,25 +41,17 @@ public class UserTransaction {
 		users.save(temp2);
 	}
 
-	public void verifyLogin(String userID, String password) {
-		if (users.existsById(userID) && users.existsById(password)) {
-			System.out.println("User: " + userID + " has been logged in.");
-		} else {
-			System.out.println("didnt work");
-
-		}
-	}
-
 	public boolean saveNewUser(User user_obj) {
 		User temp = users.save(user_obj);
 		if (temp.getUserID() == user_obj.getUserID()) {
 			 //3
-			emailSender.emailSignUp(user_obj);
+			//emailSender.emailSignUp(user_obj);
 			return true;
 		} else {
 			return false;
 		}
 	}
+	//private DatabaseQuery query;
 
 	// private DatabaseQuery query;
 

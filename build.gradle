@@ -23,7 +23,11 @@ dependencies {
 	compile files("lib/javax.mail.jar")
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		//exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.hibernate.validator:hibernate-validator")
+    compile("org.apache.tomcat.embed:tomcat-embed-el")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 	}
 }
 
