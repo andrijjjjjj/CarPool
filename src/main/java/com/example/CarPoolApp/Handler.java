@@ -207,6 +207,15 @@ public class Handler {
 		return userTransaction.deleteAccount(username);
 	}
 
+	public void acceptedForRide(String username) {
+		passengerRequestTransaction.passengerAcceptedForRide(username);
+	}
+
+	public void editProfile(String username, String phoneNumber, String emailAddress, String firstName,
+			String lastName) {
+		userTransaction.updateProfile(username, phoneNumber, firstName, lastName);
+	}
+
 	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
