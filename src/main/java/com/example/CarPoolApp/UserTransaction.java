@@ -11,6 +11,7 @@ public class UserTransaction {
 	
 	public User getUser(String userID)
 	{
+		//userTransaction.getUser(currentUserID).getFavorites().size();
 		return users.findById(userID).get();
 	}
 	public void verifyLogin(String userID, String password) {
@@ -21,6 +22,7 @@ public class UserTransaction {
 		}
 		
 	}
+	
 	
 	//private DatabaseQuery query;
 	

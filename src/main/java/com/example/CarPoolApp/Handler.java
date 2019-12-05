@@ -111,14 +111,15 @@ public class Handler {
 	
 	
 	
-	@GetMapping("/favorites")
-	public String getFavorites() {
-		return "favorites";
+	@RequestMapping("/feedback")//The viewallrides page of the website. Will show all rideposts.
+	public String viewFeedback(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		//model.addAttribute("feedback", viewUpcomingRides(currentUserID)); //Puts arraylist of all ride posts in html page.
 		
-	}
-	@PostMapping("/favorites")
-	public String postFavorites() {
-		return "favorites";
+		return "feedback";//TODO need to make html page for viewallridespage.html.
 	}
 	
 	@RequestMapping("/home/viewallrides/{ridePostID}")//A page for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON TO MAKE PASSENGER REQUEST ON POST?
