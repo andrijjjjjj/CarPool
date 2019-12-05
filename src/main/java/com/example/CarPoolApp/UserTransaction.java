@@ -8,10 +8,12 @@ public class UserTransaction {
 
 	@Autowired
 	UserRepository users;
-
+	
+	
 	Email emailSender = new Email();
 
 	public User getUser(String userID) {
+
 		return users.findById(userID).get();
 	}
 	public boolean verifyLogin(String userID, String password) {
@@ -43,12 +45,13 @@ public class UserTransaction {
 		User temp = users.save(user_obj);
 		if (temp.getUserID() == user_obj.getUserID()) {
 			 //3
-			emailSender.emailSignUp(user_obj);
+			//emailSender.emailSignUp(user_obj);
 			return true;
 		} else {
 			return false;
 		}
 	}
+	//private DatabaseQuery query;
 
 	// private DatabaseQuery query;
 
