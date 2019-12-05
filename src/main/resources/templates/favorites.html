@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <style>
 
@@ -41,45 +43,26 @@ li a:hover {
 </style>
 </head>
 <body>
-<div class="header">
-<img src="https://i.imgur.com/DoR9Bgt.png"
-style="width:-webkit-sticky;height:200px;"/>
-</div>
+	<div class="header">
+	<img src="https://i.imgur.com/DoR9Bgt.png"
+	style="width:-webkit-sticky;height:200px;"/>
+	</div>
 
-<ul>
-  <li><a href="#home">Home</a></li>
-  <li><a href="#Profile">Profile</a></li>
-  <li><a href="#PendingRides">Pending Rides</a></li>
-  <li><a href="#favorites">Favorites</a></li>
-  <li style="float:right"><a class="active" href="#logOff">Log Off</a></li>
-</ul>
+	<ul>
+	  <li><a href="homepage">Home</a></li>
+	  <li><a href="#Profile">Profile</a></li>
+	  <li><a href="#PendingRides">Pending Rides</a></li>
+	  <li><a href="#favorites">Favorites</a></li>
+	  <li style="float:right"><a class="active" href="#logOff">Log Off</a></li>
+	</ul>
 
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
 
-<p>Favorite User </p><p>Favorite User </p>
+	<ul th:each="favorites : ${favorites}">
+    <li th:text="${favorites}"></li>
+	</ul>
 
-<p>Favorite User </p><p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
-<p>Favorite User </p>
 
+userTransaction.getUser(currentUserID).getFavorites()
 </body>
 </html>
 

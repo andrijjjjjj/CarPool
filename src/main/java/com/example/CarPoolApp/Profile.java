@@ -1,5 +1,7 @@
 package com.example.CarPoolApp;
 
+import java.util.ArrayList;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -9,15 +11,17 @@ public class Profile {
 	private String lName;
 	private String gender;
 	private String phoneNumber;
-	private int rating;
-
+	private double rating;
+	ArrayList<Integer> ratings = new ArrayList<Integer>();
+	ArrayList<String> comments = new ArrayList<String>();
+	
 	protected Profile() {}
 	
 	public Profile(String fName, String lName, String gender, String phoneNumber) {
 		this.fName = fName;
 		this.lName = lName;
 		this.phoneNumber = phoneNumber;
-		this.rating = 10;//10/10?
+		//this.rating = 10;//10/10?
 	}
 
 	public String getfName() {
@@ -52,12 +56,34 @@ public class Profile {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public int getRating() {
+	// Return combined rating
+	public double getRating() {
 		return rating;
 	}
+	
+	// Returns ratings list
+	public ArrayList<Integer> getRatings() {
+		return ratings;
+	}
 
-	public void setRating(int rating) {
-		this.rating = rating;
+	// Adds rating to list and updates rating
+	public void setRating(int number) {
+		ratings.add(number);
+		double ratingNumber = 0;
+		for (int temp : ratings) {
+			ratingNumber += temp;
+		}
+		rating = ratingNumber/ratings.size();
+	}
+	
+	// Adds comment to comments list
+	public void addComment(String comment) {
+		comments.add(comment);
+	}
+	
+	// Gets all comments for user
+	public ArrayList<String> getComments() {
+		return comments;
 	}
 
 	@Override
