@@ -95,7 +95,7 @@ public class Handler {
 		}
 		model.addAttribute("allrideposts", viewAllRides()); //Puts arraylist of all ride posts in html page.
 		
-		return "viewallridespage";//TODO need to make html page for viewallridespage.html.
+		return "viewallrides";//TODO need to make html page for viewallridespage.html.
 	}
 	
 	@RequestMapping("/home/upcomingRides")//The viewallrides page of the website. Will show all rideposts.
