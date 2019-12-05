@@ -5,6 +5,7 @@ package com.example.CarPoolApp;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,7 @@ public class Handler {
 	@Autowired
 	UserTransaction userTransaction;
 	 
-	String currentUserID = "Michael"; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
+	String currentUserID = "sclaus"; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
 	
 	@RequestMapping("/")//The initial page of the website. Should have buttons for sign-up, login, forgot password.
 	public String loadInitialPage() {
@@ -72,13 +73,20 @@ public class Handler {
 		return "homepage";//TODO need to make html page for viewallridespage.html.
 	}
 	
-	@GetMapping("/favorites")
-	public String getFavorites() {
-		return "favorites";
+	@RequestMapping("/favorites")
+	public String getFavorites(Model model) {
+		if(currentUserID == null)
+		{
+			return "loginpage";
+		}
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		
-	}
-	@PostMapping("/favorites")
-	public String postFavorites() {
+		String myFavorites = "";
+		for(int i = 0; i < userTransaction.getUser(currentUserID).getFavorites().size(); i++) {
+			myFavorites += userTransaction.getUser(currentUserID).getFavorites().get(i)+"\n";
+		}
+		model.addAttribute("favorites", myFavorites);
+		
 		return "favorites";
 	}
 	
