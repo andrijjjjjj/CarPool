@@ -54,6 +54,7 @@ public class Handler {
 		// method, then redirects to login page.
 		return "signUpForm";
 	}
+
 	@RequestMapping("/emailConfirmation") // The sign-up page of the website.
 	public String emailConfirmationPage() throws ServletException, IOException {
 
@@ -61,6 +62,7 @@ public class Handler {
 		// method, then redirects to login page.
 		return "emailConfirmation";// TODO Make html.
 	}
+
 	@RequestMapping("/login") // The login page of the website.
 	public String loadLoginPage() throws ServletException, IOException {
 
@@ -131,6 +133,31 @@ public class Handler {
 		return "upcomingRides";// TODO need to make html page for viewallridespage.html.
 	}
 
+	// ride in URL must be changed to the ridePostID
+	@RequestMapping("/home/ride/passengerRequests") // The viewallrides page of the website. Will show all rideposts.
+	public String viewPassengerRequests(Model model) {
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		// model.addAttribute("passRequests", viewPassengerRequests(currentUserID,
+		// ridepostid)); //Puts arraylist of all ride posts in html page.
+
+		return "passengerRequests";// TODO need to make html page for viewallridespage.html.
+	}
+
+	@RequestMapping("/home/pendingRides") // The viewallrides page of the website. Will show all rideposts.
+	public String viewPendingRides(Model model) {
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		model.addAttribute("pendingRides", viewPendingRides(currentUserID)); // Puts arraylist of all ride posts in html
+																				// page.
+
+		return "pendingRides";// TODO need to make html page for viewallridespage.html.
+	}
+
 	@GetMapping("/favorites")
 	public String getFavorites() {
 		return "favorites";
@@ -166,7 +193,7 @@ public class Handler {
 		// will enter info into boxes. Pushes button that calls the make ridepost use
 		// case method, then redirects to viewallridepostspage OR viewoneridepostpage.
 
-		return "makeridepostpage";// TODO need to make html page for making a ridepost.
+		return "ridepost";// TODO need to make html page for making a ridepost.
 	}
 
 	@RequestMapping("/home/currentuseraccount") // The account/profile page for the currently logged in user.
@@ -203,8 +230,9 @@ public class Handler {
 	// Mapping methods! ^^^^^
 	// Logic methods! vvvvv
 	// ---------Mike Devitt's method zone--------------
-	public boolean signUp(String username, String password, String phoneNumber, String firstName,String lastName,String gender) {
-		User temp = objFactory.createUser(username, password, phoneNumber, firstName, lastName,gender);
+	public boolean signUp(String username, String password, String phoneNumber, String firstName, String lastName,
+			String gender) {
+		User temp = objFactory.createUser(username, password, phoneNumber, firstName, lastName, gender);
 		return userTransaction.saveNewUser(temp);
 	}
 
@@ -217,11 +245,10 @@ public class Handler {
 		passengerRequestTransaction.passengerAcceptedForRide(username);
 	}
 
-	public void editProfile(String username, String phoneNumber, String firstName,String lastName,String gender) {
-		userTransaction.updateProfile(username, phoneNumber, firstName, lastName,gender);
+	public void editProfile(String username, String phoneNumber, String firstName, String lastName, String gender) {
+		userTransaction.updateProfile(username, phoneNumber, firstName, lastName, gender);
 	}
 
-	
 	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();

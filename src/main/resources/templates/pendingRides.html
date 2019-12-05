@@ -72,18 +72,18 @@ footer {
 </head>
 <body>
 <header>
-  <h2>Make a ride post</h2>
+  <h2>Your Pending Rides</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-   <li><a href="/home/viewallrides/makeridepost">Create a Post</a></li>
+     
     </ul>
   </nav>
   
  <article>
-  <p th:text="'All ride Posts ' + ${allrideposts}" />
+<p th:text="'your pending rides: ' + ${pendingRides}"/p>
  </article>
 </section>
 
@@ -96,4 +96,3 @@ footer {
 
 </body>
 </html>
-
