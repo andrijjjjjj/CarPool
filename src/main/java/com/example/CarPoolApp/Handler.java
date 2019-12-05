@@ -133,6 +133,17 @@ public class Handler {
 		return "upcomingRides";// TODO need to make html page for viewallridespage.html.
 	}
 
+	@RequestMapping("/feedback")//The viewallrides page of the website. Will show all rideposts.
+	public String viewFeedback(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		//model.addAttribute("feedback", viewUpcomingRides(currentUserID)); //Puts arraylist of all ride posts in html page.
+		
+		return "feedback";//TODO need to make html page for viewallridespage.html.
+		}
+
 	// ride in URL must be changed to the ridePostID
 	@RequestMapping("/home/ride/passengerRequests") // The viewallrides page of the website. Will show all rideposts.
 	public String viewPassengerRequests(Model model) {
@@ -156,17 +167,6 @@ public class Handler {
 																				// page.
 
 		return "pendingRides";// TODO need to make html page for viewallridespage.html.
-	}
-
-	@GetMapping("/favorites")
-	public String getFavorites() {
-		return "favorites";
-
-	}
-
-	@PostMapping("/favorites")
-	public String postFavorites() {
-		return "favorites";
 	}
 
 	@RequestMapping("/home/viewallrides/{ridePostID}") // A page for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Feedback</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1> Feedback </h1>
+    
+    <h3> Rating: 
+    <select>
+      <option value="5 Stars">5 Stars</option>
+      <option value="4 Stars">4 Stars</option>
+      <option value="3 Stars">3 Stars</option>
+      <option value="2 Stars">2 Stars</option>
+      <option value="1 Star">1 Star</option>
+  	</select>
+    </h3>
+    
+    <form action="/action_page.php">
+    <h3> Comments: <input type="text" name="comments" value=""><br>
+<input type="submit" value="Submit">
+</h3>
+</form>
+
+</body>
+</html>
+
