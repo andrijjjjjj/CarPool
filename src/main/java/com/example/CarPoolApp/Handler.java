@@ -35,7 +35,8 @@ public class Handler {
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
 	UserTransaction userTransaction;
-
+	@Autowired
+	ObjectFactory objFactory;
 	String currentUserID = "Michael"; // This instantiation is for tests. This variable should be set by calling the
 										// login method. Can use this method to determine if a user is logged in(null =
 										// not logged in).
@@ -51,9 +52,15 @@ public class Handler {
 
 		// User enters in info to all boxes, clicks button. Button calls signup use case
 		// method, then redirects to login page.
-		return "signUpForm";// TODO Make html.
+		return "signUpForm";
 	}
+	@RequestMapping("/emailConfirmation") // The sign-up page of the website.
+	public String emailConfirmationPage() throws ServletException, IOException {
 
+		// User enters in info to all boxes, clicks button. Button calls signup use case
+		// method, then redirects to login page.
+		return "emailConfirmation";// TODO Make html.
+	}
 	@RequestMapping("/login") // The login page of the website.
 	public String loadLoginPage() throws ServletException, IOException {
 
@@ -196,9 +203,8 @@ public class Handler {
 	// Mapping methods! ^^^^^
 	// Logic methods! vvvvv
 	// ---------Mike Devitt's method zone--------------
-	public boolean signUp(String username, String password, String phoneNumber, String emailAddress, String firstName,
-			String lastName) {
-		User temp = objFactory.createUser(username, password, phoneNumber, emailAddress, firstName, lastName);
+	public boolean signUp(String username, String password, String phoneNumber, String firstName,String lastName,String gender) {
+		User temp = objFactory.createUser(username, password, phoneNumber, firstName, lastName,gender);
 		return userTransaction.saveNewUser(temp);
 	}
 
@@ -211,9 +217,8 @@ public class Handler {
 		passengerRequestTransaction.passengerAcceptedForRide(username);
 	}
 
-	public void editProfile(String username, String phoneNumber, String emailAddress, String firstName,
-			String lastName) {
-		userTransaction.updateProfile(username, phoneNumber, firstName, lastName);
+	public void editProfile(String username, String phoneNumber, String firstName,String lastName,String gender) {
+		userTransaction.updateProfile(username, phoneNumber, firstName, lastName,gender);
 	}
 
 	

@@ -8,8 +8,8 @@ public class UserTransaction {
 
 	@Autowired
 	UserRepository users;
-	@Autowired
-	Email emailSender;
+
+	Email emailSender = new Email();
 
 	public User getUser(String userID) {
 		return users.findById(userID).get();
@@ -21,27 +21,29 @@ public class UserTransaction {
 		return "deleted Account " + username;
 	}
 
-	public void updateProfile(String username, String phoneNumber, String firstName, String lastName) {
+	public void updateProfile(String username, String phoneNumber, String firstName, String lastName, String gender) {
 		User temp = users.findById(username).get();
+		String keep_pass = temp.getPassword();
+		System.out.println("before:" + temp.getUserID());
 		users.delete(temp);
-		temp.getProfile().setfName(firstName);
-		temp.getProfile().setlName(lastName);
-		temp.getProfile().setPhoneNumber(phoneNumber);
-		users.save(temp);
+		Profile new_profile = new Profile(firstName, lastName, phoneNumber, gender);
+		User temp2 = new User(username, keep_pass, new_profile);
+		users.save(temp2);
 	}
 
 	public void verifyLogin(String userID, String password) {
 		if (users.existsById(userID) && users.existsById(password)) {
 			System.out.println("User: " + userID + " has been logged in.");
 		} else {
-			System.out.println("fuck");
-		}
+			System.out.println("didnt work");
 
+		}
 	}
+
 	public boolean saveNewUser(User user_obj) {
 		User temp = users.save(user_obj);
-		if (temp == user_obj) {
-			emailSender.emailSignUp(temp);
+		if (temp.getUserID() == user_obj.getUserID()) {
+			 //emailSender.emailSignUp(user_obj);
 			return true;
 		} else {
 			return false;
