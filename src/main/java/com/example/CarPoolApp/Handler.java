@@ -48,7 +48,7 @@ public class Handler {
 	public String loadSignUpPage() throws ServletException, IOException {
 
 		//User enters in info to all boxes, clicks button. Button calls signup use case method, then redirects to login page.
-		return "signuppage";//TODO Make html.
+		return "signUpForm";//TODO Make html.
 	}
 	
 	@RequestMapping("/login")//The login page of the website.
@@ -56,6 +56,7 @@ public class Handler {
 
 		return "loginpage";
 	}
+	
 	
 	@RequestMapping("/login/forgotpassword")//The forgot password.
 	public String loadForgottenPassword() throws ServletException, IOException {
