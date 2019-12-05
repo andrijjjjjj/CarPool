@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>ISU Carpool</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Please fill out our sign up form!</h1>
+             <form th:action="signup" th:object="${data}" method="post">
+        Username: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{userid}"/> <br/><br/>
+        Password: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{password}"/> <br/><br/>
+        First Name: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{firstname}"/> <br/><br/>
+        Last Name: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{lastname}"/> <br/><br/>
+        Gender: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{gender}"/> <br/><br/>
+        Phone Number: <input type="text" th:field="*{phonenumber}"/> <br/><br/>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <td><button type="submit">Submit</button></td>        
+     </form>
+</body>
+</html>

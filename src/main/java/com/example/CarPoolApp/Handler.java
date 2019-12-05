@@ -49,7 +49,7 @@ public class Handler {
 	}
 
 	@PostMapping("/login")
-	public String checklogin(Data data, BindingResult bindingResult) {
+	public String postlogin(Data data) {
 		if(userTransaction.verifyLogin(data.getUserid(), data.getPassword()) == true) {
 			currentUserID = data.getUserid();
 			return "home";
@@ -64,20 +64,24 @@ public class Handler {
 		return "welcome";
 	}
 
-	@RequestMapping("/signup") // The sign-up  of the website.
-	public String loadSignUp() throws ServletException, IOException {
-
+	@GetMapping("/signup") // The sign-up  of the website.
+	public String getSignUp(Data data) {
 		// User enters in info to all boxes, clicks button. Button calls signup use case
 		// method, then redirects to login .
-		return "signUpForm";
+		return "signUp";
+	}
+	@PostMapping("/signup") // The sign-up  of the website.
+	public String postSignUp(Data data){
+		userTransaction.saveUser(data);
+		return "login";
 	}
 
-	@RequestMapping("/emailConfirmation") // The sign-up  of the website.
+	@RequestMapping("/emailconfirmation") // The sign-up  of the website.
 	public String emailConfirmation() throws ServletException, IOException {
 
 		// User enters in info to all boxes, clicks button. Button calls signup use case
 		// method, then redirects to login .
-		return "emailConfirmation";// TODO Make html.
+		return "emailconfirmation";// TODO Make html.
 	}
 
 	@RequestMapping("/login/forgotpassword") // The forgot password.
@@ -131,7 +135,7 @@ public class Handler {
 		return "viewallrides";// TODO need to make html  for viewallrides.html.
 	}
 
-	@RequestMapping("/home/upcomingRides") // The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
 	public String viewUpcomingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -140,7 +144,7 @@ public class Handler {
 		model.addAttribute("theUpcomingRides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
 																					// html .
 
-		return "upcomingRides";// TODO need to make html  for viewallrides.html.
+		return "upcomingrides";// TODO need to make html  for viewallrides.html.
 	}
 
 	@RequestMapping("/feedback")//The viewallrides  of the website. Will show all rideposts.
@@ -155,7 +159,7 @@ public class Handler {
 		}
 
 	// ride in URL must be changed to the ridePostID
-	@RequestMapping("/home/ride/passengerRequests") // The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/ride/passengerrequests") // The viewallrides  of the website. Will show all rideposts.
 	public String viewPassengerRequests(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -164,10 +168,10 @@ public class Handler {
 		// model.addAttribute("passRequests", viewPassengerRequests(currentUserID,
 		// ridepostid)); //Puts arraylist of all ride posts in html .
 
-		return "passengerRequests";// TODO need to make html  for viewallrides.html.
+		return "passengerrequests";// TODO need to make html  for viewallrides.html.
 	}
 
-	@RequestMapping("/home/pendingRides") // The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/pendingrides") // The viewallrides  of the website. Will show all rideposts.
 	public String viewPendingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -176,7 +180,7 @@ public class Handler {
 		model.addAttribute("pendingRides", viewPendingRides(currentUserID)); // Puts arraylist of all ride posts in html
 																				// .
 
-		return "pendingRides";// TODO need to make html  for viewallrides.html.
+		return "pendingrides";// TODO need to make html  for viewallrides.html.
 	}
 
 	@GetMapping("/favorites")
@@ -203,8 +207,13 @@ public class Handler {
 		return "viewoneridepost";// TODO need to make html  for loadviewoneridepost.html.
 	}
 
-	@RequestMapping("/home/viewallrides/makeridepost") // A  for making a ridePost.
-	public String loadViewMakeRidePost(Model model) {
+	@GetMapping("/home/viewallrides/makeridepost") // A  for making a ridePost.
+	public String getMakeRidePost(Data data) {
+		return "ridepost";// TODO need to make html  for making a ridepost.
+	}
+	
+	@PostMapping("/home/viewallrides/makeridepost") // A  for making a ridePost.
+	public String postMakeRidePost(Data data) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
@@ -212,8 +221,7 @@ public class Handler {
 		// Have button on viewallrides  that when clicked, moves to this . User
 		// will enter info into boxes. Pushes button that calls the make ridepost use
 		// case method, then redirects to viewallrideposts OR viewoneridepost.
-
-		return "ridepost";// TODO need to make html  for making a ridepost.
+		return "ridepost"; // TODO need to make html  for making a ridepost.
 	}
 
 	@RequestMapping("/home/currentuseraccount") // The account/profile  for the currently logged in user.
@@ -226,7 +234,6 @@ public class Handler {
 																					// access the currentUserID
 																					// variable. Can put methods in this
 																					// call too.
-
 		return "currentuseraccount";// TODO Make this html.
 	}
 

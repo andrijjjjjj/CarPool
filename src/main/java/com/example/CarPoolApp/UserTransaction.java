@@ -1,5 +1,7 @@
 package com.example.CarPoolApp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,8 +11,9 @@ public class UserTransaction {
 	@Autowired
 	UserRepository users;
 	
-	
 	Email emailSender = new Email();
+
+	private static final Logger log = LoggerFactory.getLogger(UserTransaction.class);
 
 	public User getUser(String userID) {
 
@@ -51,11 +54,10 @@ public class UserTransaction {
 			return false;
 		}
 	}
-	//private DatabaseQuery query;
+	public void saveUser(Data data) {
+		int status = 0;//Setting status to inactive. Awaiting email confirmation
+		users.save(new User(data.getUserid(), data.getPassword(), data.getFirstname(), data.getLastname(), data.getGender(), data.getPhonenumber(), status));
+	}
+	
 
-	// private DatabaseQuery query;
-
-//	List<User> findListByStatus(int status);
-//	
-//	User findUserByID(String userID);
 }

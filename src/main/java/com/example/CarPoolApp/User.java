@@ -32,7 +32,7 @@ public class User {
 	}
 
 	public User(String username, String password, String firstName, String lastName, String gender, String phoneNumber,
-			int status) {
+			int status) { //0=inactive 1=active
 		this.userID = username;
 		this.password = password;
 		this.profile = new Profile(firstName, lastName, gender, phoneNumber);
