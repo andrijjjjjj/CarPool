@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -98,9 +99,7 @@ public class Handler {
 	}
 
 	@RequestMapping("/login/changeforgotpassword/useraccount") // The change forgot password .
-	public String loadChangeForgottenFassword() throws ServletException, IOException {// TODO need to make @param
-																						// something to access specific
-																						// user account.
+	public String loadChangeForgottenFassword(@RequestParam("useraccount") String useraccount){//This request param allows us to use this variable to confirm user.
 		// This  will have a form where the user enters their verification code,
 		// enters a form their new password, and clicks a button.
 		// Once button pressed, if verification code is the same, call the change
@@ -132,7 +131,7 @@ public class Handler {
 		}
 		model.addAttribute("allrideposts", viewAllRides()); // Puts arraylist of all ride posts in html .
 
-		return "viewallrides";// TODO need to make html  for viewallrides.html.
+		return "viewallrides";
 	}
 
 	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
@@ -144,22 +143,22 @@ public class Handler {
 		model.addAttribute("theUpcomingRides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
 																					// html .
 
-		return "upcomingrides";// TODO need to make html  for viewallrides.html.
+		return "upcomingrides";
 	}
 
-	@RequestMapping("/feedback")//The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/pastrides/feedback")//The feedback page for users.
 	public String viewFeedback(Model model) {
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/.
+		if(currentUserID == null)
 		{
 			return "login";
 		}
 		//model.addAttribute("feedback", viewUpcomingRides(currentUserID)); //Puts arraylist of all ride posts in html .
 		
-		return "feedback";//TODO need to make html  for viewallrides.html.
+		return "feedback";
 		}
 
 	// ride in URL must be changed to the ridePostID
-	@RequestMapping("/home/ride/passengerrequests") // The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/ride/passengerrequests")
 	public String viewPassengerRequests(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -205,7 +204,7 @@ public class Handler {
 	}
 
 	@RequestMapping("/home/viewallrides/{ridepostid}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
-	public String viewOneRidePost(Model model) {// TODO need to add @Param something in parameters for
+	public String viewOneRidePost(@RequestParam("ridepostid") int ridePostID, Model model) {
 														// ridePostID.
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
