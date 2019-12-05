@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 @EnableWebMvc
@@ -95,6 +97,30 @@ public class Handler {
 		
 		return "viewallridespage";//TODO need to make html page for viewallridespage.html.
 	}
+	
+	@RequestMapping("/home/upcomingRides")//The viewallrides page of the website. Will show all rideposts.
+	public String viewUpcomingRides(Model model) {
+		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		model.addAttribute("theUpcomingRides", viewUpcomingRides(currentUserID)); //Puts arraylist of all ride posts in html page.
+		
+		return "upcomingRides";//TODO need to make html page for viewallridespage.html.
+	}
+	
+	
+	
+	@GetMapping("/favorites")
+	public String getFavorites() {
+		return "favorites";
+		
+	}
+	@PostMapping("/favorites")
+	public String postFavorites() {
+		return "favorites";
+	}
+	
 	@RequestMapping("/home/viewallrides/{ridePostID}")//A page for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON TO MAKE PASSENGER REQUEST ON POST?
 	public String loadViewOneRidePostPage(Model model) {//TODO need to add @Param something in parameters for ridePostID.
 		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.

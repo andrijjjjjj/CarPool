@@ -13,9 +13,13 @@ public class User {
  
 	private String password;
 	private Profile profile;
+	
 	private int status;
 	
 	ArrayList<String> blockedUsers = new ArrayList<String>();
+	
+	// Favorites 
+	ArrayList<String> favorites = new ArrayList<String>();
 
 	protected User() {} // May need default constructor for JPA.
 
@@ -71,6 +75,23 @@ public class User {
 	}
 	public ArrayList<String> getBlockedList() {
 		return blockedUsers;
+	}
+	
+	// Favorites
+	public void addToFavorites(String userID) {
+		if(!favorites.contains(userID)) {
+			favorites.add(userID);
+		}
+	}
+	
+	public void removeFromFavorites(String userID) {
+		if(favorites.contains(userID)) {
+			favorites.remove(userID);
+		}
+	}
+	
+	public ArrayList<String> getFavorites() {
+		return favorites;
 	}
 	
 }
