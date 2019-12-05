@@ -39,13 +39,25 @@ public class PassengerRequestTransaction {
 	}
 	
 	public void passengerAcceptedForRide(String username) {
-
+		
 	}
 	
 	public ArrayList<PassengerRequest> getAllPassengerRequests(int ridePostID)
 	{
 		//Get all passenger requests for a specific ridePost, using that ridePost's ID.
 		ArrayList<PassengerRequest> result = passengerRequests.findAllByRidePostID(ridePostID);
+		return result;
+	}
+	
+	public ArrayList<PassengerRequest> getAllAcceptedPassengers(int ridePostID)
+	{
+		//Get all passenger requests for a specific ridePost, using that ridePost's ID.
+		ArrayList<PassengerRequest> result = passengerRequests.findAllByRidePostID(ridePostID);
+		for(int i = 0; i < result.size(); i++) {
+			if(result.get(i).getWaitingAcceptedDeclined() != 2) {
+				result.remove(i);
+			}
+		}
 		return result;
 	}
 	

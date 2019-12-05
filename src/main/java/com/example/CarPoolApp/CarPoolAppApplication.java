@@ -29,7 +29,8 @@ public class CarPoolAppApplication {
 	public CommandLineRunner loadData(UserRepository repository,Handler handleMe) {
 		return (args) -> {
 			// save a couple of userAccounts
-
+			RidePost post = new RidePost();
+			post.setUniqueID();
 			repository.save(new User("Nick", "Nose", null, null, null, null, 0));
 			repository.save(new User("AdeptDave", "icryeverytim", null, null, null, null, 0));
 			repository.save(new User("monkey", "Banyanyas!", null, null, null, null, 0));

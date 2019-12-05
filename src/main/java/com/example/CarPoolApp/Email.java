@@ -381,4 +381,77 @@ public class Email {
 	       }
 	}
 
+	public void emailUniqueID(String id, String unique) {
+		//this.user = user;
+		
+		// Gmail settings
+		Properties prop = new Properties();
+		prop.put("mail.smtp.host", "smtp.gmail.com");
+		prop.put("mail.smtp.port", "587");
+		prop.put("mail.smtp.auth", "true");
+		
+		// TLS Authentication (security)
+		prop.put("mail.smtp.starttls.enable", "true"); 
+	   
+		// Check email credentials
+		Session session = Session.getInstance(prop,
+	           new javax.mail.Authenticator() {
+	               protected PasswordAuthentication getPasswordAuthentication() {
+	                   return new PasswordAuthentication(username, password);
+	               }
+	           });
+	
+		// Try: Creating Message and Sending to User object's email address
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(
+	               Message.RecipientType.TO,
+	               InternetAddress.parse(id+"@ilstu.edu")
+	       );
+			
+			// Header/Subject of Email
+			message.setSubject("Unique ID Generated! | ISU CARPOOL");
+		
+	         // This email has 2 parts: the body and the embedded banner image
+	         MimeMultipart multipart = new MimeMultipart("related");
+
+	         // first part (the html)
+	         BodyPart messageBodyPart = new MimeBodyPart();
+	         String htmlText = 
+	        		  "<img src=\"cid:image\">"
+	        		+ "<H1>A unique ID has been generated for your car pool!</H1>"
+	         		+ "<H1>Unique ID: "+unique+",</H1>"
+	         		+ "<H1>Your next carpool is on: </H2>"
+	         		+ "<p>Tuesday, November 26 2019 @ 5:00 PM</p>"
+	         		+ "<H3>Thanks for using ISU Carpool!</H3>"
+	         		+ "<H3>http://illinoisstate.edu</H3>";
+	         messageBodyPart.setContent(htmlText, "text/html");
+	         
+	         // add it
+	         multipart.addBodyPart(messageBodyPart);
+
+	         // second part (the image)
+	         messageBodyPart = new MimeBodyPart();
+	         DataSource fds = new FileDataSource(
+	            "reminder.png");
+
+	         messageBodyPart.setDataHandler(new DataHandler(fds));
+	         messageBodyPart.setHeader("Content-ID", "<image>");
+
+	         // add image to the multipart
+	         multipart.addBodyPart(messageBodyPart);
+
+	         // put everything together
+	         message.setContent(multipart);
+			
+			Transport.send(message);
+	
+			System.out.println("Carpool reminder sent to: \""+id+"@ilstu.edu"+"\" sucessfully.");
+	
+	       } catch (MessagingException e) {
+	           e.printStackTrace();
+	       }
+	}
+	
 }

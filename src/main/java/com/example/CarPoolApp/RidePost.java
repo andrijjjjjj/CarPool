@@ -1,5 +1,7 @@
 package com.example.CarPoolApp;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,6 +35,27 @@ public class RidePost {
 		this.endLocation = endLocation;
 		this.cost = cost;
 		this.hasLuggageAllowance = luggageAllowance;
+	}
+	
+	public void setUniqueID() {
+		// Generate unique ID
+		int n = 10;
+		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+ "0123456789"; 
+		StringBuilder sb = new StringBuilder(n); 
+		for (int i = 0; i < n; i++) { 
+	        int index = (int)(AlphaNumericString.length() * Math.random()); 
+	        sb.append(AlphaNumericString.charAt(index)); 
+	    } 
+		String uniqueID = sb.toString();
+		
+		// Get all accepted requests for this trip
+		PassengerRequestTransaction request = new PassengerRequestTransaction();
+		ArrayList<PassengerRequest> acceptedRequests = request.getAllAcceptedPassengers(ridePostID);
+		
+		Email email = new Email();
+		for(int i = 0; i < acceptedRequests.size(); i++) {
+			email.emailUniqueID(acceptedRequests.get(i).getPassengerUsername(), uniqueID);
+		}
 	}
 
 	public int getRidePostID() {
