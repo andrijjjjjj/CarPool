@@ -16,6 +16,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableJpaRepositories()
 public class CarPoolAppApplication {
  
 	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
