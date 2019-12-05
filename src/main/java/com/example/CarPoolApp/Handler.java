@@ -137,7 +137,6 @@ public class Handler {
 	
 	@RequestMapping("/favorites")
 	public String getFavorites(Model model) {
-		
 		if(currentUserID == null)
 		{
 			return "loginpage";
@@ -146,6 +145,7 @@ public class Handler {
 		
 		model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
 		
+		return "favorites";
 	}
 	
 	@RequestMapping("/home/viewallrides/{ridePostID}")//A page for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON TO MAKE PASSENGER REQUEST ON POST?
