@@ -26,7 +26,7 @@ public class CarPoolAppApplication {
 	}
 
 	@Bean
-	public CommandLineRunner loadData(UserRepository repository,Handler handleMe) {
+	public CommandLineRunner loadData(UserRepository repository,Handler handleMe, RidePostRepository ridePostsRepo) {
 		return (args) -> {
 			// save a couple of userAccounts
 
@@ -58,6 +58,12 @@ public class CarPoolAppApplication {
 			log.info(userAccount.toString());
 			log.info("");
 
+			ridePostsRepo.save(new RidePost("Nick", 0, test, test, test, test, test, workPlease));	
+			ridePostsRepo.save(new RidePost("Nick", 2, test, test, test, test, test, workPlease));
+			ridePostsRepo.save(new RidePost("Nick", 6, test, test, test, test, test, workPlease));
+			ridePostsRepo.save(new RidePost("Nick", 10, test, test, test, test, test, workPlease));
+			
+			
 			// fetch userAccounts by last name
 //			log.info("Username found with adeptdave:");
 //			for (User adeptdave : repository.findByUsernameStartsWithIgnoreCase("adeptdave")) {
@@ -66,22 +72,22 @@ public class CarPoolAppApplication {
 //			log.info("");
 			
 			// Testing Favorites
-			User user = new User("sclaus", "hohoho", "Santa", "Claus", "Male", "1234567890", 0);
-			repository.save(user);
-			User user2 = new User("sclaus2", "hohoho", "Santa2", "Claus2", "Male", "1234567890", 0);
-			repository.save(user2);
-			User user3 = new User("sclaus3", "hohoho", "Santa3", "Claus3", "Male", "1234567890", 0);
-			repository.save(user3);
-			log.info("TESTING FEATURE: Favorites");
-			log.info("--------------------------");
-			user.addToFavorites(user2.getUserID());
-			user.addToFavorites(user3.getUserID());
-			//user.addToFavorites(user2.getUserID());
-			List<String> favorites = user.getFavorites();
-			log.info("User Favorites:");
-			for (String temp : favorites) {
-				System.out.println(temp);
-			}
+//			User user = new User("sclaus", "hohoho", "Santa", "Claus", "Male", "1234567890", 0);
+//			repository.save(user);
+//			User user2 = new User("sclaus2", "hohoho", "Santa2", "Claus2", "Male", "1234567890", 0);
+//			repository.save(user2);
+//			User user3 = new User("sclaus3", "hohoho", "Santa3", "Claus3", "Male", "1234567890", 0);
+//			repository.save(user3);
+//			log.info("TESTING FEATURE: Favorites");
+//			log.info("--------------------------");
+//			user.addToFavorites(user2.getUserID());
+//			user.addToFavorites(user3.getUserID());
+//			//user.addToFavorites(user2.getUserID());
+//			List<String> favorites = user.getFavorites();
+//			log.info("User Favorites:");
+//			for (String temp : favorites) {
+//				System.out.println(temp);
+//			}
 //			
 //			user.removeFromFavorites(user2.getUserID());
 //			log.info("User Favorites Updated:");
