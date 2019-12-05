@@ -173,7 +173,11 @@ public class Handler {
 	//Mapping methods! ^^^^^
 	//Logic methods! vvvvv
 	//---------Mike Devitt's method zone--------------
-	
+	public boolean signUp(String username, String password, String phoneNumber, String emailAddress, String firstName,
+			String lastName) {
+		User temp = objFactory.createUser(username, password, phoneNumber, emailAddress, firstName, lastName);
+		return userTransaction.saveNewUser(temp);
+	}
 	
 	//---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
