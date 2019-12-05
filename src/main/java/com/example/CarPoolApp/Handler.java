@@ -178,9 +178,30 @@ public class Handler {
 
 		return "pendingRides";// TODO need to make html  for viewallrides.html.
 	}
+	
+	@RequestMapping("/home/pastRides") // The viewallrides  of the website. Will show all rideposts.
+	public String viewPastRides(Model model) {
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("pastRides", viewPendingRides(currentUserID)); // Puts arraylist of all past ride posts in html.
+		return "pastRides";// TODO need to make html  for viewallrides.html.
+	}
+	
+	@RequestMapping("/home/pastRides/{ridepostID}") //TODO need to add @param or something in parameters to access ridepostID.
+	public String viewOnePastRidePost(Model model)
+	{
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		// model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID)); //TODO method to view past ride from url param.
+		return "viewonepastridepost"; //TODO make html.
+	}
 
 	@RequestMapping("/home/viewallrides/{ridePostID}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
-	public String loadViewOneRidePost(Model model) {// TODO need to add @Param something in parameters for
+	public String viewOneRidePost(Model model) {// TODO need to add @Param something in parameters for
 														// ridePostID.
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
