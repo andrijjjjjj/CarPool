@@ -26,12 +26,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Controller
 @EnableWebMvc
 public class Handler {
-	
-	//Transaction classes go here. Autowire them.
+
+	// Transaction classes go here. Autowire them.
 	@Autowired
 	RidePostTransaction ridePostTransaction;
 	@Autowired
@@ -41,6 +40,9 @@ public class Handler {
 	 
 	String currentUserID; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
 
+	@Autowired
+	ObjectFactory objFactory;
+	
 	@GetMapping("/loginpage")
 	public String getlogin(Data data) {
 		return "loginpage";
@@ -55,140 +57,215 @@ public class Handler {
 			return "loginpage";
 		}
 	}
-	
-	@RequestMapping("/")//The initial page of the website. Should have buttons for sign-up, login, forgot password.
+
+
+	@RequestMapping("/") // The initial page of the website. Should have buttons for sign-up, login,						// forgot password.
 	public String loadInitialPage() {
 		return "welcomepage";
 	}
-	
-	@RequestMapping("/signup")//The sign-up page of the website.
+
+	@RequestMapping("/signup") // The sign-up page of the website.
 	public String loadSignUpPage() throws ServletException, IOException {
 
-		//User enters in info to all boxes, clicks button. Button calls signup use case method, then redirects to login page.
-		return "signuppage";//TODO Make html.
+		// User enters in info to all boxes, clicks button. Button calls signup use case
+		// method, then redirects to login page.
+		return "signUpForm";
 	}
-	
-	@RequestMapping("/login/forgotpassword")//The forgot password.
+
+	@RequestMapping("/emailConfirmation") // The sign-up page of the website.
+	public String emailConfirmationPage() throws ServletException, IOException {
+
+		// User enters in info to all boxes, clicks button. Button calls signup use case
+		// method, then redirects to login page.
+		return "emailConfirmation";// TODO Make html.
+	}
+
+	@RequestMapping("/login/forgotpassword") // The forgot password.
 	public String loadForgottenPassword() throws ServletException, IOException {
-		//This page will have a form where the user enters their email. Then a button.
-		//Once button pressed, send email to that email.
-		//In the email, the link should be to a specific page used to set a new password for the account. 
-		//The email will also send a verification code to verify that user is who they say they are on the website. //TODO where do we store this in backend? User class?
-		
-		return "loginpage";//Go back to loginpage page.
+		// This page will have a form where the user enters their email. Then a button.
+		// Once button pressed, send email to that email.
+		// In the email, the link should be to a specific page used to set a new
+		// password for the account.
+		// The email will also send a verification code to verify that user is who they
+		// say they are on the website. //TODO where do we store this in backend? User
+		// class?
+
+		return "loginpage";// Go back to loginpage page.
 	}
-	
-	@RequestMapping("/login/changeforgotpassword/useraccount")//The change forgot password page.
-	public String loadChangeForgottenFassword() throws ServletException, IOException {//TODO need to make @param something to access specific user account.
-		//This page will have a form where the user enters their verification code, enters a form their new password, and clicks a button.
-		//Once button pressed, if verification code is the same, call the change forgotten password use case method, return to loginpage.
-		//If not, change verification code in User class to null, and redirect user back to home. They will have to resend the verification email and repeat the process.
-		
-		return "loginpage";//Go back to loginpage page.
+
+	@RequestMapping("/login/changeforgotpassword/useraccount") // The change forgot password page.
+	public String loadChangeForgottenFassword() throws ServletException, IOException {// TODO need to make @param
+																						// something to access specific
+																						// user account.
+		// This page will have a form where the user enters their verification code,
+		// enters a form their new password, and clicks a button.
+		// Once button pressed, if verification code is the same, call the change
+		// forgotten password use case method, return to loginpage.
+		// If not, change verification code in User class to null, and redirect user
+		// back to home. They will have to resend the verification email and repeat the
+		// process.
+
+		return "loginpage";// Go back to loginpage page.
 	}
 	
 	@RequestMapping("/homepage")//The home page of the website. Should have buttons for most use cases... EX: view all rides.
 	public String loadHomePage(Model model) {
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
 		{
 			return "loginpage";
 		}
-		model.addAttribute("currentUserID", currentUserID); //This allows the html page to access the currentUserID variable. Can put methods in this call too.
-		
+		model.addAttribute("currentUserID", currentUserID); // This allows the html page to access the currentUserID
+															// variable. Can put methods in this call too.
+
 		return "homepage";
 	}
-	
-	@RequestMapping("/home/viewallrides")//The viewallrides page of the website. Will show all rideposts.
+
+	@RequestMapping("/home/viewallrides") // The viewallrides page of the website. Will show all rideposts.
 	public String loadViewAllRidesPage(Model model) {
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
 		{
 			return "loginpage";
 		}
-		model.addAttribute("allrideposts", viewAllRides()); //Puts arraylist of all ride posts in html page.
-		
-		return "viewallrides";//TODO need to make html page for viewallridespage.html.
+		model.addAttribute("allrideposts", viewAllRides()); // Puts arraylist of all ride posts in html page.
+
+		return "viewallrides";// TODO need to make html page for viewallridespage.html.
 	}
-	
-	@RequestMapping("/home/upcomingRides")//The viewallrides page of the website. Will show all rideposts.
+
+	@RequestMapping("/home/upcomingRides") // The viewallrides page of the website. Will show all rideposts.
 	public String viewUpcomingRides(Model model) {
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
 		{
 			return "loginpage";
 		}
-		model.addAttribute("theUpcomingRides", viewUpcomingRides(currentUserID)); //Puts arraylist of all ride posts in html page.
-		
-		return "upcomingRides";//TODO need to make html page for viewallridespage.html.
+		model.addAttribute("theUpcomingRides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
+																					// html page.
+
+		return "upcomingRides";// TODO need to make html page for viewallridespage.html.
 	}
-	
-	
-	
+
+	// ride in URL must be changed to the ridePostID
+	@RequestMapping("/home/ride/passengerRequests") // The viewallrides page of the website. Will show all rideposts.
+	public String viewPassengerRequests(Model model) {
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		// model.addAttribute("passRequests", viewPassengerRequests(currentUserID,
+		// ridepostid)); //Puts arraylist of all ride posts in html page.
+
+		return "passengerRequests";// TODO need to make html page for viewallridespage.html.
+	}
+
+	@RequestMapping("/home/pendingRides") // The viewallrides page of the website. Will show all rideposts.
+	public String viewPendingRides(Model model) {
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
+		{
+			return "loginpage";
+		}
+		model.addAttribute("pendingRides", viewPendingRides(currentUserID)); // Puts arraylist of all ride posts in html
+																				// page.
+
+		return "pendingRides";// TODO need to make html page for viewallridespage.html.
+	}
+
 	@GetMapping("/favorites")
 	public String getFavorites() {
 		return "favorites";
-		
+
 	}
+
 	@PostMapping("/favorites")
 	public String postFavorites() {
 		return "favorites";
 	}
-	
-	@RequestMapping("/home/viewallrides/{ridePostID}")//A page for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON TO MAKE PASSENGER REQUEST ON POST?
-	public String loadViewOneRidePostPage(Model model) {//TODO need to add @Param something in parameters for ridePostID.
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+
+	@RequestMapping("/home/viewallrides/{ridePostID}") // A page for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON													// TO MAKE PASSENGER REQUEST ON POST?
+	public String loadViewOneRidePostPage(Model model) {// TODO need to add @Param something in parameters for
+														// ridePostID.
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
 		{
 			return "loginpage";
 		}
-		//model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID)); //TODO ^^^
-		
-		return "viewoneridepostpage";//TODO need to make html page for loadviewoneridepostpage.html.
+		// model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID));
+		// //TODO ^^^
+
+		return "viewoneridepostpage";// TODO need to make html page for loadviewoneridepostpage.html.
 	}
-	
-	@RequestMapping("/home/viewallrides/makeridepost")//A page for making a ridePost.
+
+	@RequestMapping("/home/viewallrides/makeridepost") // A page for making a ridePost.
 	public String loadViewMakeRidePostPage(Model model) {
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
 		{
 			return "loginpage";
 		}
-		//Have button on viewallrides page that when clicked, moves to this page. User will enter info into boxes. Pushes button that calls the make ridepost use case method, then redirects to viewallridepostspage OR viewoneridepostpage.
-		
-		return "makeridepostpage";//TODO need to make html page for making a ridepost.
+		// Have button on viewallrides page that when clicked, moves to this page. User
+		// will enter info into boxes. Pushes button that calls the make ridepost use
+		// case method, then redirects to viewallridepostspage OR viewoneridepostpage.
+
+		return "ridepost";// TODO need to make html page for making a ridepost.
 	}
-	
-	@RequestMapping("/home/currentuseraccount")//The account/profile page for the currently logged in user.
+
+	@RequestMapping("/home/currentuseraccount") // The account/profile page for the currently logged in user.
 	public String loadCurrentUserAccountPage(Model model) {
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
 		{
 			return "loginpage";
 		}
-		model.addAttribute("currentUser", userTransaction.getUser(currentUserID)); //This allows the html page to access the currentUserID variable. Can put methods in this call too.
-		
-		return "currentuseraccountpage";//TODO Make this html.
+		model.addAttribute("currentUser", userTransaction.getUser(currentUserID)); // This allows the html page to
+																					// access the currentUserID
+																					// variable. Can put methods in this
+																					// call too.
+
+		return "currentuseraccountpage";// TODO Make this html.
 	}
-	
-	@RequestMapping("/home/currentuseraccount/deleteaccountprompt")//The "are you sure" prompt before a user deletes their account. 
+
+	@RequestMapping("/home/currentuseraccount/deleteaccountprompt") // The "are you sure" prompt before a user deletes
+																	// their account.
 	public String loadDeleteAccountPromptPage(Model model) {
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/page.
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/page.
 		{
 			return "loginpage";
 		}
-		//The user should see a prompt, and a button for yes and no. 
-		//If yes is clicked, then the delete account user case method is called, then return to welcome page.
-		//If no is clicked, then return to home page OR user account page.
-		
-		return "currentuseraccountpage";//TODO Make this html.
+		// The user should see a prompt, and a button for yes and no.
+		// If yes is clicked, then the delete account user case method is called, then
+		// return to welcome page.
+		// If no is clicked, then return to home page OR user account page.
+
+		return "currentuseraccountpage";// TODO Make this html.
 	}
-	
-	//TODO Make mappings/pages for all use cases.
-	
-	//Mapping methods! ^^^^^
-	//Logic methods! vvvvv
-	
+
+	// TODO Make mappings/pages for all use cases.
+
+	// Mapping methods! ^^^^^
+	// Logic methods! vvvvv
+	// ---------Mike Devitt's method zone--------------
+	public boolean signUp(String username, String password, String phoneNumber, String firstName, String lastName,
+			String gender) {
+		User temp = objFactory.createUser(username, password, phoneNumber, firstName, lastName, gender);
+		return userTransaction.saveNewUser(temp);
+	}
+
+	public String deleteUser(String username) {
+
+		return userTransaction.deleteAccount(username);
+	}
+
+	public void acceptedForRide(String username) {
+		passengerRequestTransaction.passengerAcceptedForRide(username);
+	}
+
+	public void editProfile(String username, String phoneNumber, String firstName, String lastName, String gender) {
+		userTransaction.updateProfile(username, phoneNumber, firstName, lastName, gender);
+	}
+
+	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllRidePosts();
 	}
 
-	public ArrayList<RidePost> viewAllRides(String driverGender, int driverRating, String carPreference, String cost, boolean luggageAllowance) {//Leave box blank if no preference for variable. 
-		return ridePostTransaction.getAllRidePosts(driverGender,driverRating,carPreference,cost,luggageAllowance);
+	public ArrayList<RidePost> viewAllRides(String driverGender, int driverRating, String carPreference, String cost,
+			boolean luggageAllowance) {// Leave box blank if no preference for variable.
+		return ridePostTransaction.getAllRidePosts(driverGender, driverRating, carPreference, cost, luggageAllowance);
 	}
 
 	public String removeRidePost(int ridePostID) // confirmation
@@ -201,15 +278,18 @@ public class Handler {
 	}
 
 	public String makePassengerRequest(int ridePostID, String passengerUsername) {
-		return passengerRequestTransaction.savePassengerRequest(ridePostID,passengerUsername);
+		return passengerRequestTransaction.savePassengerRequest(ridePostID, passengerUsername);
 	}
-	public ArrayList<RidePost> viewUpcomingRides(String username){
+
+	public ArrayList<RidePost> viewUpcomingRides(String username) {
 		return ridePostTransaction.viewUpcomingRides(username);
 	}
-	public ArrayList<PassengerRequest> viewPendingRides(String username){
+
+	public ArrayList<PassengerRequest> viewPendingRides(String username) {
 		return passengerRequestTransaction.viewPendingRides(username);
 	}
-	public ArrayList<PassengerRequest> viewPassengerRequests(String username, int ridePostID){
+
+	public ArrayList<PassengerRequest> viewPassengerRequests(String username, int ridePostID) {
 		return passengerRequestTransaction.viewPassengerRequests(username, ridePostID);
 	}
 }
