@@ -94,29 +94,29 @@ footer {
   </nav>
   
  <article>
- 
+<form th:action="ridepost" th:object="${data}" method="post"> 
  <p Enter your ride information />
  
   	 <label for="Time/Date"><b>Time</b></label>
-    <input type="Time" placeholder="Enter " name="Time" required>
+    <input type="Time" placeholder="Enter " th:field="*{time}" required>
     <br>
      <label for="Car"><b>Car</b></label>
-    <input type="Car" placeholder="Enter Car" name="Car" required>
+    <input type="Car" placeholder="Enter Car" th:field="*{car}" required>
  <br>
 	 <label for="Start Location"><b>Start Location</b></label>
-    <input type="text" placeholder="Enter Start Location" name="start" required>
+    <input type="text" placeholder="Enter Start Location" th:field="*{start}" required>
 <br>
     <label for="End Location"><b>End Location</b></label>
-    <input type="End Location" placeholder="Enter End Location" name="End" required>
+    <input type="End Location" placeholder="Enter End Location" th:field="*{end}" required>
     <br>
     <label for="Cost"><b>Cost</b></label>
-    <input type="Cost" placeholder="Enter Cost" name="Cost" required>
+    <input type="Cost" placeholder="Enter Cost" th:field="*{cost}" required>
 <br>
 	<label for="MaxNumPassengers"><b>MaxNumPassengers</b></label>
-    <input type="MaxNumPassengers" placeholder="Enter MaxPass" name="MaxPass" required>
+    <input type="MaxNumPassengers" placeholder="Enter MaxPass" th:field="*{maxpass}" required>
     <br>
-    <button type="create">create</button>
-
+    <button type="submit">Submit</button>
+     </form>
  
  
  </article>

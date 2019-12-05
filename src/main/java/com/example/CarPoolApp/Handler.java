@@ -224,10 +224,12 @@ public class Handler {
 	
 	@PostMapping("/home/viewallrides/makeridepost") // A  for making a ridePost.
 	public String postMakeRidePost(Data data) {
-		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-		{
-			return "login";
-		}
+//		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+//		{
+			System.out.println(data.getTime() + data.getCar());
+			ridePostTransaction.createRidePost(data);
+//			return "login";
+//		}
 		// Have button on viewallrides  that when clicked, moves to this . User
 		// will enter info into boxes. Pushes button that calls the make ridepost use
 		// case method, then redirects to viewallrideposts OR viewoneridepost.

@@ -172,11 +172,17 @@ public class RidePostTransaction {
 			//Delete passengerRequest.
 			passengerRequestTransaction.deletePassengerRequest(request.getPassengerRequestID());
 		}
+		
 				
 		//Delete ridepost.
 		ridePosts.deleteById(ridePostID);
 				 
 		//Print confirmation.
 		return "RidePost " + ridePostID + " was deleted.";
+	}
+
+	public void createRidePost(Data data) {
+	ridePosts.save(new RidePost(data.getTime(),0, data.getCar(),data.getStart(),data.getEnd(),data.getCost(),data.getMaxpass(), false));
+		
 	}
 }
