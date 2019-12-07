@@ -65,7 +65,7 @@ margin-left:10px;
 	     		<form method="get" action="/login"><button class="button">login!</button></form>
 	     	</table>
 	     	
-	     	<h1>Please fill out our sign up form!</h1>
+	     	<h3>Please fill out our sign up form!</h3>
              <form th:action="signup" th:object="${data}" method="post">
         Username: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{userid}"/> <br/><br/>
         Password: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{password}"/> <br/><br/>
@@ -73,7 +73,7 @@ margin-left:10px;
         Last Name: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{lastname}"/> <br/><br/>
         Gender: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{gender}"/> <br/><br/>
         Phone Number: <input type="text" th:field="*{phonenumber}"/> <br/><br/>
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <td><button type="submit">Submit</button></td>        
+        <form method="get" action="submit"><button class="button">submit!</button></form>      
      </form>
 	     	
 	     	<p></p>
@@ -83,8 +83,6 @@ margin-left:10px;
 		</div>
 	</body>
 </html>
-
-
 
 
 
