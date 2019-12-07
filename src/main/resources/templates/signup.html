@@ -1,11 +1,71 @@
-<!DOCTYPE HTML>
+
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-    <title>ISU Carpool</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-    <h1>Please fill out our sign up form!</h1>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: rgb(131,58,180);
+  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  padding: 30px;
+  text-align: center;
+  text-shadow: 3px 2px black;
+  color:white
+}
+
+.button {
+margin-left:10px;
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);  
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #363434;
+}
+
+.button:hover {background: url('https://i.imgur.com/blcy99Y.gif');}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+</style>
+
+	<body>
+		<h1><p th:text="'ISU Carpool'" /></h1>
+	  	<p>Redbirds only!</p>
+	
+		<div class="content">
+	    <body>
+	    	<table>
+	     		<form method="get" action="/login"><button class="button">login!</button></form>
+	     	</table>
+	     	
+	     	<h1>Please fill out our sign up form!</h1>
              <form th:action="signup" th:object="${data}" method="post">
         Username: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{userid}"/> <br/><br/>
         Password: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{password}"/> <br/><br/>
@@ -15,5 +75,20 @@
         Phone Number: <input type="text" th:field="*{phonenumber}"/> <br/><br/>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <td><button type="submit">Submit</button></td>        
      </form>
-</body>
+	     	
+	     	<p></p>
+	     	<p></p>
+	     	<img src="https://i.imgur.com/cFV5Nre.png" alt="" style="width:104px;height:135px;">
+		</body>
+		</div>
+	</body>
 </html>
+
+
+
+
+
+
+
+
+

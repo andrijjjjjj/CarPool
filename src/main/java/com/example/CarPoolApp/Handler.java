@@ -117,8 +117,10 @@ public class Handler {
 		{
 			return "login";
 		}
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html  to access the currentUserID
-															// variable. Can put methods in this call too.
+		model.addAttribute("allrideposts", viewAllRides()); // Puts arraylist of all ride posts in html .
+										// variable. Can put methods in this call too.
 
 		return "home";
 	}
@@ -140,6 +142,7 @@ public class Handler {
 		{
 			return "login";
 		}
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("theUpcomingRides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
 																					// html .
 
@@ -177,7 +180,7 @@ public class Handler {
 			return "login";
 		}
 		model.addAttribute("pendingRides", viewPendingRides(currentUserID)); // Puts arraylist of all ride posts in html
-																				// .
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());																		// .
 
 		return "pendingrides";// TODO need to make html  for viewallrides.html.
 	}
@@ -188,6 +191,7 @@ public class Handler {
 		{
 			return "login";
 		}
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("pastRides", viewPendingRides(currentUserID)); // Puts arraylist of all past ride posts in html.
 		return "pastrides";// TODO need to make html  for viewallrides.html.
 	}

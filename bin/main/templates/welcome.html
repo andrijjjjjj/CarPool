@@ -1,83 +1,82 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>CSS Template</title>
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-* {
-  box-sizing: border-box;
-}
-
 body {
+  margin: 0;
+  font-size: 28px;
   font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Style the header */
-header {
-  background-color: #404040;
+  background: rgb(131,58,180);
+  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
   padding: 30px;
   text-align: center;
-  font-size: 35px;
-  color: white;
+  text-shadow: 3px 2px black;
+  color:white
 }
 
-button {
-  background-color: #404040; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
+.button {
+margin-left:10px;
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
-  font-size: 32px;
-}
-
-input {
-  background-color: #404040; /* Green */
+  outline: none;
+  color: white;
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);  
   border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 32px;
+  border-radius: 15px;
+  box-shadow: 0 9px #363434;
 }
 
-/* Create two columns/boxes that floats next to each other */
+.button:hover {background: url('https://i.imgur.com/blcy99Y.gif');}
 
-
-/* Style the list inside the menu */
-
-
-
-
-/* Clear floats after the columns */
-
-
-/* Style the footer */
-
-middle {
-  padding: 10px;
-  text-align: center;
-  color: white;
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.content {
+  padding: 16px;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
 
+.sticky + .content {
+  padding-top: 60px;
+}
 </style>
-</head>
-<body>
-<header>
-  <h2>Welcome to ISU Carpool</h2>
-</header>
 
-<body>
-  <middle>
-     <form method="get" action="/login">
-        <button type="submit">Login</button>
-        <input type="submit" formaction="/signup" value="Sign Up"/>        
-     </form>
-     </middle>
-</body>
-</body>
+	<body>
+		<h1><p th:text="'ISU Carpool'" /></h1>
+	  	<p>Redbirds only!</p>
+	
+		<div class="content">
+	    <body>
+	    	<table>
+	    		<form method="get" action="/login"><button class="button">login!</button></form>
+	     		<form method="get" action="/signup"><button class="button">sign up!</button></form>
+	     	</table>
+	     	<p></p>
+	     	<p></p>
+	     	<img src="https://i.imgur.com/cFV5Nre.png" alt="" style="width:104px;height:135px;">
+		</body>
+		</div>
+	</body>
 </html>
+
+
+
+
+
+
+
+
+
