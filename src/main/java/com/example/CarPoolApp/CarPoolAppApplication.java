@@ -96,6 +96,7 @@ public class CarPoolAppApplication {
 			// POPULATE WEBPAGE WITH INFORMATION
 			User user = new User("dschrute", "beets", "Dwight", "Schrute", "Male", "1234567890", 1);
 			repository.save(user);
+			user.getProfile().addComment("cool driver");
 			
 			
 		};

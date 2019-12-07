@@ -35,7 +35,7 @@ public class RidePostTransaction {
         //tokenize the current date
         StringTokenizer current = new StringTokenizer(theCurrentDate, "/");
 
-        //check if date to check is in the past
+        //check if date to check is in the carpool
         for(int i = 0; i < 3; i++) {
             int dateCheck = Integer.parseInt(dateToCheck.nextToken());
             int currentInt = Integer.parseInt(current.nextToken());

@@ -1,28 +1,101 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Feedback</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  background: rgb(131,58,180);
+  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  padding: 30px;
+  text-align: center;
+}
+
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+</style>
 </head>
 <body>
-	<h1> Feedback </h1>
-    
-    <h3> Rating: 
-    <select>
-      <option value="5 Stars">5 Stars</option>
-      <option value="4 Stars">4 Stars</option>
-      <option value="3 Stars">3 Stars</option>
-      <option value="2 Stars">2 Stars</option>
-      <option value="1 Star">1 Star</option>
-  	</select>
-    </h3>
-    
-    <form action="/action_page.php">
-    <h3> Comments: <input type="text" name="comments" value=""><br>
-<input type="submit" value="Submit">
-</h3>
-</form>
+
+<div class="header">
+
+<h1><p th:text="'Feedback'" /></h1>
+</div>
+
+<div id="navbar">
+  	<a href="/home/viewallrides/makeridepost">Create a Post</a>
+      <a href="/home/upcomingrides">Upcoming Rides</a>
+      <a href="/home/pendingrides">Pending Rides</a>
+      <a href="/home/pastrides">Past Rides</a>
+      <a href="/favorites">Favorites</a>
+      <a href="/profile">Profile</a>
+      <a href="/home/feedback">feedback</a>
+      <a href="/login">Logout</a>
+</div>
+
+<div class="content">
+    <table>
+        <tr th:each="past : ${past}">
+          <td th:text="${past}">past</td>
+      
+    </table>
+</div>
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
 
 </body>
 </html>
-

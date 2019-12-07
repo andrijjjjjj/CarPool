@@ -149,13 +149,13 @@ public class Handler {
 		return "upcomingrides";
 	}
 
-	@RequestMapping("/home/pastrides/feedback")//The feedback page for users.
+	@RequestMapping("/home/feedback")//The feedback page for users.
 	public String viewFeedback(Model model) {
 		if(currentUserID == null)
 		{
 			return "login";
 		}
-		//model.addAttribute("feedback", viewUpcomingRides(currentUserID)); //Puts arraylist of all ride posts in html .
+		model.addAttribute("past", ridePostTransaction.viewPastRides(currentUserID)); //Puts arraylist of all ride posts in html .
 		
 		return "feedback";
 		}
@@ -358,7 +358,7 @@ public class Handler {
         {
             return "loginpage";
         }
-        
+        model.addAttribute("colon", ": ");
         // First Last Name
         model.addAttribute("fullName", userTransaction.getUser(currentUserID).getProfile().getfName()+" "+userTransaction.getUser(currentUserID).getProfile().getlName());
         
@@ -376,7 +376,34 @@ public class Handler {
             model.addAttribute("rating", userTransaction.getUser(currentUserID).getProfile().getRating());
         }
         else {
-        	model.addAttribute("rating", "No Ratings");
+        	model.addAttribute("rating", "No Rating");
+        }
+        
+        
+        if(userTransaction.getUser(currentUserID).getProfile().getRating() < 1.0) {
+        	// less than 1 rating = 0 stars
+        	model.addAttribute("stars", " ☆☆☆☆☆");
+        }
+        else if(userTransaction.getUser(currentUserID).getProfile().getRating() >= 1.0 && userTransaction.getUser(currentUserID).getProfile().getRating() < 2.0) {
+        	// between 1 - 2 = 1 star
+        	model.addAttribute("stars", "stars ★☆☆☆☆");
+        }
+        else if(userTransaction.getUser(currentUserID).getProfile().getRating() >= 2.0 && userTransaction.getUser(currentUserID).getProfile().getRating() < 3.0) {
+        	// between 2 - 3 = 2 star
+        	model.addAttribute("stars", "stars ★★☆☆☆");
+        }
+        else if(userTransaction.getUser(currentUserID).getProfile().getRating() >= 3.0 && userTransaction.getUser(currentUserID).getProfile().getRating() < 4.0) {
+        	// between 3 - 4 = 3 star
+        	model.addAttribute("stars", "stars ★★★☆☆");
+        }
+        else if(userTransaction.getUser(currentUserID).getProfile().getRating() >= 4.0 && userTransaction.getUser(currentUserID).getProfile().getRating() < 5.0) {
+        	// between 4 - 5 = 4 star
+        	model.addAttribute("stars", "stars ★★★★☆");
+        }
+        else {
+        	// 5 stars
+        	model.addAttribute("stars", "stars ★★★★★");
+        	
         }
         
         // Comments
