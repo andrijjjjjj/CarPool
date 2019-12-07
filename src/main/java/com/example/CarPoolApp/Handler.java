@@ -331,9 +331,12 @@ public class Handler {
 	
 	@RequestMapping("/favorites")
     public String getFavorites(Model model) {
-		userTransaction.getUser(currentUserID).addToFavorites("userA");
-		userTransaction.getUser(currentUserID).addToFavorites("userB");
-		userTransaction.getUser(currentUserID).addToFavorites("userC");
+		userTransaction.getUser(currentUserID).addToFavorites("Michael Scott - mscott");
+		userTransaction.getUser(currentUserID).addToFavorites("Angela Martin - amartin");
+		userTransaction.getUser(currentUserID).addToFavorites("Jim Halpert - jhalpert");
+		userTransaction.getUser(currentUserID).addToFavorites("Pam Beesly - pbeesly");
+		userTransaction.getUser(currentUserID).addToFavorites("Kevin Malone - kmalone");
+		userTransaction.getUser(currentUserID).addToFavorites("Andy Bernard - abernard");
         if(currentUserID == null)
         {
             return "loginpage";
