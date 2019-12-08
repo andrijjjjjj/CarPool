@@ -57,6 +57,31 @@ body {
 .sticky + .content {
   padding-top: 60px;
 }
+
+.button {
+margin-left:10px;
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);  
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #363434;
+}
+
+.button:hover {background: url('https://i.imgur.com/blcy99Y.gif');}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 </style>
 </head>
 <body>
@@ -87,8 +112,11 @@ body {
     <h3><p th:text="'Comments'+${colon}" /></h3>
       <tr th:each="comments : ${comments}">
           <td th:text="${comments}">comments</td>
-
     </table>
+    
+    <table>
+	    <form method="get" action="/editprofile"><button class="button">edit profile!</button></form>
+	</table>
 </div>
 
 <script>
