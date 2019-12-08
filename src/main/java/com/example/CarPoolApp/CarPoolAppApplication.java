@@ -65,31 +65,6 @@ public class CarPoolAppApplication {
 //			}
 //			log.info("");
 			
-			// Testing Favorites
-			User user = new User("sclaus", "hohoho", "Santa", "Claus", "Male", "1234567890", 0);
-			repository.save(user);
-			User user2 = new User("sclaus2", "hohoho", "Santa2", "Claus2", "Male", "1234567890", 0);
-			repository.save(user2);
-			User user3 = new User("sclaus3", "hohoho", "Santa3", "Claus3", "Male", "1234567890", 0);
-			repository.save(user3);
-			log.info("TESTING FEATURE: Favorites");
-			log.info("--------------------------");
-			user.addToFavorites(user2.getUserID());
-			user.addToFavorites(user3.getUserID());
-			//user.addToFavorites(user2.getUserID());
-			List<String> favorites = user.getFavorites();
-			log.info("User Favorites:");
-			for (String temp : favorites) {
-				System.out.println(temp);
-			}
-//			
-//			user.removeFromFavorites(user2.getUserID());
-//			log.info("User Favorites Updated:");
-//			for (String temp : favorites) {
-//				System.out.println(temp);
-//			}
-//			log.info("--------------------------");
-//			
 //			// Testing Feedback
 //			
 //			log.info("Ratings:");
@@ -116,6 +91,13 @@ public class CarPoolAppApplication {
 //			for (String temp : comments) {
 //				System.out.println(temp);
 //			}
+			
+			
+			// POPULATE WEBPAGE WITH INFORMATION
+			User user = new User("dschrute", "beets", "Dwight", "Schrute", "Male", "1234567890", 1);
+			repository.save(user);
+			user.getProfile().addComment("cool driver");
+			
 			
 		};
 	}
