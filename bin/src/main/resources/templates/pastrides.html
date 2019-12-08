@@ -1,9 +1,8 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body {
   margin: 0;
@@ -63,7 +62,7 @@ body {
 
 <div class="header">
 
-<h1><p th:text="${fullName}" /></h1>
+<h1><p th:text="${firstName} + 's Past Rides'" /></h1>
 </div>
 
 <div id="navbar">
@@ -79,16 +78,7 @@ body {
 </div>
 
 <div class="content">
-    <table>
-    <h3><p th:text="'ULID'+${colon}+${ulid}" /></h3>
-    <h3><p th:text="'Gender'+${colon}+${gender}" /></h3>
-    <h3><p th:text="'Phone'+${colon}+${phone}" /></h3>
-    <h3><p th:text="'Rating'+${colon}+${rating}+' '+${stars}" /></h3>
-    <h3><p th:text="'Comments'+${colon}" /></h3>
-      <tr th:each="comments : ${comments}">
-          <td th:text="${comments}">comments</td>
-
-    </table>
+    <p th:text="'your past rides: ' + ${pastRides}"/p>
 </div>
 
 <script>
