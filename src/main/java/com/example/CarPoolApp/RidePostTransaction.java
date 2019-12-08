@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -109,7 +111,7 @@ public class RidePostTransaction {
 					(driver.getProfile().getRating()==driverRating || driverRating==-1) && 
 					(ride.getCar().equals(carPreference) || carPreference.isEmpty() || carPreference.equals("")) && 
 					(ride.getCost().equals(costPreference) || costPreference.isEmpty() || costPreference.equals("")) && 
-					(ride.getHasLuggageAllowance()==luggageAllowance)) 
+					(ride.getLuggage()==luggageAllowance)) 
 			result.add(ride);
 		}
 		
@@ -176,13 +178,12 @@ public class RidePostTransaction {
 				
 		//Delete ridepost.
 		ridePosts.deleteById(ridePostID);
-				 
 		//Print confirmation.
 		return "RidePost " + ridePostID + " was deleted.";
 	}
-
-	public void createRidePost(Data data) {
-	ridePosts.save(new RidePost(data.getTime(),0, data.getCar(),data.getStart(),data.getEnd(),data.getCost(),data.getMaxpass(), false));
-		
+	public void createRidePost(Integer ridePostID,String currentUserID,Data data) {
+//		ridePosts.save(new RidePost(ridePostID,"rjroof", "235 oak rd", "Peoria, IL","2:30PM","Acura TL","$15",3, false));
+//		ridePosts.save(new RidePost(ridePostID,"dolunde", "1432 Maple dr", "Chicago, IL","4:30PM","Tesla Model X","$35",3, true));
+		ridePosts.save(new RidePost(ridePostID,currentUserID, data.getStartlocation(),data.getEndlocation(),data.getTime(),data.getCar(),data.getCost(),data.getMaxpass(), data.isLuggage()));
 	}
 }

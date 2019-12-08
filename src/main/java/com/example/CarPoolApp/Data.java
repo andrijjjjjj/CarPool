@@ -1,6 +1,7 @@
 package com.example.CarPoolApp;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -8,26 +9,41 @@ import org.springframework.stereotype.Component;
 
 public class Data {
 	
-	@NotNull
+	@NotEmpty
 	private String userID;
-	@NotNull
+	@NotEmpty
 	private String password;
-	@NotNull
+	@NotEmpty
 	private String firstName;
-	@NotNull
+	@NotEmpty
 	private String lastName;
-	@NotNull
-	private String Gender;
-	@NotNull
+	@NotEmpty
+	private String gender;
+	@NotEmpty
 	private String phoneNumber;
-	
+	@NotEmpty
 	private String time;
+	@NotEmpty
 	private String car;
+	@NotEmpty
 	private String start;
+	@NotEmpty
 	private String end;
+	@NotEmpty
 	private String cost;
-	private String maxpass;
+	@NotEmpty
+	private Integer maxpass;
+	@NotEmpty
+	private boolean luggage;
 	
+	public boolean isLuggage() {
+		return luggage;
+	}
+
+	public void setLuggage(boolean luggage) {
+		this.luggage = luggage;
+	}
+
 	public String getTime() {
 		return time;
 	}
@@ -43,20 +59,20 @@ public class Data {
 	public void setCar(String car) {
 		this.car = car;
 	}
-
-	public String getStart() {
+	@NotEmpty
+	public String getStartlocation() {
 		return start;
 	}
-
-	public void setStart(String start) {
+	@NotEmpty
+	public void setStartlocation(String start) {
 		this.start = start;
 	}
 
-	public String getEnd() {
+	public String getEndlocation() {
 		return end;
 	}
 
-	public void setEnd(String end) {
+	public void setEndlocation(String end) {
 		this.end = end;
 	}
 
@@ -68,11 +84,11 @@ public class Data {
 		this.cost = cost;
 	}
 
-	public String getMaxpass() {
+	public Integer getMaxpass() {
 		return maxpass;
 	}
 
-	public void setMaxpass(String maxpass) {
+	public void setMaxpass(Integer maxpass) {
 		this.maxpass = maxpass;
 	}
 
@@ -109,11 +125,11 @@ public class Data {
 	}
 
 	public String getGender() {
-		return Gender;
+		return gender;
 	}
 
 	public void setGender(String gender) {
-		Gender = gender;
+		this.gender = gender;
 	}
 
 	public String getPhonenumber() {

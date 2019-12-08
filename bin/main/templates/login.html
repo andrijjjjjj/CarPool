@@ -1,16 +1,15 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <body>
         <form th:action="login" th:object="${data}" method="post">
             <table>
                 <tr>
                     <td>Username:</td>
                     <td><input type="text" th:field="*{userid}" /></td>
-                    <td th:if="${#fields.hasErrors('userid')}" th:errors="*{userid}">Incorrect password</td>
-                    
+					<td th:if="${param.userid}"> Invalid username or password.</td>                    
                 </tr>
                 <tr>
                     <td>Password:</td>
-                    <td><input type="text" th:field="*{password}" /></td>
+                    <td><input type="password" th:field="*{password}" /></td>
                     <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</td>
                 </tr>
                 <tr>

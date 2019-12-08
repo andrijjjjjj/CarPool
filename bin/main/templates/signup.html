@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Please fill out our sign up form!</h1>
-             <form th:action="signup" th:object="${data}" method="post">
+             <form th:object="${data}" method="post">
         Username: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{userid}"/> <br/><br/>
         Password: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{password}"/> <br/><br/>
         First Name: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" th:field="*{firstname}"/> <br/><br/>
