@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -97,9 +98,7 @@ public class Handler {
 	}
 
 	@RequestMapping("/login/changeforgotpassword/useraccount") // The change forgot password .
-	public String loadChangeForgottenFassword() throws ServletException, IOException {// TODO need to make @param
-																						// something to access specific
-																						// user account.
+	public String loadChangeForgottenFassword(@RequestParam("useraccount") String useraccount){//This request param allows us to use this variable to confirm user.
 		// This  will have a form where the user enters their verification code,
 		// enters a form their new password, and clicks a button.
 		// Once button pressed, if verification code is the same, call the change
@@ -117,8 +116,10 @@ public class Handler {
 		{
 			return "login";
 		}
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html  to access the currentUserID
-															// variable. Can put methods in this call too.
+		model.addAttribute("allrideposts", viewAllRides()); // Puts arraylist of all ride posts in html .
+										// variable. Can put methods in this call too.
 
 		return "home";
 	}
@@ -130,7 +131,7 @@ public class Handler {
 			return "login";
 		} // Puts arraylist of all ride posts in html .
 
-		return "viewallrides";// TODO need to make html  for viewallrides.html.
+		return "viewallrides";
 	}
 
 	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
@@ -139,25 +140,26 @@ public class Handler {
 		{
 			return "login";
 		}
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("theUpcomingRides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
 																					// html .
 
-		return "upcomingrides";// TODO need to make html  for viewallrides.html.
+		return "upcomingrides";
 	}
 
-	@RequestMapping("/feedback")//The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/feedback")//The feedback page for users.
 	public String viewFeedback(Model model) {
-		if(currentUserID == null)//User isn't logged in. Shouldn't be able to access this method/.
+		if(currentUserID == null)
 		{
 			return "login";
 		}
-		//model.addAttribute("feedback", viewUpcomingRides(currentUserID)); //Puts arraylist of all ride posts in html .
+		model.addAttribute("past", ridePostTransaction.viewPastRides(currentUserID)); //Puts arraylist of all ride posts in html .
 		
-		return "feedback";//TODO need to make html  for viewallrides.html.
+		return "feedback";
 		}
 
 	// ride in URL must be changed to the ridePostID
-	@RequestMapping("/home/ride/passengerrequests") // The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/ride/passengerrequests")
 	public String viewPassengerRequests(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -176,7 +178,7 @@ public class Handler {
 			return "login";
 		}
 		model.addAttribute("pendingRides", viewPendingRides(currentUserID)); // Puts arraylist of all ride posts in html
-																				// .
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());																		// .
 
 		return "pendingrides";// TODO need to make html  for viewallrides.html.
 	}
@@ -187,6 +189,7 @@ public class Handler {
 		{
 			return "login";
 		}
+		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("pastRides", viewPendingRides(currentUserID)); // Puts arraylist of all past ride posts in html.
 		return "pastrides";// TODO need to make html  for viewallrides.html.
 	}
@@ -203,8 +206,7 @@ public class Handler {
 	}
 
 	@RequestMapping("/home/viewallrides/{ridepostid}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
-	public String String (Model model) {// TODO need to add @Param something in parameters for
-														// ridePostID.
+	public String viewOneRidePost(@RequestParam("ridepostid") int ridePostID, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
@@ -345,6 +347,12 @@ public class Handler {
 	
 	@RequestMapping("/favorites")
     public String getFavorites(Model model) {
+		userTransaction.getUser(currentUserID).addToFavorites("Michael Scott - mscott");
+		userTransaction.getUser(currentUserID).addToFavorites("Angela Martin - amartin");
+		userTransaction.getUser(currentUserID).addToFavorites("Jim Halpert - jhalpert");
+		userTransaction.getUser(currentUserID).addToFavorites("Pam Beesly - pbeesly");
+		userTransaction.getUser(currentUserID).addToFavorites("Kevin Malone - kmalone");
+		userTransaction.getUser(currentUserID).addToFavorites("Andy Bernard - abernard");
         if(currentUserID == null)
         {
             return "loginpage";
@@ -353,7 +361,75 @@ public class Handler {
         if(userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
             model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
         }
+        else {
+        	model.addAttribute("favorites", "You have no favorites!");
+        }
 
         return "favorites";
+    }
+	
+	@RequestMapping("/profile")
+    public String getProfile(Model model) {
+        if(currentUserID == null)
+        {
+            return "loginpage";
+        }
+        model.addAttribute("colon", ": ");
+        // First Last Name
+        model.addAttribute("fullName", userTransaction.getUser(currentUserID).getProfile().getfName()+" "+userTransaction.getUser(currentUserID).getProfile().getlName());
+        
+        // ULID
+        model.addAttribute("ulid", userTransaction.getUser(currentUserID).getUserID());
+        
+        // Gender
+        model.addAttribute("gender", userTransaction.getUser(currentUserID).getProfile().getGender());
+        
+        // Phone
+        model.addAttribute("phone", userTransaction.getUser(currentUserID).getProfile().getPhoneNumber());
+        
+        // Rating
+        if(userTransaction.getUser(currentUserID).getProfile().getRatings().size() != 0) {
+            model.addAttribute("rating", userTransaction.getUser(currentUserID).getProfile().getRating());
+        }
+        else {
+        	model.addAttribute("rating", "No Rating");
+        }
+        
+        
+        if(userTransaction.getUser(currentUserID).getProfile().getRating() < 1.0) {
+        	// less than 1 rating = 0 stars
+        	model.addAttribute("stars", " ☆☆☆☆☆");
+        }
+        else if(userTransaction.getUser(currentUserID).getProfile().getRating() >= 1.0 && userTransaction.getUser(currentUserID).getProfile().getRating() < 2.0) {
+        	// between 1 - 2 = 1 star
+        	model.addAttribute("stars", "stars ★☆☆☆☆");
+        }
+        else if(userTransaction.getUser(currentUserID).getProfile().getRating() >= 2.0 && userTransaction.getUser(currentUserID).getProfile().getRating() < 3.0) {
+        	// between 2 - 3 = 2 star
+        	model.addAttribute("stars", "stars ★★☆☆☆");
+        }
+        else if(userTransaction.getUser(currentUserID).getProfile().getRating() >= 3.0 && userTransaction.getUser(currentUserID).getProfile().getRating() < 4.0) {
+        	// between 3 - 4 = 3 star
+        	model.addAttribute("stars", "stars ★★★☆☆");
+        }
+        else if(userTransaction.getUser(currentUserID).getProfile().getRating() >= 4.0 && userTransaction.getUser(currentUserID).getProfile().getRating() < 5.0) {
+        	// between 4 - 5 = 4 star
+        	model.addAttribute("stars", "stars ★★★★☆");
+        }
+        else {
+        	// 5 stars
+        	model.addAttribute("stars", "stars ★★★★★");
+        	
+        }
+        
+        // Comments
+        if(userTransaction.getUser(currentUserID).getProfile().getComments().size() != 0) {
+            model.addAttribute("comments", userTransaction.getUser(currentUserID).getProfile().getComments());
+        }
+        else {
+        	model.addAttribute("comments", "No Comments");
+        }
+        
+        return "profile";
     }
 }

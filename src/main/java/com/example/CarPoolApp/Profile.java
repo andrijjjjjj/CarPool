@@ -17,7 +17,7 @@ public class Profile {
 	
 	protected Profile() {}
 	
-	public Profile(String fName, String lName, String phoneNumber, String gender) {
+	public Profile(String fName, String lName, String gender, String phoneNumber) {
 		this.fName = fName;
 		this.lName = lName;
 		this.phoneNumber = phoneNumber;

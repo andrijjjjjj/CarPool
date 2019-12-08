@@ -59,7 +59,6 @@ public class CarPoolAppApplication {
 //				log.info(adeptdave.toString());-
 //			}
 //			log.info("");
-			
 			// Testing Favorites
 //			log.info("TESTING FEATURE: Favorites");
 //			log.info("--------------------------");
@@ -105,6 +104,13 @@ public class CarPoolAppApplication {
 //			for (String temp : comments) {
 //				System.out.println(temp);
 //			}
+			
+			
+			// POPULATE WEBPAGE WITH INFORMATION
+			User user = new User("dschrute", "beets", "Dwight", "Schrute", "Male", "1234567890", 1);
+			repository.save(user);
+			user.getProfile().addComment("cool driver");
+			
 			
 		};
 	}
