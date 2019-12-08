@@ -17,6 +17,7 @@ public class RidePost {
 	 
 	private String driverUsername;
 	private int maxNumPassengers;
+	private String date;
 	private String time;
 	private String car;
 	@NotEmpty
@@ -40,10 +41,11 @@ public class RidePost {
 //		this.hasLuggageAllowance = luggageAllowance;
 //	}
 //	@NotEmpty
-	public RidePost(Integer ridePostID,String currentUserID, String startLocation, String endLocation, String time, String car, String cost, Integer maxpass,boolean luggage) {
+	public RidePost(Integer ridePostID,String currentUserID, String startLocation, String endLocation, String date, String time, String car, String cost, Integer maxpass,boolean luggage) {
 		this.currentUserID = currentUserID;
 		this.startLocation = startLocation;
 		this.endLocation = endLocation;
+		this.date = date;
 		this.time = time;
 		this.car = car;
 		this.cost = cost;
@@ -51,6 +53,10 @@ public class RidePost {
 		this.luggage = luggage;
 	}
 	
+	public Integer getRidePostID() {
+		return ridePostID;
+	}
+
 	public String getCurrentUserID() {
 		return currentUserID;
 	}
@@ -81,6 +87,14 @@ public class RidePost {
 
 	public void setMaxNumPassengers(int maxNumPassengers) {
 		this.maxNumPassengers = maxNumPassengers;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public String getTime() {

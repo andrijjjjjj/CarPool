@@ -25,7 +25,7 @@ public class RidePostTransaction {
 	public boolean isRidePresent(String date) {
         //Date is in format yyyy/mm/dd
         //Tokenize the date to be checked
-        StringTokenizer dateToCheck = new StringTokenizer(date, "/");
+        StringTokenizer dateToCheck = new StringTokenizer(date, "-");
 
         //Get the current date
         LocalDateTime currentDate = LocalDateTime.now();
@@ -53,7 +53,7 @@ public class RidePostTransaction {
 		ArrayList<RidePost> result = new ArrayList<RidePost>();
 		for(RidePost ride : rides)
 		{
-			if(isRidePresent(ride.getTime()))
+			if(isRidePresent(ride.getDate()))
 			{
 				result.add(ride);
 			}
@@ -66,7 +66,7 @@ public class RidePostTransaction {
 		ArrayList<RidePost> result = new ArrayList<RidePost>();
 		for(RidePost ride : rides)
 		{
-			if(!isRidePresent(ride.getTime()))
+			if(!isRidePresent(ride.getDate()))
 			{
 				result.add(ride);
 			}
@@ -184,6 +184,6 @@ public class RidePostTransaction {
 	public void createRidePost(Integer ridePostID,String currentUserID,Data data) {
 //		ridePosts.save(new RidePost(ridePostID,"rjroof", "235 oak rd", "Peoria, IL","2:30PM","Acura TL","$15",3, false));
 //		ridePosts.save(new RidePost(ridePostID,"dolunde", "1432 Maple dr", "Chicago, IL","4:30PM","Tesla Model X","$35",3, true));
-		ridePosts.save(new RidePost(ridePostID,currentUserID, data.getStartlocation(),data.getEndlocation(),data.getTime(),data.getCar(),data.getCost(),data.getMaxpass(), data.isLuggage()));
+		ridePosts.save(new RidePost(ridePostID,currentUserID, data.getStartlocation(),data.getEndlocation(),data.getDate(),data.getTime(),data.getCar(),data.getCost(),data.getMaxpass(), data.isLuggage()));
 	}
 }
