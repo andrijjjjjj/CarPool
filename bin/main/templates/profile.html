@@ -83,7 +83,7 @@ body {
     <h3><p th:text="'ULID'+${colon}+${ulid}" /></h3>
     <h3><p th:text="'Gender'+${colon}+${gender}" /></h3>
     <h3><p th:text="'Phone'+${colon}+${phone}" /></h3>
-    <h3><p th:text="'Rating'+${colon}+${rating}+${stars}" /></h3>
+    <h3><p th:text="'Rating'+${colon}+${rating}+' '+${stars}" /></h3>
     <h3><p th:text="'Comments'+${colon}" /></h3>
       <tr th:each="comments : ${comments}">
           <td th:text="${comments}">comments</td>

@@ -68,25 +68,7 @@ public class CarPoolAppApplication {
 //			// Testing Feedback
 //			
 //			log.info("Ratings:");
-//			user.getProfile().setRating(1);
-//			user.getProfile().setRating(2);
-//			user.getProfile().setRating(3);
-//			user.getProfile().setRating(4);
-//			user.getProfile().setRating(5);
-//			List<Integer> ratings = user.getProfile().getRatings();
-//			for (int temp : ratings) {
-//				System.out.println(temp);
-//			}
-//			
-//			log.info("Rating total:");
-//			System.out.println(user.getProfile().getRating());
-//			
-//			log.info("Comments:");
-//			user.getProfile().addComment("Good driver!");
-//			user.getProfile().addComment("Okay driver!");
-//			user.getProfile().addComment("Shit driver!");
-//			user.getProfile().addComment("stupid ass driver!");
-//			user.getProfile().addComment("i like this driver!");
+
 //			List<String> comments = user.getProfile().getComments();
 //			for (String temp : comments) {
 //				System.out.println(temp);
@@ -95,10 +77,18 @@ public class CarPoolAppApplication {
 			
 			// POPULATE WEBPAGE WITH INFORMATION
 			User user = new User("dschrute", "beets", "Dwight", "Schrute", "Male", "1234567890", 1);
-			repository.save(user);
+			user.getProfile().setRating(1);
+			user.getProfile().setRating(2);
+			user.getProfile().setRating(3);
+			user.getProfile().setRating(4);
+			user.getProfile().setRating(5);
+			user.getProfile().addComment("Good driver!");
+			user.getProfile().addComment("Okay driver!");
+			user.getProfile().addComment("Shit driver!");
+			user.getProfile().addComment("stupid ass driver!");
+			user.getProfile().addComment("i like this driver!");
 			user.getProfile().addComment("cool driver");
-			
-			
+			repository.save(user);
 		};
 	}
 	
