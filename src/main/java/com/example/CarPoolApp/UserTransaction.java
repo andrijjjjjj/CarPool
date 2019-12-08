@@ -1,5 +1,7 @@
 package com.example.CarPoolApp;
 
+import javax.validation.constraints.AssertTrue;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class UserTransaction {
 
 		return users.findById(userID).get();
 	}
+	@AssertTrue
 	public boolean verifyLogin(String userID, String password) {
 		if(users.existsById(userID)) {
 			if(users.findById(userID).get().getPassword().equals(password)) {
@@ -44,16 +47,16 @@ public class UserTransaction {
 		users.save(temp2);
 	}
 
-	public boolean saveNewUser(User user_obj) {
-		User temp = users.save(user_obj);
-		if (temp.getUserID() == user_obj.getUserID()) {
-			 //3
-			//emailSender.emailSignUp(user_obj);
-			return true;
-		} else {
-			return false;
-		}
-	}
+//	public boolean saveNewUser(User user_obj) {
+//		User temp = users.save(user_obj);
+//		if (temp.getUserID() == user_obj.getUserID()) {
+//			 //3
+//			//emailSender.emailSignUp(user_obj);
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
 	public void saveUser(Data data) {
 		int status = 0;//Setting status to inactive. Awaiting email confirmation
 		User user = new User(data.getUserid(), data.getPassword(), data.getFirstname(), data.getLastname(), data.getGender(), data.getPhonenumber(), status);

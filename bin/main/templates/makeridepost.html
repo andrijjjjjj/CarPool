@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>ISU Carpool</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Create a new carpool post!</h1>
+	<form th:object="${data}" method="post"> 
+    <p> Start Location: <input type="text" th:field="*{startlocation}">
+    <p th:if="${param.startlocation}"> Invalid username or password.</p>
+    <p> End Location: <input type="text" th:field="*{endlocation}">
+    <p> Time: <input type="time" th:field="*{time}">
+    <p> Car: <input type="text" th:field="*{car}">
+    <p> Cost: <input type="text" th:field="*{cost}">
+    <p> Max Passengers: <input type="number" th:field="*{maxpass}">
+    <p> Luggage: <input type="checkbox" th:field="*{luggage}">
+    
+    <button type="submit">Submit</button>
+     </form>
+</body>
+</html>

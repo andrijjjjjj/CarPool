@@ -58,8 +58,7 @@ public class Handler {
 			return "login";
 		}
 	}
-
-
+	
 	@RequestMapping("/") // The initial  of the website. Should have buttons for sign-up, login,						// forgot password.
 	public String loadInitial() {
 		return "welcome";
@@ -126,12 +125,11 @@ public class Handler {
 	}
 
 	@RequestMapping("/home/viewallrides") // The viewallrides  of the website. Will show all rideposts.
-	public String loadViewAllRides(Model model) {
+	public String loadViewAllRides(@ModelAttribute RidePostTransaction ridePostTransaction) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
-		}
-		model.addAttribute("allrideposts", viewAllRides()); // Puts arraylist of all ride posts in html .
+		} // Puts arraylist of all ride posts in html .
 
 		return "viewallrides";
 	}
@@ -196,7 +194,7 @@ public class Handler {
 		return "pastrides";// TODO need to make html  for viewallrides.html.
 	}
 	
-	@RequestMapping("/home/pastrides/{rideostid}") //TODO need to add @param or something in parameters to access ridepostID.
+	@RequestMapping("/home/pastrides/{ridepostid}") //TODO need to add @param or something in parameters to access ridepostID.
 	public String viewOnePastRidePost(Model model)
 	{
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
@@ -204,12 +202,11 @@ public class Handler {
 			return "login";
 		}
 		// model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID)); //TODO method to view past ride from url param.
-		return "viewonepastridepost"; //TODO make html.
+		return "ridepost"; //TODO make html.
 	}
 
 	@RequestMapping("/home/viewallrides/{ridepostid}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
 	public String viewOneRidePost(@RequestParam("ridepostid") int ridePostID, Model model) {
-														// ridePostID.
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
@@ -217,25 +214,44 @@ public class Handler {
 		// model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID));
 		// //TODO ^^^
 
-		return "viewoneridepost";// TODO need to make html  for loadviewoneridepost.html.
+		return "ridepost";//replace with "viewonepastridepost"
 	}
 
 	@GetMapping("/home/viewallrides/makeridepost") // A  for making a ridePost.
 	public String getMakeRidePost(Data data) {
-		return "ridepost";// TODO need to make html  for making a ridepost.
+//		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+//		{
+//			return "login";
+//		}
+		return "makeridepost";// TODO need to make html  for making a ridepost.
 	}
 	
 	@PostMapping("/home/viewallrides/makeridepost") // A  for making a ridePost.
-	public String postMakeRidePost(Data data) {
-		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-		{
-			return "login";
-		}
+	public String postMakeRidePost(Integer ridePostID ,String currentUserID ,Data data) {
+			ridePostTransaction.createRidePost(ridePostID,currentUserID,data);
+			System.out.println(data.getTime());
 		// Have button on viewallrides  that when clicked, moves to this . User
 		// will enter info into boxes. Pushes button that calls the make ridepost use
-		// case method, then redirects to viewallrideposts OR viewoneridepost.
-		return "ridepost"; // TODO need to make html  for making a ridepost.
+		// case method, then redirects to viewallrideposts OR .
+		return "viewone"; // TODO need to make html  for making a ridepost.
 	}
+	@PostMapping("/home/viewallrides/makeridepost/viewone")
+	public String viewRidePost(Data data) {
+		
+		return "viewone";
+	}
+	
+//	@GetMapping("/signup") // The sign-up  of the website.
+//	public String getSignUp(Data data) {
+//		// User enters in info to all boxes, clicks button. Button calls signup use case
+//		// method, then redirects to login .
+//		return "signUp";
+//	}
+//	@PostMapping("/signup") // The sign-up  of the website.
+//	public String postSignUp(Data data){
+//		userTransaction.saveUser(data);
+//		return "login";
+//	}
 
 	@RequestMapping("/home/currentuseraccount") // The account/profile  for the currently logged in user.
 	public String loadCurrentUserAccount(Model model) {
@@ -270,11 +286,11 @@ public class Handler {
 	// Mapping methods! ^^^^^
 	// Logic methods! vvvvv
 	// ---------Mike Devitt's method zone--------------
-	public boolean signUp(String username, String password, String phoneNumber, String firstName, String lastName,
-			String gender) {
-		User temp = objFactory.createUser(username, password, phoneNumber, firstName, lastName, gender);
-		return userTransaction.saveNewUser(temp);
-	}
+//	public boolean signUp(String username, String password, String phoneNumber, String firstName, String lastName,
+//			String gender) {
+//		User temp = objFactory.createUser(username, password, phoneNumber, firstName, lastName, gender);
+//		return userTransaction.saveNewUser(temp);
+//	}
 
 	public String deleteUser(String username) {
 

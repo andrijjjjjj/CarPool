@@ -29,21 +29,16 @@ public class CarPoolAppApplication {
 	public CommandLineRunner loadData(UserRepository repository,Handler handleMe) {
 		return (args) -> {
 			// save a couple of userAccounts
+			repository.save(new User("dolunde", "1s", "David", "Lunde", "Male", "601-554-1234", 1));
+			repository.save(new User("rjroof", "lmao", "Ryan", "jack", "Male", "601-584-1154", 0));
+			repository.save(new User("mjdevi1", "1234", "Mike", "christmas", "Male", "601-522-1514", 1));
 
-			repository.save(new User("Nick", "Nose", null, null, null, null, 0));
-			repository.save(new User("AdeptDave", "icryeverytim", null, null, null, null, 0));
-			repository.save(new User("monkey", "Banyanyas!", null, null, null, null, 0));
-			repository.save(new User("cookieMonsta", "cookies", null, null, null, null, 0));
-			repository.save(new User("Merry", "christmas", null, null, null, null, 0));
 			
-			repository.save(new User("David", "PG", null, null, null, null, 0));
-			repository.save(new User("Michelle", "Please", null, null, null, null, 0));
-			
-			boolean workPlease=handleMe.signUp("Mjdevi1", "1234", "123-456-7890","Clunt", "TheChristmasBlunt","male");
-			System.out.println(workPlease);
-			handleMe.editProfile("Mjdevi1", "630-137-5309", "Dave", "isGay","female");
-			String test=handleMe.deleteUser("Mjdevi1");
-			System.out.println(test);
+//			boolean workPlease=handleMe.signUp("Mjdevi1", "1234", "123-456-7890","Clunt", "TheChristmasBlunt","male");
+//			System.out.println(workPlease);
+//			handleMe.editProfile("Mjdevi1", "630-137-5309", "Dave", "isGay","female");
+//			String test=handleMe.deleteUser("Mjdevi1");
+//			System.out.println(test);
 			// fetch all userAccounts
 			log.info("All users listed");
 			log.info("-------------------------------");
@@ -53,7 +48,7 @@ public class CarPoolAppApplication {
 			log.info("");
 
 			// fetch an individual userAccount by ID
-			User userAccount = repository.findById("Nick").get();
+			User userAccount = repository.findById("dolunde").get();
 			log.info("User found in database findOne(\"Nick\"):");
 			log.info(userAccount.toString());
 			log.info("");
@@ -61,10 +56,28 @@ public class CarPoolAppApplication {
 			// fetch userAccounts by last name
 //			log.info("Username found with adeptdave:");
 //			for (User adeptdave : repository.findByUsernameStartsWithIgnoreCase("adeptdave")) {
-//				log.info(adeptdave.toString());
+//				log.info(adeptdave.toString());-
 //			}
 //			log.info("");
-			
+			// Testing Favorites
+//			log.info("TESTING FEATURE: Favorites");
+//			log.info("--------------------------");
+//			user.addToFavorites(user2.getUserID());
+//			user.addToFavorites(user3.getUserID());
+//			//user.addToFavorites(user2.getUserID());
+//			List<String> favorites = user.getFavorites();
+//			log.info("User Favorites:");
+//			for (String temp : favorites) {
+//				System.out.println(temp);
+//			}
+//			
+//			user.removeFromFavorites(user2.getUserID());
+//			log.info("User Favorites Updated:");
+//			for (String temp : favorites) {
+//				System.out.println(temp);
+//			}
+//			log.info("--------------------------");
+//			
 //			// Testing Feedback
 //			
 //			log.info("Ratings:");
