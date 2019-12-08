@@ -22,6 +22,8 @@ public class Data {
 	@NotEmpty
 	private String phoneNumber;
 	@NotEmpty
+	private String date;
+	@NotEmpty
 	private String time;
 	@NotEmpty
 	private String car;
@@ -42,6 +44,14 @@ public class Data {
 
 	public void setLuggage(boolean luggage) {
 		this.luggage = luggage;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public String getTime() {
