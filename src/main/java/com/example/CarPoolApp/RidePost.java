@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class RidePost {
@@ -16,33 +17,60 @@ public class RidePost {
 	 
 	private String driverUsername;
 	private int maxNumPassengers;
+	private String date;
 	private String time;
 	private String car;
+	@NotEmpty
 	private String startLocation;
 	private String endLocation;
 	private String cost;
-	private boolean hasLuggageAllowance;
+	private String currentUserID;
+	private boolean luggage;
 	
 	protected RidePost() {}
 
-	public RidePost(String driverUsername, int maxNumPassengers, String time, String car,
-			String startLocation, String endLocation, String cost, boolean luggageAllowance) {
-		this.driverUsername = driverUsername;
-		this.maxNumPassengers = maxNumPassengers;
-		this.time = time;
-		this.car = car;
+//	public RidePost(String driverUsername, int maxNumPassengers, String time, String car,
+//			String startLocation, String endLocation, String cost, boolean luggageAllowance) {
+//		this.driverUsername = driverUsername;
+//		this.maxNumPassengers = maxNumPassengers;
+//		this.time = time;
+//		this.car = car;
+//		this.startLocation = startLocation;
+//		this.endLocation = endLocation;
+//		this.cost = cost;
+//		this.hasLuggageAllowance = luggageAllowance;
+//	}
+//	@NotEmpty
+	public RidePost(Integer ridePostID,String currentUserID, String startLocation, String endLocation, String date, String time, String car, String cost, Integer maxpass,boolean luggage) {
+		this.currentUserID = currentUserID;
 		this.startLocation = startLocation;
 		this.endLocation = endLocation;
+		this.date = date;
+		this.time = time;
+		this.car = car;
 		this.cost = cost;
-		this.hasLuggageAllowance = luggageAllowance;
+		this.maxNumPassengers = maxpass;
+		this.luggage = luggage;
 	}
-
-	public int getRidePostID() {
+	
+	public Integer getRidePostID() {
 		return ridePostID;
 	}
 
-	public void setRidePostID(int ridePostID) {
-		this.ridePostID = ridePostID;
+	public String getCurrentUserID() {
+		return currentUserID;
+	}
+
+	public void setCurrentUserID(String currentUserID) {
+		this.currentUserID = currentUserID;
+	}
+
+	public boolean getLuggage() {
+		return luggage;
+	}
+
+	public void setLuggage(boolean luggage) {
+		this.luggage = luggage;
 	}
 
 	public String getDriverUsername() {
@@ -59,6 +87,14 @@ public class RidePost {
 
 	public void setMaxNumPassengers(int maxNumPassengers) {
 		this.maxNumPassengers = maxNumPassengers;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public String getTime() {
@@ -101,14 +137,6 @@ public class RidePost {
 		this.cost = cost;
 	}
 
-	public boolean getHasLuggageAllowance() {
-		return hasLuggageAllowance;
-	}
-
-	public void setHasLuggageAllowance(boolean hasLuggageAllowance) {
-		this.hasLuggageAllowance = hasLuggageAllowance;
-	}
-
 	public void setRidePostID(Integer ridePostID) {
 		this.ridePostID = ridePostID;
 	}
@@ -117,7 +145,7 @@ public class RidePost {
 	public String toString() {
 		return "RidePost [ridePostID=" + ridePostID + ", driverUsername=" + driverUsername + ", maxNumPassengers="
 				+ maxNumPassengers + ", time=" + time + ", car=" + car + ", startLocation=" + startLocation
-				+ ", endLocation=" + endLocation + ", cost=" + cost + ", luggageAllowance=" + hasLuggageAllowance + "]";
+				+ ", endLocation=" + endLocation + ", cost=" + cost + ", luggageAllowance=" + luggage + "]";
 	}
 	
 	public void setUniqueID() {
