@@ -21,7 +21,7 @@ public class CarPoolAppApplication {
  
 	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 		SpringApplication.run(CarPoolAppApplication.class);
 	}
 
