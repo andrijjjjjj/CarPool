@@ -40,7 +40,7 @@ public class Data {
 	private String comments;
 	private Integer rating;
 	private String favorite;
-	
+	private String blockeduser;
 	
 	public String getFavorite() {
 		return favorite;
@@ -48,6 +48,15 @@ public class Data {
 
 	public void setFavorite(String favorite) {
 		this.favorite = favorite;
+	}
+	
+	public String getBlockeduser() {
+		return blockeduser;
+	}
+
+	public void setBlockeduser(String blockeduser) {
+		this.blockeduser = blockeduser;
+		
 	}
 
 	public String getComments() {
