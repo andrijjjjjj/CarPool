@@ -80,15 +80,15 @@ body {
     <table>
 <body>
 	<h1>Post Details</h1>
-	 <p th:text="'the requests for your ride: ' + ${post.passRequests}" />
-	<p th:text="'Start Location: ' + ${post.startlocation}" />	
-	<p th:text="'End Location: ' + ${post.endlocation}" />
-	<p th:text="'Date: ' + ${post.date}" />
-	<p th:text="'Time: ' + ${post.time}" />
-	<p th:text="'Car: ' + ${post.car}" />
-	<p th:text="'Cost: $' + ${post.cost}" />
-	<p th:text="'Max Passengers: ' + ${post.maxpass}" />
-	<p th:text="'Luggage: ' + ${post.luggage}" />
+	<p th:text="'Driver Username: ' + ${theRidePost.getDriverUsername()}" />	
+	<p th:text="'start Location: ' + ${theRidePost.getStartLocation()}" />
+	<p th:text="'End location: ' + ${theRidePost.getEndLocation()}" />
+	<p th:text="'Date: ' + ${theRidePost.getDate()}" />
+	<p th:text="'Time: ' + ${theRidePost.getTime()}" />
+	<p th:text="'Car: $' + ${theRidePost.getCar()}" />
+	<p th:text="'Ride cost: ' + ${theRidePost.getCost()}" />
+	<p th:text="'Max passengers: ' + ${theRidePost.getMaxNumPassengers()}" />
+	<p th:text="'Luggage?: ' + ${theRidePost.getLuggage()}" />
 </body>
 
     </table>
@@ -111,4 +111,3 @@ function myFunction() {
 
 </body>
 </html>
-

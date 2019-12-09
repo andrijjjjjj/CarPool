@@ -181,9 +181,9 @@ public class RidePostTransaction {
 		//Print confirmation.
 		return "RidePost " + ridePostID + " was deleted.";
 	}
-	public void createRidePost(Integer ridePostID,String currentUserID,Data data) {
+	public void createRidePost(Integer ridePostID,String driverUserID,Data data) {
 //		ridePosts.save(new RidePost(ridePostID,"rjroof", "235 oak rd", "Peoria, IL","2:30PM","Acura TL","$15",3, false));
 //		ridePosts.save(new RidePost(ridePostID,"dolunde", "1432 Maple dr", "Chicago, IL","4:30PM","Tesla Model X","$35",3, true));
-		ridePosts.save(new RidePost(ridePostID,currentUserID, data.getStartlocation(),data.getEndlocation(),data.getDate(),data.getTime(),data.getCar(),data.getCost(),data.getMaxpass(), data.isLuggage()));
+		ridePosts.save(new RidePost(ridePostID,driverUserID, data.getStartlocation(),data.getEndlocation(),data.getDate(),data.getTime(),data.getCar(),data.getCost(),data.getMaxpass(), data.isLuggage()));
 	}
 }

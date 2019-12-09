@@ -1,5 +1,7 @@
 package com.example.CarPoolApp;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.AssertTrue;
 
 import org.slf4j.Logger;
@@ -37,14 +39,12 @@ public class UserTransaction {
 		return "deleted Account " + username;
 	}
 
-	public void updateProfile(String username, String phoneNumber, String firstName, String lastName, String gender) {
-		User temp = users.findById(username).get();
-		String keep_pass = temp.getPassword();
-		System.out.println("before:" + temp.getUserID());
-		users.delete(temp);
-		Profile new_profile = new Profile(firstName, lastName, phoneNumber, gender);
-		User temp2 = new User(username, keep_pass, new_profile);
-		users.save(temp2);
+	public void updateProfile(String username, String phoneNumber, String firstName, String lastName, String gender, ArrayList<Integer> ratings, ArrayList<String> comments) {
+		String password = users.findById(username).get().getPassword();
+		User user = new User(username, password, firstName, lastName, gender, phoneNumber, 1);
+		user.getProfile().comments = comments;
+		user.getProfile().ratings = ratings;
+		users.save(user);
 	}
 
 //	public boolean saveNewUser(User user_obj) {

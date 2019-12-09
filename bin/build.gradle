@@ -1,0 +1,36 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	
+}
+
+dependencies {
+    testCompile("org.springframework.security:spring-security-test")
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compile files("lib/activation.jar")
+	compile files("lib/javax.mail.jar")
+	runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.hibernate.validator:hibernate-validator")
+    compile("org.apache.tomcat.embed:tomcat-embed-el")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
