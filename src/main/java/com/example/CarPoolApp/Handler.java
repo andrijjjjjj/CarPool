@@ -67,10 +67,35 @@ public class Handler {
 	@PostMapping("/updateprofile")
 	public String postupdateProfile(Data data) {
 		System.out.println("id: "+currentUserID+" pnum: "+data.getPhonenumber()+" fname: "+data.getFirstname()+" lname: "+data.getLastname()+" gender: "+data.getGender());
-		if(data.getPhonenumber()!=null && data.getFirstname()!=null && data.getLastname()!=null && data.getGender()!=null) {
-		userTransaction.updateProfile(currentUserID, data.getPhonenumber(), data.getFirstname(),data.getLastname(), data.getGender() );
-			return "login";
+		
+		// userTransaction.getUser(currentUserID).getProfile().
+		ArrayList<Integer> ratings = userTransaction.getUser(currentUserID).getProfile().getRatings();
+		ArrayList<String> comments = userTransaction.getUser(currentUserID).getProfile().getComments();
+		String phone = userTransaction.getUser(currentUserID).getProfile().getPhoneNumber();
+		String firstName = userTransaction.getUser(currentUserID).getProfile().getfName();
+		String lastName = userTransaction.getUser(currentUserID).getProfile().getlName();
+		String gender = userTransaction.getUser(currentUserID).getProfile().getGender();
+		String username = userTransaction.getUser(currentUserID).getUserID();
+		
+		
+		if(data.getPhonenumber() != null && !data.getPhonenumber().isEmpty() && !data.getPhonenumber().trim().isEmpty()) {
+			phone = data.getPhonenumber();
 		}
+		
+		if(data.getFirstname() != null && !data.getFirstname().isEmpty() && !data.getFirstname().trim().isEmpty()) {
+			firstName = data.getFirstname();
+		}
+		
+		if(data.getLastname() != null && !data.getLastname().isEmpty() && !data.getLastname().trim().isEmpty()) {
+			lastName = data.getLastname();
+		}
+		
+		if(data.getGender() != null && !data.getGender().isEmpty() && !data.getGender().trim().isEmpty()) {
+			gender = data.getGender();
+		}
+		
+		userTransaction.updateProfile(username, phone, firstName, lastName, gender, ratings, comments);
+		
 		return "login";
 	}
 
@@ -327,7 +352,7 @@ public class Handler {
 	}
 
 	public void editProfile(String username, String phoneNumber, String firstName, String lastName, String gender) {
-		userTransaction.updateProfile(username, phoneNumber, firstName, lastName, gender);
+		//userTransaction.updateProfile(username, phoneNumber, firstName, lastName, gender);
 	}
 
 	// ---------Mike Devitt's method zone--------------
