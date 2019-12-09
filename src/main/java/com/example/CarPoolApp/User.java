@@ -77,11 +77,15 @@ public class User {
 	}
 
 	public void blockUser(String userID) {
-		blockedUsers.add(userID);
+		if (!blockedUsers.contains(userID)) {
+			blockedUsers.add(userID);
+		}
 	}
 
 	public void unBlockUser(String userID) {
-		blockedUsers.remove(userID);
+		if (blockedUsers.contains(userID)) {
+			blockedUsers.remove(userID);
+		}
 	}
 
 	public ArrayList<String> getBlockedList() {
