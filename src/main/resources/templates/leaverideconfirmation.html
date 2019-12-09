@@ -61,30 +61,26 @@ body {
 
 <div class="header">
 
-<h1>Favorite Users</h1>
+<h1><p th:text="'ISU Carpool'" /></h1>
 </div>
 
 <div id="navbar">
-<a href="/home">All Ride Posts</a>
-  	<a href="/home/viewallrides/makeridepost">Create a Post</a>
+	  <a href="/home">All Ride Posts</a>
+  	  <a href="/home/viewallrides/makeridepost">Create a Post</a>
       <a href="/home/upcomingrides">Upcoming Rides</a>
       <a href="/home/pendingrides">Pending Rides</a>
       <a href="/home/pastrides">Past Rides</a>
       <a href="/favorites">Favorites</a>
       <a href="/profile">Profile</a>
-      <a href="/home/feedback">Feedback</a>
-      <a href="/home/blockuser">Block User</a>
+      <a href="/home/feedback">feedback</a>
+      <a href="/home/blockuser">blockuser</a>      
       <a href="/login">Logout</a>
 </div>
 
-<form th:action="favorites" th:object="${data}" method="post">
-  <p><label>Favorite Users:</label></p>
-  <p><input type="text" th:field="*{favorite}"></p>
-    
-    <p><input type="submit" value="Submit">
-  </form>
-  <p><label>Favorite Users:</label></p>
-          <p th:text="${favorite}"></p>
+<div class="content">
+    <p th:text="'Ride Post Status:'" />
+   	<p th:text="${confirmation}"/>
+</div>
 
 <script>
 window.onscroll = function() {myFunction()};

@@ -213,12 +213,50 @@ public class Handler {
 		{
 			return "login";
 		}
+		boolean isOwner = false;
+		if(ridePostTransaction.getRidePost(ridepostid).getDriverUsername().equals(currentUserID))
+		{
+			isOwner = true;
+		}
+		model.addAttribute("isOwner", isOwner);
+		
 		model.addAttribute("theRidePost", ridePostTransaction.getRidePost(ridepostid));
 		model.addAttribute("allpassengers", passengerRequestTransaction.getAllAcceptedPassengers(ridepostid));
 
 		return "viewoneupcomingridepost";
 	}
-
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/showpassengerrequests")
+	public String getviewUpcomingPassengerRequests(@PathVariable("ridepostid")int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("allpassengers", passengerRequestTransaction.getAllPassengerRequests(ridepostid));
+		//Need to add buttons to html to accept or decline a request.
+		return "passengerrequests";
+	}
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/removeridepost")
+	public String removeRidePost(@PathVariable("ridepostid")int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", removeRidePost(ridepostid));
+		return "removeridepostconfirmation";
+	}
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/leaveride")
+	public String leaveRidePost(@PathVariable("ridepostid")int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", cancelRide(ridepostid));
+		return "leaverideconfirmation";
+	}
+	
 	@GetMapping("/home/feedback") // The feedback page for users.
 	public String getviewFeedback(Data data) {
 		if (currentUserID == null) {
@@ -256,9 +294,11 @@ public class Handler {
 			return "login";
 		}
 		User user = userTransaction.getUser(currentUserID);
-		user.blockUser(data.getBlockeduser());
-		userTransaction.updateUser(user);
 		model.addAttribute(user);
+		if(userTransaction.users.existsById(data.getBlockeduser())) {
+			user.blockUser(data.getBlockeduser());
+			userTransaction.updateUser(user);
+		}
 		if (userTransaction.getUser(currentUserID).getBlockedList().size() != 0) {
 			model.addAttribute("blockedusers", userTransaction.getUser(currentUserID).getBlockedList());
 		} else {
@@ -464,8 +504,10 @@ public class Handler {
 			return "loginpage";
 		}
 		User user = userTransaction.getUser(currentUserID);
+		if(userTransaction.users.existsById(data.getFavorite())) {
 		user.addToFavorites(data.getFavorite());
 		userTransaction.updateUser(user);
+		}
 		model.addAttribute(user);
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		if (userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
