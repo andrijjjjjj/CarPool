@@ -433,17 +433,27 @@ public class Handler {
 		return passengerRequestTransaction.viewPassengerRequests(username, ridePostID);
 	}
 
-	@RequestMapping("/favorites")
-	public String getFavorites(Model model) {
-
+	@GetMapping("/favorites")
+	public String getFavorites(Model model, Data data) {
 		if (currentUserID == null) {
 			return "loginpage";
 		}
+		return "favorites";
+	}
+	@PostMapping("/favorites")
+	public String postFavorites(Model model, Data data) {
+		if (currentUserID == null) {
+			return "loginpage";
+		}
+		User user = userTransaction.getUser(currentUserID);
+		user.addToFavorites(data.getFavorite());
+		userTransaction.updateUser(user);
+		model.addAttribute(user);
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		if (userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
-			model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
+			model.addAttribute("favorite", userTransaction.getUser(currentUserID).getFavorites());
 		} else {
-			model.addAttribute("favorites", "You have no favorites!");
+			model.addAttribute("favorite", "You have no favorites!");
 		}
 
 		return "favorites";
