@@ -136,7 +136,6 @@ public class Handler {
 
 	@PostMapping("/deleteaccountprompt")
 	public String postdeleteaccount(Data data) {
-		System.out.println("issa motherfucking miracle -sam l jackson");
 		userTransaction.deleteAccount(currentUserID);
 		return "login";
 	}
@@ -300,7 +299,7 @@ public class Handler {
 	}
 
 	@PostMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
-	public String postMakeRidePost(Integer ridePostID, String currentUserID, Data data) {
+	public String postMakeRidePost(Integer ridePostID, Data data) {
 		String driverUserID = currentUserID;
 		ridePostTransaction.createRidePost(ridePostID, driverUserID, data);
 		System.out.println(data.getTime());
