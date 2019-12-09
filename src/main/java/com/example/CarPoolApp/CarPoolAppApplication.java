@@ -105,6 +105,24 @@ public class CarPoolAppApplication {
 			
 			// POPULATE WEBPAGE WITH INFORMATION
 			User user = new User("dschrute", "beets", "Dwight", "Schrute", "Male", "1234567890", 1);
+			
+			user.getProfile().setRating(5);
+			user.getProfile().setRating(4);
+			user.getProfile().setRating(3);
+			user.getProfile().setRating(2);
+			user.getProfile().setRating(1);
+			user.getProfile().addComment("cool driver");
+			user.getProfile().addComment("bad driver");
+			user.getProfile().addComment("i like this guy");
+			user.getProfile().addComment("this guy sucks");
+			user.addToFavorites("Michael Scott - mscott");
+			user.addToFavorites("Angela Martin - amartin");
+			user.addToFavorites("Jim Halpert - jhalpert");
+			user.addToFavorites("Pam Beesly - pbeesly");
+			user.addToFavorites("Kevin Malone - kmalone");
+			user.addToFavorites("Andy Bernard - abernard");
+			repository.save(user);
+			
 			user.getProfile().setRating(1);
 			user.getProfile().setRating(2);
 			user.getProfile().setRating(3);
