@@ -77,9 +77,12 @@ body {
 </div>
 
 <div class="content">
-    <p th:text="'Driver ULID:     Max Passengers:     Date:      Time:     Car:     Start Location:     End Location:     Cost:     Luggage:'" />
+    <p th:text="'Upcoming rides '" />
    	<ul th:each="ride : ${upcomingrides}">
-    	<li th:type="button" th:href=${ridePostID} th:text="${ride}"> </li>
+   		<div id="list">
+    		<p th:text="${ride}"></p> 
+    		<a th:href="'/home/upcomingrides/' + ${ride.ridePostID}"> View Ride</a>
+    	</div>
     </ul>
 </div>
 
