@@ -4,103 +4,130 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
-  margin: 0;
-  font-size: 28px;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: Gainsboro ;
+	margin: 0;
+	font-size: 28px;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: Gainsboro;
 }
 
 .header {
-  background: rgb(131,58,180);
-  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
-  padding: 30px;
-  text-align: center;
+	background: rgb(131, 58, 180);
+	background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%,
+		rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+	padding: 30px;
+	text-align: center;
 }
 
 #navbar {
-  overflow: hidden;
-  background-color: #333;
+	overflow: hidden;
+	background-color: #333;
 }
 
 #navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
 }
 
 #navbar a:hover {
-  background-color: #ddd;
-  color: black;
+	background-color: #ddd;
+	color: black;
 }
 
 #navbar a.active {
-  background-color: #4CAF50;
-  color: white;
+	background-color: #4CAF50;
+	color: white;
 }
 
 .content {
-  padding: 16px;
+	padding: 16px;
 }
 
 .sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
+	position: fixed;
+	top: 0;
+	width: 100%;
 }
 
-.sticky + .content {
-  padding-top: 60px;
+.sticky+.content {
+	padding-top: 60px;
 }
+table,th,td{border:1px solid black}
+th,td{padding:20px}
+
 </style>
 </head>
 <body>
 
-<div class="header">
+	<div class="header">
 
-<h1><p th:text="'ISU Carpool'" /></h1>
-</div>
+		<h1>
+			<p th:text="'ISU Carpool'" />
+		</h1>
+	</div>
 
-<div id="navbar">
-	  <a href="/home">All Ride Posts</a>
-  	  <a href="/home/viewallrides/makeridepost">Create a Post</a>
-      <a href="/home/upcomingrides">Upcoming Rides</a>
-      <a href="/home/pendingrides">Pending Rides</a>
-      <a href="/home/pastrides">Past Rides</a>
-      <a href="/favorites">Favorites</a>
-      <a href="/profile">Profile</a>
-      <a href="/home/feedback">feedback</a>
-      <a href="/home/blockuser">blockuser</a>      
-      <a href="/login">Logout</a>
-</div>
+	<div id="navbar">
+		<a href="/home">All Ride Posts</a> <a
+			href="/home/viewallrides/makeridepost">Create a Post</a> <a
+			href="/home/upcomingrides">Upcoming Rides</a> <a
+			href="/home/pendingrides">Pending Rides</a> <a href="/home/pastrides">Past
+			Rides</a> <a href="/favorites">Favorites</a> <a href="/profile">Profile</a>
+		<a href="/home/feedback">Feedback</a> <a href="/home/blockuser">Block
+			User</a> <a href="/login">Logout</a>
+	</div>
 
-<div class="content">
-    <p th:text="'All ride Posts '" />
-   	<ul th:each="ride : ${allrideposts}">
-   		<div id="list">
-    		<p th:text="${ride}"></p> 
-    		<a th:href="'/home/' + ${ride.ridePostID}"> View Ride</a>
-    	</div>
-    </ul>
-</div>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>Ride Post ID</th>
+					<th>Driver Username</th>
+					<th>Maximum Passengers</th>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Car</th>
+					<th>Start Location</th>
+					<th>End Location</th>
+					<th>Cost</th>
+					<th>Luggage</th>
+				</tr>
+			</thead>
+			<tr th:each="ride : ${allrideposts}">
+			<td><a th:href="'/home/' + ${ride.ridePostID}">View Ride</a></td>
+			<td th:text= "${ride.driverUsername}"></td>
+			<td th:text= "${ride.maxNumPassengers}"></td>
+			<td th:text= "${ride.date}"></td>
+			<td th:text= "${ride.time}"></td>
+			<td th:text= "${ride.car}"></td>
+			<td th:text= "${ride.startLocation}"></td>
+			<td th:text= "${ride.endLocation}"></td>
+			<td th:text= "${ride.cost}"></td>
+			<td th:text= "${ride.luggage}"></td>
+			</tr>
+		</table>
+	</div>
 
-<script>
-window.onscroll = function() {myFunction()};
 
-var navbar = document.getElementById("navbar");
-var sticky = navbar.offsetTop;
+	<script>
+		window.onscroll = function() {
+			myFunction()
+		};
 
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-  } else {
-    navbar.classList.remove("sticky");
-  }
-}
-</script>
+		var navbar = document.getElementById("navbar");
+		var sticky = navbar.offsetTop;
+
+		function myFunction() {
+			if (window.pageYOffset >= sticky) {
+				navbar.classList.add("sticky")
+			} else {
+				navbar.classList.remove("sticky");
+			}
+		}
+	</script>
 
 </body>
 </html>
