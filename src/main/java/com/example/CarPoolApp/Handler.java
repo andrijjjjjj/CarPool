@@ -7,25 +7,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @EnableWebMvc
@@ -46,6 +35,7 @@ public class Handler {
 	
 	@GetMapping("/login")
 	public String getlogin(Data data) {
+		currentUserID = "";//Signs the user out.
 		return "login";
 	}
 
@@ -201,10 +191,10 @@ public class Handler {
 
 	@GetMapping("/home/viewallrides/makeridepost") // A  for making a ridePost.
 	public String getMakeRidePost(Data data) {
-//		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-//		{
-//			return "login";
-//		}
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
 		return "makeridepost";// TODO need to make html  for making a ridepost.
 	}
 	
