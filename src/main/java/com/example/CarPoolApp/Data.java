@@ -39,11 +39,16 @@ public class Data {
 	private boolean luggage;
 	private String comments;
 	private Integer rating;
+	private String favorite;
 	private String blockeduser;
 	
-	
-	
-	
+	public String getFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(String favorite) {
+		this.favorite = favorite;
+	}
 	
 	public String getBlockeduser() {
 		return blockeduser;
@@ -51,6 +56,7 @@ public class Data {
 
 	public void setBlockeduser(String blockeduser) {
 		this.blockeduser = blockeduser;
+		
 	}
 
 	public String getComments() {
