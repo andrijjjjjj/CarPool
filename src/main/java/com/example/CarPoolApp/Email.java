@@ -489,7 +489,6 @@ public class Email {
 	         		+ "<H1>Unique ID has been generated for your carpool!</H1>"
 	         		+ "<H1>Your ID is: "+unique+",</H1>"
 	         		+ "<H2>Your next carpool is on: </H2>"
-	         		+ "<p>Tuesday, November 26 2019 @ 5:00 PM</p>"
 	         		+ "<H3>Thanks for using ISU Carpool!</H3>"
 	         		+ "<H3>http://illinoisstate.edu</H3>";
 	         messageBodyPart.setContent(htmlText, "text/html");
