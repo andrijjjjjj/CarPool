@@ -128,22 +128,42 @@ public class Handler {
 		return "emailconfirmation";
 	}
 
-	@GetMapping("/forgotpassword")
-	public String getforgotpassword(Data data) {
-		return "forgotpassword";
-	}
-
-	@PostMapping("/forgotpassword/forgotpassword")
-	public String postforgotpassword(Data data) {
+	@PostMapping("/sendpasswordemail")
+	public String postforgotpasswordemail(Data data) {
 		currentUserID = data.getUserid();
-		boolean temp = userTransaction.emailconfirmation(currentUserID, data);
+		boolean temp = userTransaction.emailreset(currentUserID);
 		if (temp == true) {
 			System.out.println("going to home");
-			return "home";
+			return "welcome";
 		} else {
 			System.out.println("reload page");
 			return "forgotpassword";
 		}
+	}
+
+	@GetMapping("/sendpasswordemail")
+	public String getforgotpassword(Data data) {
+		return "sendpasswordemail";
+	}
+
+	@GetMapping("/forgotpassword")
+	public String getforgotpasswordemail(Data data) {
+		return "forgotpassword";
+	}
+
+	@PostMapping("/forgotpassword")
+	public String postforgotpassword(Data data) {
+		currentUserID = data.getUserid();
+		String new_password = data.getPassword();
+		if (currentUserID.isEmpty() != true && new_password.isEmpty() != true) {
+			boolean temp = userTransaction.passwordChange(currentUserID, new_password);
+			if (temp == true) {
+				System.out.println("going to home");
+				return "welcome";
+			}
+			System.out.println("reload page");
+		}
+		return "welcome";
 	}
 
 	@GetMapping("/deleteaccountprompt")
@@ -157,34 +177,6 @@ public class Handler {
 		return "login";
 	}
 
-	@RequestMapping("/login/forgotpassword") // The forgot password.
-	public String loadForgottenPassword() throws ServletException, IOException {
-		// This will have a form where the user enters their email. Then a button.
-		// Once button pressed, send email to that email.
-		// In the email, the link should be to a specific used to set a new
-		// password for the account.
-		// The email will also send a verification code to verify that user is who they
-		// say they are on the website. //TODO where do we store this in backend? User
-		// class?
-
-		return "login";// Go back to login .
-	}
-
-	@RequestMapping("/login/changeforgotpassword/useraccount") // The change forgot password .
-	public String loadChangeForgottenFassword(@RequestParam("useraccount") String useraccount) {// This request param
-																								// allows us to use this
-																								// variable to confirm
-																								// user.
-		// This will have a form where the user enters their verification code,
-		// enters a form their new password, and clicks a button.
-		// Once button pressed, if verification code is the same, call the change
-		// forgotten password use case method, return to login.
-		// If not, change verification code in User class to null, and redirect user
-		// back to home. They will have to resend the verification email and repeat the
-		// process.
-
-		return "login";// Go back to login .
-	}
 
 	@RequestMapping("/home") // The home of the website. Should have buttons for most use cases... EX: view
 								// all rides.
