@@ -110,8 +110,17 @@ public class PassengerRequestTransaction {
 
 	public ArrayList<PassengerRequest> viewPendingRides(String username) {
 
-		ArrayList<PassengerRequest> pendingRequests = passengerRequests.findAllByPassengerUsername(username);
-		return pendingRequests;
+		//ArrayList<PassengerRequest> pendingRequests = passengerRequests.findAllByPassengerUsername(username);
+		//TODO
+		ArrayList<PassengerRequest> result = new ArrayList<PassengerRequest>();
+		for(PassengerRequest request : passengerRequests.findAllByPassengerUsername(username))
+		{
+			if(request.getWaitingAcceptedDeclined()==1)
+			{
+				result.add(request);
+			}
+		}
+		return result;
 	}
 
 	// returns an array list of requests for a specific ride post.
@@ -159,5 +168,10 @@ public class PassengerRequestTransaction {
 			}
 		}
 		return result;
+	}
+	
+	public void updateRequest(PassengerRequest request)
+	{
+		passengerRequests.save(request);
 	}
 }

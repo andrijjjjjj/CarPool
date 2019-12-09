@@ -214,7 +214,7 @@ public class Handler {
 			return "login";
 		}
 		boolean isOwner = false;
-		if(ridePostTransaction.getRidePost(ridepostid).getDriverUsername().equals(currentUserID))
+		if(ridePostTransaction.getRidePost(ridepostid).getDriverUsername().equalsIgnoreCase(currentUserID))
 		{
 			isOwner = true;
 		}
@@ -232,9 +232,32 @@ public class Handler {
 		{
 			return "login";
 		}
+		model.addAttribute("theRidePost", ridePostTransaction.getRidePost(ridepostid));
 		model.addAttribute("allpassengers", passengerRequestTransaction.getAllPassengerRequests(ridepostid));
 		//Need to add buttons to html to accept or decline a request.
 		return "passengerrequests";
+	}
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/showpassengerrequests/{passengerrequestid}/accepted")
+	public String acceptUpcomingPassengerRequests(@PathVariable("ridepostid")int ridepostid, @PathVariable("passengerrequestid")int passengerrequestid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", acceptPassengerRequest(passengerrequestid));
+		
+		return "passengerrequestacceptdeclineconfirmation";
+	}
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/showpassengerrequests/{passengerrequestid}/declined")
+	public String declineUpcomingPassengerRequests(@PathVariable("ridepostid")int ridepostid, @PathVariable("passengerrequestid")int passengerrequestid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", declinePassengerRequest(passengerrequestid));
+		
+		return "passengerrequestacceptdeclineconfirmation";
 	}
 	
 	@PostMapping("/home/upcomingrides/{ridepostid}/removeridepost")
@@ -253,7 +276,16 @@ public class Handler {
 		{
 			return "login";
 		}
-		model.addAttribute("confirmation", cancelRide(ridepostid));
+		ArrayList<PassengerRequest> requests = passengerRequestTransaction.getAcceptedRequests(currentUserID);
+		PassengerRequest request = null;
+		for(int i = 0; i < requests.size();i++)
+		{
+			if(requests.get(i).getRidePostID() == ridepostid)
+			{
+				request = requests.get(i);
+			}
+		}
+		model.addAttribute("confirmation", cancelRide(request.getPassengerRequestID()));
 		return "leaverideconfirmation";
 	}
 	
@@ -485,6 +517,27 @@ public class Handler {
 
 	public ArrayList<PassengerRequest> viewPassengerRequests(String username, int ridePostID) {
 		return passengerRequestTransaction.viewPassengerRequests(username, ridePostID);
+	}
+	
+	public String acceptPassengerRequest(int passengerRequestID)
+	{
+		PassengerRequest request = passengerRequestTransaction.getPassengerRequest(passengerRequestID);
+		request.setWaitingAcceptedDeclined(2);
+		passengerRequestTransaction.updateRequest(request);
+		//Send email to accepted user.
+		User acceptedUser = userTransaction.getUser(request.getPassengerUsername());
+		Email email = new Email();
+		email.emailPassengerRequest(acceptedUser);
+		return "You have accepted the passenger request!";
+	}
+	
+	public String declinePassengerRequest(int passengerRequestID)
+	{
+		PassengerRequest request = passengerRequestTransaction.getPassengerRequest(passengerRequestID);
+		request.setWaitingAcceptedDeclined(3);
+		passengerRequestTransaction.updateRequest(request);
+				
+		return "You have declined the passenger request...";
 	}
 
 	@GetMapping("/favorites")
