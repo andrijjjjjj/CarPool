@@ -144,9 +144,9 @@ public class RidePost {
 	
 	@Override
 	public String toString() {
-		return "RidePost [ridePostID=" + ridePostID + ", driverUsername=" + driverUsername + ", maxNumPassengers="
-				+ maxNumPassengers + ", date=" + date + ", time=" + time + ", car=" + car + ", startLocation="
-				+ startLocation + ", endLocation=" + endLocation + ", cost=" + cost + ", luggage=" + luggage + "]";
+		return "     " + driverUsername + "     "
+				+ maxNumPassengers + "     " + date + "     " + time + "     " + car + "     "
+				+ startLocation + "     " + endLocation + "     " + cost + "     " + luggage;
 	}
 
 	public void setUniqueID() {

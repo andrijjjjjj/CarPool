@@ -350,7 +350,7 @@ public class Email {
 	         		+ "<H1>Hello "+user.getProfile().getfName()+",</H1>"
 	         		+ "<H2>Thanks for your interest in ISU Carpool! </H2>"
 	         		+ "<H2>Click the link below to complete account activation: </H2>"
-	         		+ "<a href=\"http://localhost:8080/emailconfirmation/\">click here to verify<a/>"
+	         		+ "<p>Link</p>"
 	         		+ "<H3>Welcome to ISU Carpool!</H3>"
 	         		+ "<H3>http://illinoisstate.edu</H3>";
 	         messageBodyPart.setContent(htmlText, "text/html");

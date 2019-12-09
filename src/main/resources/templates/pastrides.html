@@ -78,7 +78,10 @@ body {
 </div>
 
 <div class="content">
-    <p th:text="'your past rides: ' + ${pastRides}"/p>
+    <p th:text="'Driver ULID:     Max Passengers:     Date:      Time:     Car:     Start Location:     End Location:     Cost:     Luggage:'" />
+   	<ul th:each="ride : ${pastrides}">
+    	<li th:type="button" th:href=${ridePostID} th:text="${ride}"> </li>
+    </ul>
 </div>
 
 <script>
