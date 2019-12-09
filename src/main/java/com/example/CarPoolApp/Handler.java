@@ -185,16 +185,6 @@ public class Handler {
 		return "home";
 	}
 
-	@RequestMapping("/home/viewallrides") // The viewallrides of the website. Will show all rideposts.
-	public String loadViewAllRides(@ModelAttribute RidePostTransaction ridePostTransaction) {
-		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-		{
-			return "login";
-		} // Puts arraylist of all ride posts in html .
-
-		return "viewallrides";
-	}
-
 	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
 	public String getviewUpcomingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
@@ -231,19 +221,6 @@ public class Handler {
 		return "feedback";
 	}
 
-	// ride in URL must be changed to the ridePostID
-	@RequestMapping("/home/ride/passengerrequests")
-	public String viewPassengerRequests(Model model) {
-		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-		{
-			return "login";
-		}
-		// model.addAttribute("passRequests", viewPassengerRequests(currentUserID,
-		// ridepostid)); //Puts arraylist of all ride posts in html .
-
-		return "passengerrequests";// TODO need to make html for viewallrides.html.
-	}
-
 	@RequestMapping("/home/pendingrides") // The viewallrides of the website. Will show all rideposts.
 	public String viewPendingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
@@ -253,7 +230,7 @@ public class Handler {
 		model.addAttribute("pendingRides", viewPendingRides(currentUserID)); // Puts arraylist of all ride posts in html
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName()); // .
 
-		return "pendingrides";// TODO need to make html for viewallrides.html.
+		return "pendingrides";// TODO need to make html
 	}
 
 	@RequestMapping("/home/pastrides") // The viewallrides of the website. Will show all rideposts.
@@ -267,7 +244,7 @@ public class Handler {
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
 		model.addAttribute("pastrides", viewPastRides(currentUserID)); // Puts arraylist of all ride posts in html .	// html.
-		return "pastrides";// TODO need to make html for viewallrides.html.
+		return "pastrides";
 	}
 
 	@RequestMapping("/home/pastrides/{ridepostid}")
@@ -292,6 +269,16 @@ public class Handler {
 		model.addAttribute("theRidePost", post);
 
 		return "viewridepost";
+	}
+	
+	@RequestMapping("/home/{ridepostid}/makepassengerrequest")
+	public String viewPassengerRequests(@PathVariable("ridepostid")int ridepostid, Model model) {
+		if (currentUserID == null)// User isn't logged in.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", makePassengerRequest(ridepostid, currentUserID));
+		return "showpassengerrequestconfirmation";
 	}
 
 	@GetMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
