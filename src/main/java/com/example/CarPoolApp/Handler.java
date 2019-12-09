@@ -204,6 +204,13 @@ public class Handler {
 		{
 			return "login";
 		}
+		boolean isOwner = false;
+		if(ridePostTransaction.getRidePost(ridepostid).getDriverUsername().equals(currentUserID))
+		{
+			isOwner = true;
+		}
+		model.addAttribute("isOwner", isOwner);
+		
 		model.addAttribute("theRidePost", ridePostTransaction.getRidePost(ridepostid));
 		model.addAttribute("allpassengers", passengerRequestTransaction.getAllAcceptedPassengers(ridepostid));
 		
