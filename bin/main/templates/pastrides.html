@@ -56,6 +56,8 @@ body {
 .sticky + .content {
   padding-top: 60px;
 }
+table,th,td{border:1px solid black}
+th,td{padding:20px}
 </style>
 </head>
 <body>
@@ -73,20 +75,41 @@ body {
       <a href="/home/pastrides">Past Rides</a>
       <a href="/favorites">Favorites</a>
       <a href="/profile">Profile</a>
-      <a href="/home/feedback">feedback</a>
-      <a href="/home/blockuser">blockuser</a>
+      <a href="/home/feedback">Feedback</a>
+      <a href="/home/blockuser">Block User</a>
       <a href="/login">Logout</a>
 </div>
 
-<div class="content">
-    <p th:text="'Past ride Posts '" />
-   	<ul th:each="ride : ${pastrides}">
-   		<div id="list">
-    		<p th:text="${ride}"></p> 
-    		<a th:href="'/home/pastrides/' + ${ride.ridePostID}"> View Ride</a>
-    	</div>
-    </ul>
-</div>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>Ride Post ID</th>
+					<th>Driver Username</th>
+					<th>Maximum Passengers</th>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Car</th>
+					<th>Start Location</th>
+					<th>End Location</th>
+					<th>Cost</th>
+					<th>Luggage</th>
+				</tr>
+			</thead>
+			<tr th:each="ride : ${pastrides}">
+			<td><a th:href="'/home/pastrides/' + ${ride.ridePostID}"> View Ride</a></td>
+			<td th:text= "${ride.driverUsername}"></td>
+			<td th:text= "${ride.maxNumPassengers}"></td>
+			<td th:text= "${ride.date}"></td>
+			<td th:text= "${ride.time}"></td>
+			<td th:text= "${ride.car}"></td>
+			<td th:text= "${ride.startLocation}"></td>
+			<td th:text= "${ride.endLocation}"></td>
+			<td th:text= "${ride.cost}"></td>
+			<td th:text= "${ride.luggage}"></td>
+			</tr>
+		</table>
+	</div>
 
 <script>
 window.onscroll = function() {myFunction()};

@@ -169,8 +169,7 @@ public class Handler {
 		return "login";// Go back to login .
 	}
 
-	@RequestMapping("/home") // The home of the website. Should have buttons for most use cases... EX: view
-								// all rides.
+	@RequestMapping("/home") // The home of the website. Should have buttons for most use cases... EX: view					// all rides.
 	public String loadHome(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -179,6 +178,7 @@ public class Handler {
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
 		model.addAttribute("allrideposts", viewAllRides()); // Puts arraylist of all ride posts in html .
+		model.addAttribute("reversedate", viewRidesDateLate());
 
 		// variable. Can put methods in this call too.
 
@@ -400,6 +400,9 @@ public class Handler {
 	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllPresentRidePosts();
+	}
+	public ArrayList<RidePost> viewRidesDateLate() {
+		return ridePostTransaction.getAllRidesByDate();
 	}
 
 	public ArrayList<RidePost> viewAllRides(String driverGender, int driverRating, String carPreference, String cost,

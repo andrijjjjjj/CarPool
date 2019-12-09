@@ -37,7 +37,8 @@ public class RidePostTransaction {
 	    } else {
 	    	return true;
 	    }
-	}  
+	} 
+	
 	
 	public ArrayList<RidePost> getConvertedPresentRidePosts(ArrayList<RidePost> rides)
 	{
@@ -84,6 +85,19 @@ public class RidePostTransaction {
 	public ArrayList<RidePost> getAllPresentRidePosts()
 	{
 		return getConvertedPresentRidePosts(getAllRidePosts());
+	}
+	
+	public ArrayList<RidePost> getAllRidesByDate(){
+		ArrayList<RidePost> result = getAllPresentRidePosts();
+        ArrayList<RidePost> revArrayList = new ArrayList<RidePost>(); 
+        for (int i = result.size() - 1; i >= 0; i--) { 
+        	  
+            // Append the elements in reverse order 
+            revArrayList.add(result.get(i)); 
+        } 
+  
+        // Return the reversed arraylist 
+        return revArrayList;
 	}
 	
 	public ArrayList<RidePost> getAllRidePosts(String driverGender, int driverRating, String carPreference, String costPreference, boolean luggageAllowance)
