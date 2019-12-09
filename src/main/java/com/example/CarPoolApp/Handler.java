@@ -29,6 +29,7 @@ public class Handler {
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
 	UserTransaction userTransaction;
+	
 
 	String currentUserID; // This instantiation is for tests. This variable should be set by calling the
 							// login method. Can use this method to determine if a user is logged in(null =
@@ -210,14 +211,22 @@ public class Handler {
 		return "viewoneupcomingridepost";
 	}
 	
-	@RequestMapping("/home/feedback") // The feedback page for users.
-	public String viewFeedback(Model model) {
+	@GetMapping("/home/feedback") // The feedback page for users.
+	public String getviewFeedback(Data data) {
 		if (currentUserID == null) {
 			return "login";
 		}
-		model.addAttribute("past", ridePostTransaction.viewPastRides(currentUserID)); // Puts arraylist of all ride
-																						// posts in html .
-
+		
+		return "feedback";
+	}
+	@PostMapping("/home/feedback") // The feedback page for users.
+	public String postviewFeedback(Data data) {
+		if (currentUserID == null) {
+			return "login";
+		}
+		User user = userTransaction.getUser(data.getUserid());
+		user.getProfile().saveFeedback(data.getRating(), data.getComments());
+		userTransaction.updateUser(user);
 		return "feedback";
 	}
 
@@ -292,7 +301,8 @@ public class Handler {
 
 	@PostMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
 	public String postMakeRidePost(Integer ridePostID, String currentUserID, Data data) {
-		ridePostTransaction.createRidePost(ridePostID, currentUserID, data);
+		String driverUserID = currentUserID;
+		ridePostTransaction.createRidePost(ridePostID, driverUserID, data);
 		System.out.println(data.getTime());
 		// Have button on viewallrides that when clicked, moves to this . User
 		// will enter info into boxes. Pushes button that calls the make ridepost use

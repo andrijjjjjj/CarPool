@@ -78,25 +78,17 @@ body {
 
 <div class="content">
     <div>
-  <form action="/action_page.php">
-  <table><label for="fname">ULID</label></table>
-  <table><input type="text" id="ulid" name="ulid" placeholder="Users ULID youre rating..."></table>
+<form th:action="feedback" th:object="${data}" method="post">
+  <p><label>ULID</label></p>
+  <p><input type="text" th:field="*{userid}" placeholder="Users ULID youre rating..."></p>
     
-    <table><label for="stars">Rating</label></table>
-    <table><select id="stars" name="stars">
-      <option value="5">5 stars</option>
-      <option value="4">4 stars</option>
-      <option value="3">3 stars</option>
-      <option value="2">2 stars</option>
-      <option value="1">1 star</option>
-      <option value="0">0 stars</option>
-    </select></table>
+    <p><label>Rating</label></p>
+ 	<p><input th:type="number" th:field="*{rating}"> </p>
     
-    <table><label for="comments">Comments</label> </table>
-    <table><input type="text" id="comments" name="comments" placeholder="Comments for user..."></table>
+    <p><label> Comments</label>
+    <p><input type="text" th:field="*{comments}" placeholder="Comments for user...">
     
-  
-    <table><input type="submit" value="Submit"></table>
+    <p><input type="submit" value="Submit">
   </form>
 </div>
 
