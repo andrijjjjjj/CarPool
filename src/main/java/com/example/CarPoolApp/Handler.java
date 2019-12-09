@@ -7,25 +7,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @EnableWebMvc
@@ -39,6 +29,7 @@ public class Handler {
 	@Autowired
 	UserTransaction userTransaction;
 
+
 	String currentUserID; // This instantiation is for tests. This variable should be set by calling the
 							// login method. Can use this method to determine if a user is logged in(null =
 							// not logged in).
@@ -48,6 +39,7 @@ public class Handler {
 
 	@GetMapping("/login")
 	public String getlogin(Data data) {
+		currentUserID = "";//Signs the user out.
 		return "login";
 	}
 
@@ -95,6 +87,7 @@ public class Handler {
 		return "login";
 	}
 
+
 	@RequestMapping("/emailconfirmation") // The sign-up of the website.
 	public String emailConfirmation() throws ServletException, IOException {
 
@@ -102,6 +95,7 @@ public class Handler {
 		// method, then redirects to login .
 		return "emailconfirmation";// TODO Make html.
 	}
+
 
 	@RequestMapping("/login/forgotpassword") // The forgot password.
 	public String loadForgottenPassword() throws ServletException, IOException {
@@ -147,6 +141,7 @@ public class Handler {
 		return "home";
 	}
 
+
 	@RequestMapping("/home/viewallrides") // The viewallrides of the website. Will show all rideposts.
 	public String loadViewAllRides(@ModelAttribute RidePostTransaction ridePostTransaction) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
@@ -157,7 +152,8 @@ public class Handler {
 		return "viewallrides";
 	}
 
-	@RequestMapping("/home/upcomingrides") // The viewallrides of the website. Will show all rideposts.
+
+	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
 	public String viewUpcomingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -230,7 +226,8 @@ public class Handler {
 		return "ridepost"; // TODO make html.
 	}
 
-	@RequestMapping("/home/viewallrides/{ridepostid}") // A for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
+
+	@RequestMapping("/home/{ridepostid}") // A  for viewing a ridePost.
 	public String viewOneRidePost(@RequestParam("ridepostid") int ridePostID, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -244,11 +241,11 @@ public class Handler {
 
 	@GetMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
 	public String getMakeRidePost(Data data) {
-//		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-//		{
-//			return "login";
-//		}
-		return "makeridepost";// TODO need to make html for making a ridepost.
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		return "makeridepost";// TODO need to make html  for making a ridepost.
 	}
 
 	@PostMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
@@ -267,6 +264,7 @@ public class Handler {
 		return "viewone";
 	}
 
+
 //	@GetMapping("/signup") // The sign-up  of the website.
 //	public String getSignUp(Data data) {
 //		// User enters in info to all boxes, clicks button. Button calls signup use case
@@ -278,6 +276,7 @@ public class Handler {
 //		userTransaction.saveUser(data);
 //		return "login";
 //	}
+
 
 	@RequestMapping("/home/currentuseraccount") // The account/profile for the currently logged in user.
 	public String loadCurrentUserAccount(Model model) {
