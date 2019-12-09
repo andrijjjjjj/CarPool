@@ -44,6 +44,9 @@ public class CarPoolAppApplication {
 					"100", 2, false));
 			rideRepo.save(new RidePost(null, "dolunde", "My Home Again", "End Home", "2012-10-10", "09:05", "My car",
 					"100", 2, true));
+			rideRepo.save(new RidePost(null, "dolunde", "My Home Again", "End Home", "2020-10-10", "09:05", "My car",
+					"100", 2, true));
+			
 
 //			boolean workPlease=handleMe.signUp("Mjdevi1", "1234", "123-456-7890","Clunt", "TheChristmasBlunt","male");
 //			System.out.println(workPlease);
