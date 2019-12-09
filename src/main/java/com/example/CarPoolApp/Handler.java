@@ -29,7 +29,6 @@ public class Handler {
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
 	UserTransaction userTransaction;
-	
 
 	String currentUserID; // This instantiation is for tests. This variable should be set by calling the
 							// login method. Can use this method to determine if a user is logged in(null =
@@ -139,7 +138,7 @@ public class Handler {
 		userTransaction.deleteAccount(currentUserID);
 		return "login";
 	}
-	
+
 	@RequestMapping("/login/forgotpassword") // The forgot password.
 	public String loadForgottenPassword() throws ServletException, IOException {
 		// This will have a form where the user enters their email. Then a button.
@@ -185,7 +184,7 @@ public class Handler {
 		return "home";
 	}
 
-	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/upcomingrides") // The viewallrides of the website. Will show all rideposts.
 	public String getviewUpcomingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -194,30 +193,31 @@ public class Handler {
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
 		model.addAttribute("upcomingrides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
-																					// html .
+																				// html .
 		return "upcomingrides";
 	}
 
 	@RequestMapping("/home/upcomingrides/{ridepostid}")
-	public String getviewUpcomingRidePost(@PathVariable("ridepostid") int ridepostid, Model model){
+	public String getviewUpcomingRidePost(@PathVariable("ridepostid") int ridepostid, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
 		model.addAttribute("theRidePost", ridePostTransaction.getRidePost(ridepostid));
 		model.addAttribute("allpassengers", passengerRequestTransaction.getAllAcceptedPassengers(ridepostid));
-		
+
 		return "viewoneupcomingridepost";
 	}
-	
+
 	@GetMapping("/home/feedback") // The feedback page for users.
 	public String getviewFeedback(Data data) {
 		if (currentUserID == null) {
 			return "login";
 		}
-		
+
 		return "feedback";
 	}
+
 	@RequestMapping("/home/feedback") // The feedback page for users.
 	public String postviewFeedback(Data data) {
 		if (currentUserID == null) {
@@ -228,7 +228,7 @@ public class Handler {
 		userTransaction.updateUser(user);
 		return "feedback";
 	}
-	
+
 	@GetMapping("/home/blockuser") // The feedback page for users.
 	public String getblockUser(Model model, Data data) {
 		if (currentUserID == null) {
@@ -239,6 +239,7 @@ public class Handler {
 		}
 		return "blockuser";
 	}
+
 	@PostMapping("/home/blockuser") // The feedback page for users.
 	public String postblockUser(Model model, Data data) {
 		if (currentUserID == null) {
@@ -275,10 +276,11 @@ public class Handler {
 			return "login";
 		}
 //		model.addAttribute("pastRides", viewPendingRides(currentUserID)); // Puts arraylist of all past ride posts in
-		
+
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
-		model.addAttribute("pastrides", viewPastRides(currentUserID)); // Puts arraylist of all ride posts in html .	// html.
+		model.addAttribute("pastrides", viewPastRides(currentUserID)); // Puts arraylist of all ride posts in html . //
+																		// html.
 		return "pastrides";
 	}
 
@@ -305,9 +307,9 @@ public class Handler {
 
 		return "viewridepost";
 	}
-	
+
 	@RequestMapping("/home/{ridepostid}/makepassengerrequest")
-	public String viewPassengerRequests(@PathVariable("ridepostid")int ridepostid, Model model) {
+	public String viewPassengerRequests(@PathVariable("ridepostid") int ridepostid, Model model) {
 		if (currentUserID == null)// User isn't logged in.
 		{
 			return "login";
@@ -440,8 +442,12 @@ public class Handler {
 		if (currentUserID == null) {
 			return "loginpage";
 		}
-		return "favorites";
+		if (userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
+			model.addAttribute("favorite", userTransaction.getUser(currentUserID).getFavorites());
+		}
+		return"favorites";
 	}
+
 	@PostMapping("/favorites")
 	public String postFavorites(Model model, Data data) {
 		if (currentUserID == null) {
