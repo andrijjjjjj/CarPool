@@ -1,5 +1,6 @@
 package com.example.CarPoolApp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,31 +23,21 @@ public class RidePostTransaction {
 	@Autowired
 	UserTransaction userTransaction;
 	
-	public boolean isRidePresent(String date) {
-        //Date is in format yyyy/mm/dd
-        //Tokenize the date to be checked
-        StringTokenizer dateToCheck = new StringTokenizer(date, "-");
-
-        //Get the current date
-        LocalDateTime currentDate = LocalDateTime.now();
-
-        //format the current date
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        String theCurrentDate = dtf.format(currentDate);
-
-        //tokenize the current date
-        StringTokenizer current = new StringTokenizer(theCurrentDate, "/");
-
-        //check if date to check is in the carpool
-        for(int i = 0; i < 3; i++) {
-            int dateCheck = Integer.parseInt(dateToCheck.nextToken());
-            int currentInt = Integer.parseInt(current.nextToken());
-            if(dateCheck < currentInt) {
-                return false;
-            }
-        }
-        return true;
-    }
+	public boolean isRidePresent(String date) 
+	{
+		String dates = date;
+        String[] values = dates.split("-");
+        int year = Integer.parseInt(values[0]);
+        int month = Integer.parseInt(values[1]);
+        int day = Integer.parseInt(values[2]);
+		LocalDate testDate = LocalDate.of(year, month, day);
+		LocalDate present = LocalDate.now();
+	    if(present.isAfter(testDate)) {
+	    	return false;
+	    } else {
+	    	return true;
+	    }
+	}  
 	
 	public ArrayList<RidePost> getConvertedPresentRidePosts(ArrayList<RidePost> rides)
 	{

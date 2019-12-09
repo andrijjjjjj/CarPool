@@ -195,14 +195,15 @@ public class Handler {
 		return "viewallrides";
 	}
 
-	@RequestMapping("/home/upcomingrides") // The viewallrides of the website. Will show all rideposts.
-	public String viewUpcomingRides(Model model) {
+	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
+	public String getviewUpcomingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
-		model.addAttribute("theUpcomingRides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
+		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
+		model.addAttribute("upcomingrides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
 																					// html .
 
 		return "upcomingrides";
@@ -245,14 +246,16 @@ public class Handler {
 	}
 
 	@RequestMapping("/home/pastrides") // The viewallrides of the website. Will show all rideposts.
-	public String viewPastRides(Model model) {
+	public String getviewPastRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
+//		model.addAttribute("pastRides", viewPendingRides(currentUserID)); // Puts arraylist of all past ride posts in
+		
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
-		model.addAttribute("pastRides", viewPendingRides(currentUserID)); // Puts arraylist of all past ride posts in
-																			// html.
+		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
+		model.addAttribute("pastrides", viewPastRides(currentUserID)); // Puts arraylist of all ride posts in html .	// html.
 		return "pastrides";// TODO need to make html for viewallrides.html.
 	}
 
