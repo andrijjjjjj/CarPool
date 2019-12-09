@@ -118,7 +118,19 @@ body {
 	<p th:text="'Max passengers: ' + ${theRidePost.getMaxNumPassengers()}" />
 	<p th:text="'Allow Luggage: ' + ${theRidePost.getLuggage()}" />
 	
-	<form method="get" action="/home"><button class="button">Join Ride</button></form>
+	<form method="get" action="/home"><button class="button">Leave Ride</button></form>
+	
+<div class="content">
+    <p th:text="'All passengers '" />
+   	<ul th:each="passenger : ${allpassengers}">
+   		<div id="list">
+    		<p th:text="${passenger}"></p> 
+    		<a th:href="/home/pastrides/' + ${ridePostID} + '/' + ${passenger.userID}"> View Profile</a>
+    	</div>
+    </ul>
+</div>
+
+	
 	
 </body>
 
