@@ -78,13 +78,8 @@ body {
 </div>
 
 <div class="content">
-    <p th:text="'Passenger Requests: '" />
-   	<ul th:each="request : ${pendingRides}">
-   		<div id="list">
-    		<p th:text="${request}"></p> 
-    		
-    	</div>
-    </ul>
+    <p th:text="'Ride Post Status:'" />
+   	<p th:text="${confirmation}"/>
 </div>
 
 <script>

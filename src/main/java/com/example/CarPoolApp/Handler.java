@@ -216,6 +216,37 @@ public class Handler {
 		return "viewoneupcomingridepost";
 	}
 	
+	@PostMapping("/home/upcomingrides/{ridepostid}/showpassengerrequests")
+	public String getviewUpcomingPassengerRequests(@PathVariable("ridepostid")int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("allpassengers", passengerRequestTransaction.getAllPassengerRequests(ridepostid));
+		//Need to add buttons to html to accept or decline a request.
+		return "passengerrequests";
+	}
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/removeridepost")
+	public String removeRidePost(@PathVariable("ridepostid")int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", removeRidePost(ridepostid));
+		return "removeridepostconfirmation";
+	}
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/leaveride")
+	public String leaveRidePost(@PathVariable("ridepostid")int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", cancelRide(ridepostid));
+		return "leaverideconfirmation";
+	}
+	
 	@GetMapping("/home/feedback") // The feedback page for users.
 	public String getviewFeedback(Data data) {
 		if (currentUserID == null) {
