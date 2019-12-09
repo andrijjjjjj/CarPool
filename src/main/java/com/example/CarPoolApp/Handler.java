@@ -139,7 +139,7 @@ public class Handler {
 		userTransaction.deleteAccount(currentUserID);
 		return "login";
 	}
-
+	
 	@RequestMapping("/login/forgotpassword") // The forgot password.
 	public String loadForgottenPassword() throws ServletException, IOException {
 		// This will have a form where the user enters their email. Then a button.
