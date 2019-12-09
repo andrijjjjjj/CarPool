@@ -208,14 +208,24 @@ public class Handler {
 		return "upcomingrides";
 	}
 
-	@RequestMapping("/home/feedback") // The feedback page for users.
-	public String viewFeedback(Model model) {
+	@GetMapping("/home/feedback") // The feedback page for users.
+	public String getFeedback(Data data) {
 		if (currentUserID == null) {
 			return "login";
 		}
-		model.addAttribute("past", ridePostTransaction.viewPastRides(currentUserID)); // Puts arraylist of all ride
-																						// posts in html .
-
+		
+		return "feedback";
+	}
+	
+	@PostMapping("/home/feedback") // The feedback page for users.
+	public String viewFeedback(Data data) {
+		if (currentUserID == null) {
+			return "login";
+		}
+		
+		userTransaction.getUser(data.getUserid()).getProfile().setRating(data.getRating());
+		userTransaction.getUser(data.getUserid()).getProfile().addComment(data.getComments());
+		
 		return "feedback";
 	}
 

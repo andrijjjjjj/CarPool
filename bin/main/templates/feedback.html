@@ -61,7 +61,7 @@ body {
 
 <div class="header">
 
-<h1><p th:text="'Feedback'" /></h1>
+<h1>Feedback</h1>
 </div>
 
 <div id="navbar">
@@ -77,30 +77,26 @@ body {
 </div>
 
 <div class="content">
-    <div>
-  <form action="/action_page.php">
-  <table><label for="fname">ULID</label></table>
-  <table><input type="text" id="ulid" name="ulid" placeholder="Users ULID youre rating..."></table>
-    
-    <table><label for="stars">Rating</label></table>
-    <table><select id="stars" name="stars">
-      <option value="5">5 stars</option>
-      <option value="4">4 stars</option>
-      <option value="3">3 stars</option>
-      <option value="2">2 stars</option>
-      <option value="1">1 star</option>
-      <option value="0">0 stars</option>
-    </select></table>
-    
-    <table><label for="comments">Comments</label> </table>
-    <table><input type="text" id="comments" name="comments" placeholder="Comments for user..."></table>
-    
-  
-    <table><input type="submit" value="Submit"></table>
-  </form>
-</div>
-
-    
+	
+	<form action="#" th:action="@{/feedback}" th:object="${Data}" method="post">
+    <table border="1">
+        <tr>
+            <td><label th:text="#{userID}" /></td>
+            <td><input type="text" th:field="*{userID}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{rating}" /></td>
+            <td><input type="number" th:field="*{rating}" /></td>
+        </tr>
+        <tr>
+            <td><label th:text="#{comments}" /></td>
+            <td><input type="text" th:field="*{comments}" /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
 </div>
 
 <script>
