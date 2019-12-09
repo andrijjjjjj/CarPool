@@ -33,13 +33,34 @@ public class UserTransaction {
 		return false;
 	}
 
+	public boolean emailreset(String userID) {
+		if (users.existsById(userID)) {
+			User temp = users.findById(userID).get();
+			emailSender.emailreset(temp);
+			return true;
+		}
+		System.out.println("user ID null in reset");
+		return false;
+	}
+
+	public boolean passwordChange(String userID, String new_passsword) {
+			if(users.existsById(userID)) {
+				User temp=users.findById(userID).get();
+				temp.setPassword(new_passsword);
+				users.save(temp);
+				return true;
+			}
+			return false;
+	}
+
 	public String deleteAccount(String username) {
 
 		users.deleteById(username);
 		return "deleted Account " + username;
 	}
 
-	public void updateProfile(String username, String phoneNumber, String firstName, String lastName, String gender, ArrayList<Integer> ratings, ArrayList<String> comments) {
+	public void updateProfile(String username, String phoneNumber, String firstName, String lastName, String gender,
+			ArrayList<Integer> ratings, ArrayList<String> comments) {
 		String password = users.findById(username).get().getPassword();
 		User user = new User(username, password, firstName, lastName, gender, phoneNumber, 1);
 		user.getProfile().comments = comments;
@@ -48,17 +69,17 @@ public class UserTransaction {
 	}
 
 	public User getFeedback(String username) {
-		
+
 		return users.findById(username).get();
 	}
 
 	public boolean emailconfirmation(String userID, Data data) {
-		System.out.println("id: "+userID);
+		System.out.println("id: " + userID);
 		if (users.existsById(userID)) {
 			User temp = users.findById(userID).get();
-			
+
 			temp.setStatus(1);
-			//theres no way thats it
+			// theres no way thats it
 			users.save(temp);
 			return true;
 		}
@@ -82,6 +103,7 @@ public class UserTransaction {
 		users.save(user);
 		emailSender.emailSignUp(user);
 	}
+
 	public void updateUser(User user) {
 		users.save(user);
 	}

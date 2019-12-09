@@ -78,14 +78,8 @@ body {
 </div>
 
 <div class="content">
-    <p th:text="'Passenger Requests: '" />
-   	<ul th:each="request : ${allpassengers}">
-   		<div id="list">
-    		<p th:text="${request}"></p> 
-    		<form method="post" th:action="'/home/upcomingrides/' + ${theRidePost.ridePostID} + '/showpassengerrequests/' + ${request.passengerRequestID} +'/accepted'"><button class="button">Accept</button></form>
-    		<form method="post" th:action="'/home/upcomingrides/' + ${theRidePost.ridePostID} + '/showpassengerrequests/' + ${request.passengerRequestID} +'/declined'"><button class="button">Decline</button></form>
-    	</div>
-    </ul>
+    <p th:text="'Ride Post Status:'" />
+   	<p th:text="${confirmation}"/>
 </div>
 
 <script>
