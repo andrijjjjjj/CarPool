@@ -39,9 +39,20 @@ public class Data {
 	private boolean luggage;
 	private String comments;
 	private Integer rating;
+	private String blockeduser;
 	
 	
 	
+	
+	
+	public String getBlockeduser() {
+		return blockeduser;
+	}
+
+	public void setBlockeduser(String blockeduser) {
+		this.blockeduser = blockeduser;
+	}
+
 	public String getComments() {
 		return comments;
 	}
