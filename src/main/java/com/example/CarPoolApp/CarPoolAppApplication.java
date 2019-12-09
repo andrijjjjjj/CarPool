@@ -52,6 +52,16 @@ public class CarPoolAppApplication {
 			log.info("User found in database findOne(\"Nick\"):");
 			log.info(userAccount.toString());
 			log.info("");
+			
+			RidePostRepository r = null;
+			RidePost ride = new RidePost(1234, "startLocation", "dolunde","date", "IIIII", "time", "car", "cost", 2, true);
+			System.out.println(ride.toString());
+			
+			
+			
+			
+		//	System.out.println(r.findByDriverUsername("dlunde"));
+			
 
 			// fetch userAccounts by last name
 //			log.info("Username found with adeptdave:");
