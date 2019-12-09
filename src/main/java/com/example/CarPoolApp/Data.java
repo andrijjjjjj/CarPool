@@ -39,9 +39,17 @@ public class Data {
 	private boolean luggage;
 	private String comments;
 	private Integer rating;
+	private String favorite;
 	
 	
-	
+	public String getFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(String favorite) {
+		this.favorite = favorite;
+	}
+
 	public String getComments() {
 		return comments;
 	}

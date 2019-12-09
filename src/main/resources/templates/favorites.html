@@ -76,13 +76,14 @@ body {
       <a href="/login">Logout</a>
 </div>
 
-<div class="content">
-    <table>
-        <tr th:each="favorites : ${favorites}">
-          <td th:text="${favorites}">favorites</td>
-      
-    </table>
-</div>
+<form th:action="favorites" th:object="${data}" method="post">
+  <p><label>Favorite Users:</label></p>
+  <p><input type="text" th:field="*{favorite}"></p>
+    
+    <p><input type="submit" value="Submit">
+  </form>
+  <p><label>Favorite Users:</label></p>
+          <p th:text="${favorite}"></p>
 
 <script>
 window.onscroll = function() {myFunction()};
