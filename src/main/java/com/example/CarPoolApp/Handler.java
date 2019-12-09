@@ -66,7 +66,6 @@ public class Handler {
 
 	@PostMapping("/updateprofile")
 	public String postupdateProfile(Data data) {
-		System.out.println("id: "+currentUserID+" pnum: "+data.getPhonenumber()+" fname: "+data.getFirstname()+" lname: "+data.getLastname()+" gender: "+data.getGender());
 		if(data.getPhonenumber()!=null && data.getFirstname()!=null && data.getLastname()!=null && data.getGender()!=null) {
 		userTransaction.updateProfile(currentUserID, data.getPhonenumber(), data.getFirstname(),data.getLastname(), data.getGender() );
 			return "login";

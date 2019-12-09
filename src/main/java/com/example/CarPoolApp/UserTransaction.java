@@ -41,7 +41,7 @@ public class UserTransaction {
 		User temp = users.findById(username).get();
 		String keep_pass = temp.getPassword();
 		users.delete(temp);
-		Profile new_profile = new Profile(firstName, lastName, phoneNumber, gender);
+		Profile new_profile = new Profile(firstName, lastName, gender, phoneNumber);
 		User temp2 = new User(username, keep_pass, new_profile);
 		users.save(temp2);
 	}
