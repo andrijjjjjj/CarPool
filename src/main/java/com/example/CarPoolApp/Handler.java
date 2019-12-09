@@ -46,6 +46,7 @@ public class Handler {
 	
 	@GetMapping("/login")
 	public String getlogin(Data data) {
+		currentUserID = "";//Signs the user out.
 		return "login";
 	}
 
@@ -201,10 +202,10 @@ public class Handler {
 
 	@GetMapping("/home/viewallrides/makeridepost") // A  for making a ridePost.
 	public String getMakeRidePost(Data data) {
-//		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-//		{
-//			return "login";
-//		}
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
 		return "makeridepost";// TODO need to make html  for making a ridepost.
 	}
 	
