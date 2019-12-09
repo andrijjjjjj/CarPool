@@ -1,12 +1,39 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
+
+.button {
+margin-left:10px;
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);  
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #363434;
+}
+
+.button:hover {background: url('https://i.imgur.com/blcy99Y.gif');}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
 body {
   margin: 0;
-  font-size: 28px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
   background-color: Gainsboro ;
 }
@@ -14,7 +41,7 @@ body {
 .header {
   background: rgb(131,58,180);
   background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
-  padding: 30px;
+  padding: 25px;
   text-align: center;
 }
 
@@ -62,7 +89,7 @@ body {
 
 <div class="header">
 
-<h1><p th:text="${firstName} + 's Pending Rides'" /></h1>
+<h1><p th:text="' Ride Details'" /></h1>
 </div>
 
 <div id="navbar">
@@ -78,13 +105,36 @@ body {
 </div>
 
 <div class="content">
-    <p th:text="'Your Pending Passenger Requests: '" />
-   	<ul th:each="request : ${pendingRides}">
+    <table>
+<body>
+	<h1>Post Details</h1>
+	<p th:text="'Driver Username: ' + ${theRidePost.getDriverUsername()}" />	
+	<p th:text="'start Location: ' + ${theRidePost.getStartLocation()}" />
+	<p th:text="'End location: ' + ${theRidePost.getEndLocation()}" />
+	<p th:text="'Date: ' + ${theRidePost.getDate()}" />
+	<p th:text="'Time: ' + ${theRidePost.getTime()}" />
+	<p th:text="'Car: ' + ${theRidePost.getCar()}" />
+	<p th:text="'Ride cost $: ' + ${theRidePost.getCost()}" />
+	<p th:text="'Max passengers: ' + ${theRidePost.getMaxNumPassengers()}" />
+	<p th:text="'Allow Luggage: ' + ${theRidePost.getLuggage()}" />
+	
+	<form method="get" action="/home"><button class="button">Leave Ride</button></form>
+	
+<div class="content">
+    <p th:text="'All passengers '" />
+   	<ul th:each="passenger : ${allpassengers}">
    		<div id="list">
-    		<p th:text="${request}"></p> 
-    		
+    		<p th:text="${passenger}"></p> 
+    		<a th:href="/home/pastrides/' + ${ridePostID} + '/' + ${passenger.userID}"> View Profile</a>
     	</div>
     </ul>
+</div>
+
+	
+	
+</body>
+
+    </table>
 </div>
 
 <script>

@@ -140,7 +140,7 @@ public class Handler {
 		userTransaction.deleteAccount(currentUserID);
 		return "login";
 	}
-
+	
 	@RequestMapping("/login/forgotpassword") // The forgot password.
 	public String loadForgottenPassword() throws ServletException, IOException {
 		// This will have a form where the user enters their email. Then a button.
@@ -186,16 +186,6 @@ public class Handler {
 		return "home";
 	}
 
-	@RequestMapping("/home/viewallrides") // The viewallrides of the website. Will show all rideposts.
-	public String loadViewAllRides(@ModelAttribute RidePostTransaction ridePostTransaction) {
-		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-		{
-			return "login";
-		} // Puts arraylist of all ride posts in html .
-
-		return "viewallrides";
-	}
-
 	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
 	public String getviewUpcomingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
@@ -206,10 +196,21 @@ public class Handler {
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
 		model.addAttribute("upcomingrides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
 																					// html .
-
 		return "upcomingrides";
 	}
 
+	@RequestMapping("/home/upcomingrides/{ridepostid}")
+	public String getviewUpcomingRidePost(@PathVariable("ridepostid") int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("theRidePost", ridePostTransaction.getRidePost(ridepostid));
+		model.addAttribute("allpassengers", passengerRequestTransaction.getAllAcceptedPassengers(ridepostid));
+		
+		return "viewoneupcomingridepost";
+	}
+	
 	@GetMapping("/home/feedback") // The feedback page for users.
 	public String getviewFeedback(Data data) {
 		if (currentUserID == null) {
@@ -229,19 +230,6 @@ public class Handler {
 		return "feedback";
 	}
 
-	// ride in URL must be changed to the ridePostID
-	@RequestMapping("/home/ride/passengerrequests")
-	public String viewPassengerRequests(Model model) {
-		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-		{
-			return "login";
-		}
-		// model.addAttribute("passRequests", viewPassengerRequests(currentUserID,
-		// ridepostid)); //Puts arraylist of all ride posts in html .
-
-		return "passengerrequests";// TODO need to make html for viewallrides.html.
-	}
-
 	@RequestMapping("/home/pendingrides") // The viewallrides of the website. Will show all rideposts.
 	public String viewPendingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
@@ -251,7 +239,7 @@ public class Handler {
 		model.addAttribute("pendingRides", viewPendingRides(currentUserID)); // Puts arraylist of all ride posts in html
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName()); // .
 
-		return "pendingrides";// TODO need to make html for viewallrides.html.
+		return "pendingrides";// TODO need to make html
 	}
 
 	@RequestMapping("/home/pastrides") // The viewallrides of the website. Will show all rideposts.
@@ -265,19 +253,19 @@ public class Handler {
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
 		model.addAttribute("pastrides", viewPastRides(currentUserID)); // Puts arraylist of all ride posts in html .	// html.
-		return "pastrides";// TODO need to make html for viewallrides.html.
+		return "pastrides";
 	}
 
-	@RequestMapping("/home/pastrides/{ridepostid}") // TODO need to add @param or something in parameters to access
-													// ridepostID.
-	public String viewOnePastRidePost(Model model, @RequestParam("ridepostid") int ridepostid) {
+	@RequestMapping("/home/pastrides/{ridepostid}")
+	public String viewOnePastRidePost(@PathVariable("ridepostid") int ridepostid, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
-		model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridepostid)); // TODO method to view past ride
-																						// from url param.
-		return "viewridepost"; // TODO make html.
+		model.addAttribute("theRidePost", ridePostTransaction.getRidePost(ridepostid));
+		model.addAttribute("allpassengers", passengerRequestTransaction.getAllAcceptedPassengers(ridepostid));
+
+		return "viewonepastridepost";
 	}
 
 	@RequestMapping("/home/{ridepostid}") // A for viewing a ridePost.
@@ -290,6 +278,16 @@ public class Handler {
 		model.addAttribute("theRidePost", post);
 
 		return "viewridepost";
+	}
+	
+	@RequestMapping("/home/{ridepostid}/makepassengerrequest")
+	public String viewPassengerRequests(@PathVariable("ridepostid")int ridepostid, Model model) {
+		if (currentUserID == null)// User isn't logged in.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", makePassengerRequest(ridepostid, currentUserID));
+		return "showpassengerrequestconfirmation";
 	}
 
 	@GetMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
@@ -317,18 +315,6 @@ public class Handler {
 
 		return "viewone";
 	}
-
-//	@GetMapping("/signup") // The sign-up  of the website.
-//	public String getSignUp(Data data) {
-//		// User enters in info to all boxes, clicks button. Button calls signup use case
-//		// method, then redirects to login .
-//		return "signUp";
-//	}
-//	@PostMapping("/signup") // The sign-up  of the website.
-//	public String postSignUp(Data data){
-//		userTransaction.saveUser(data);
-//		return "login";
-//	}
 
 	@RequestMapping("/home/currentuseraccount") // The account/profile for the currently logged in user.
 	public String loadCurrentUserAccount(Model model) {

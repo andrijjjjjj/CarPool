@@ -89,7 +89,7 @@ body {
 
 <div class="header">
 
-<h1><p th:text="${firstName} + 's Upcoming Rides'" /></h1>
+<h1><p th:text="' Ride Details'" /></h1>
 </div>
 
 <div id="navbar">
@@ -113,13 +113,12 @@ body {
 	<p th:text="'End location: ' + ${theRidePost.getEndLocation()}" />
 	<p th:text="'Date: ' + ${theRidePost.getDate()}" />
 	<p th:text="'Time: ' + ${theRidePost.getTime()}" />
-	<p th:text="'Car: $' + ${theRidePost.getCar()}" />
-	<p th:text="'Ride cost: ' + ${theRidePost.getCost()}" />
+	<p th:text="'Car: ' + ${theRidePost.getCar()}" />
+	<p th:text="'Ride cost $: ' + ${theRidePost.getCost()}" />
 	<p th:text="'Max passengers: ' + ${theRidePost.getMaxNumPassengers()}" />
-	<p th:text="'Luggage?: ' + ${theRidePost.getLuggage()}" />
+	<p th:text="'Allow Luggage: ' + ${theRidePost.getLuggage()}" />
 	
-	<form method="get" action="/home"><button class="button">Join Ride</button></form>
-	
+	<form method="post" th:action="'/home/' + ${theRidePost.ridePostID} + '/makepassengerrequest'"><button class="button">Join Ride</button></form>
 </body>
 
     </table>
