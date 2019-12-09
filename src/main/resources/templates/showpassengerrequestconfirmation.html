@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -62,12 +61,12 @@ body {
 
 <div class="header">
 
-<h1><p th:text="${firstName} + 's Pending Rides'" /></h1>
+<h1><p th:text="'ISU Carpool'" /></h1>
 </div>
 
 <div id="navbar">
-<a href="/home">All Ride Posts</a>
-  	<a href="/home/viewallrides/makeridepost">Create a Post</a>
+	  <a href="/home">All Ride Posts</a>
+  	  <a href="/home/viewallrides/makeridepost">Create a Post</a>
       <a href="/home/upcomingrides">Upcoming Rides</a>
       <a href="/home/pendingrides">Pending Rides</a>
       <a href="/home/pastrides">Past Rides</a>
@@ -78,13 +77,8 @@ body {
 </div>
 
 <div class="content">
-    <p th:text="'Your Pending Passenger Requests: '" />
-   	<ul th:each="request : ${pendingRides}">
-   		<div id="list">
-    		<p th:text="${request}"></p> 
-    		
-    	</div>
-    </ul>
+    <p th:text="'Passenger Request Status:'" />
+   	<p th:text="${confirmation}"/>
 </div>
 
 <script>
