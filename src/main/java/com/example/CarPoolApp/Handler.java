@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -204,10 +203,48 @@ public class Handler {
 		{
 			return "login";
 		}
+		boolean isOwner = false;
+		if(ridePostTransaction.getRidePost(ridepostid).getDriverUsername().equals(currentUserID))
+		{
+			isOwner = true;
+		}
+		model.addAttribute("isOwner", isOwner);
+		
 		model.addAttribute("theRidePost", ridePostTransaction.getRidePost(ridepostid));
 		model.addAttribute("allpassengers", passengerRequestTransaction.getAllAcceptedPassengers(ridepostid));
 		
 		return "viewoneupcomingridepost";
+	}
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/showpassengerrequests")
+	public String getviewUpcomingPassengerRequests(@PathVariable("ridepostid")int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("allpassengers", passengerRequestTransaction.getAllPassengerRequests(ridepostid));
+		//Need to add buttons to html to accept or decline a request.
+		return "passengerrequests";
+	}
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/removeridepost")
+	public String removeRidePost(@PathVariable("ridepostid")int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", removeRidePost(ridepostid));
+		return "removeridepostconfirmation";
+	}
+	
+	@PostMapping("/home/upcomingrides/{ridepostid}/leaveride")
+	public String leaveRidePost(@PathVariable("ridepostid")int ridepostid, Model model){
+		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
+		{
+			return "login";
+		}
+		model.addAttribute("confirmation", cancelRide(ridepostid));
+		return "leaverideconfirmation";
 	}
 	
 	@GetMapping("/home/feedback") // The feedback page for users.
