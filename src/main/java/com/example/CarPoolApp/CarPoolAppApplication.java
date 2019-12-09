@@ -26,12 +26,18 @@ public class CarPoolAppApplication {
 	}
 
 	@Bean
-	public CommandLineRunner loadData(UserRepository repository,Handler handleMe) {
+	public CommandLineRunner loadData(UserRepository repository,Handler handleMe, RidePostRepository rideRepo) {
 		return (args) -> {
 			// save a couple of userAccounts
 			repository.save(new User("dolunde", "1s", "David", "Lunde", "Male", "601-554-1234", 1));
 			repository.save(new User("rjroof", "lmao", "Ryan", "jack", "Male", "601-584-1154", 0));
 			repository.save(new User("mjdevi1", "1234", "Mike", "christmas", "Male", "601-522-1514", 1));
+			
+			//Save a couple of ridePosts
+			rideRepo.save(new RidePost(null, "dolunde", "My Home", "End Home", "1998-11-10", "16:05", "My car", "100", 2, false));
+			rideRepo.save(new RidePost(null, "rjroof", "Not my Home", "End Home", "2019-10-10", "17:05", "My car", "100", 2, true));
+			rideRepo.save(new RidePost(null, "mjdevi1", "Friends Home", "End Home", "2019-10-10", "12:05", "My car", "100", 2, false));
+			rideRepo.save(new RidePost(null, "dolunde", "My Home Again", "End Home", "2019-10-10", "09:05", "My car", "100", 2, true));
 
 			
 //			boolean workPlease=handleMe.signUp("Mjdevi1", "1234", "123-456-7890","Clunt", "TheChristmasBlunt","male");
@@ -49,9 +55,18 @@ public class CarPoolAppApplication {
 
 			// fetch an individual userAccount by ID
 			User userAccount = repository.findById("dolunde").get();
-			log.info("User found in database findOne(\"Nick\"):");
+			log.info("User found in database findOne(\"dolunde\"):");
 			log.info(userAccount.toString());
 			log.info("");
+			
+			//Test recieve ride posts in database.
+			log.info("All rideposts posted");
+			log.info("-------------------------------");
+			for(RidePost ride : rideRepo.findAll())
+			{
+				log.info(ride.toString());
+			}
+			log.info("\n");
 
 			// fetch userAccounts by last name
 //			log.info("Username found with adeptdave:");
