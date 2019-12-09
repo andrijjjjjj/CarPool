@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -239,31 +240,35 @@ public class Handler {
 																			// html.
 		return "pastrides";// TODO need to make html for viewallrides.html.
 	}
-
-	@RequestMapping("/home/pastrides/{ridepostid}") // TODO need to add @param or something in parameters to access
-													// ridepostID.
-	public String viewOnePastRidePost(Model model) {
+	
+	@RequestMapping("/home/pastrides/{ridepostid}") //TODO need to add @param or something in parameters to access ridepostID.
+	public String viewOnePastRidePost(Model model, @RequestParam("ridepostid") int ridepostid)
+	{
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
-		// model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID));
-		// //TODO method to view past ride from url param.
-		return "ridepost"; // TODO make html.
+		 model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridepostid)); //TODO method to view past ride from url param.
+		return "viewridepost"; //TODO make html.
 	}
 
 
 	@RequestMapping("/home/{ridepostid}") // A  for viewing a ridePost.
-	public String viewOneRidePost(@RequestParam("ridepostid") int ridePostID, Model model) {
+	public String viewOneRidePost(@PathVariable("ridepostid") int ridepostid, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
-		// model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID));
-		// //TODO ^^^
-
-		return "ridepost";// replace with "viewonepastridepost"
+		 RidePost post =  ridePostTransaction.getRidePost(ridepostid);
+		 model.addAttribute("theRidePost", post);
+		 
+		return "viewridepost";
 	}
+	
+	
+	
+	
+	
 
 	@GetMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
 	public String getMakeRidePost(Data data) {

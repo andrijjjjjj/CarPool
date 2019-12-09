@@ -60,6 +60,13 @@ public class CarPoolAppApplication {
 			log.info(userAccount.toString());
 			log.info("");
 			
+			RidePostRepository r = null;
+			RidePost rides = new RidePost(1234, "startLocation", "dolunde","date", "IIIII", "time", "car", "cost", 2, true);
+			rideRepo.save(rides);
+			System.out.println("ride post id "+ rides.getRidePostID());
+			
+			System.out.println(rides.toString());
+			
 			//Test recieve ride posts in database.
 			log.info("All rideposts posted");
 			log.info("-------------------------------");
@@ -69,6 +76,8 @@ public class CarPoolAppApplication {
 			}
 			log.info("\n");
 
+			
+			
 			// fetch userAccounts by last name
 //			log.info("Username found with adeptdave:");
 //			for (User adeptdave : repository.findByUsernameStartsWithIgnoreCase("adeptdave")) {
