@@ -195,7 +195,8 @@ public class Handler {
 		{
 			return "login";
 		}
-		return "makeridepost";// TODO need to make html  for making a ridepost.
+		
+		return "makeridepost";
 	}
 	
 	@PostMapping("/home/viewallrides/makeridepost") // A  for making a ridePost.
