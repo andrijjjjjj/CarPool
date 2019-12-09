@@ -29,7 +29,6 @@ public class Handler {
 	@Autowired
 	UserTransaction userTransaction;
 
-
 	String currentUserID; // This instantiation is for tests. This variable should be set by calling the
 							// login method. Can use this method to determine if a user is logged in(null =
 							// not logged in).
@@ -39,7 +38,7 @@ public class Handler {
 
 	@GetMapping("/login")
 	public String getlogin(Data data) {
-		currentUserID = "";//Signs the user out.
+		currentUserID = "";// Signs the user out.
 		return "login";
 	}
 
@@ -66,11 +65,13 @@ public class Handler {
 
 	@PostMapping("/updateprofile")
 	public String postupdateProfile(Data data) {
-		if(data.getPhonenumber()!=null && data.getFirstname()!=null && data.getLastname()!=null && data.getGender()!=null) {
-		userTransaction.updateProfile(currentUserID, data.getPhonenumber(), data.getFirstname(),data.getLastname(), data.getGender() );
-			return "login";
+		if (data.getPhonenumber().isEmpty() != true && data.getFirstname().isEmpty() != true
+				&& data.getLastname().isEmpty() != true && data.getGender().isEmpty() != true) {
+			userTransaction.updateProfile(currentUserID, data.getPhonenumber(), data.getFirstname(), data.getLastname(),
+					data.getGender());
+			return "home";
 		}
-		return "login";
+		return "updateprofile";
 	}
 
 	@GetMapping("/signup") // The sign-up of the website.
@@ -86,15 +87,23 @@ public class Handler {
 		return "login";
 	}
 
-
-	@RequestMapping("/emailconfirmation") // The sign-up of the website.
-	public String emailConfirmation() throws ServletException, IOException {
-
-		// User enters in info to all boxes, clicks button. Button calls signup use case
-		// method, then redirects to login .
-		return "emailconfirmation";// TODO Make html.
+	@PostMapping("/emailconfirmation/emailconfirmation")
+	public String postemailConfirmation(Data data) {
+		currentUserID = data.getUserid();
+		boolean temp = userTransaction.emailconfirmation(currentUserID, data);
+		if (temp == true) {
+			System.out.println("going to home");
+			return "home";
+		} else {
+			System.out.println("reload page");
+			return "emailconfirmation";
+		}
 	}
 
+	@GetMapping("/emailconfirmation")
+	public String getemailconfirmation(Data data) {
+		return "emailconfirmation";
+	}
 
 	@RequestMapping("/login/forgotpassword") // The forgot password.
 	public String loadForgottenPassword() throws ServletException, IOException {
@@ -140,7 +149,6 @@ public class Handler {
 		return "home";
 	}
 
-
 	@RequestMapping("/home/viewallrides") // The viewallrides of the website. Will show all rideposts.
 	public String loadViewAllRides(@ModelAttribute RidePostTransaction ridePostTransaction) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
@@ -151,8 +159,7 @@ public class Handler {
 		return "viewallrides";
 	}
 
-
-	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/upcomingrides") // The viewallrides of the website. Will show all rideposts.
 	public String viewUpcomingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -225,8 +232,7 @@ public class Handler {
 		return "ridepost"; // TODO make html.
 	}
 
-
-	@RequestMapping("/home/{ridepostid}") // A  for viewing a ridePost.
+	@RequestMapping("/home/{ridepostid}") // A for viewing a ridePost.
 	public String viewOneRidePost(@RequestParam("ridepostid") int ridePostID, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -244,7 +250,7 @@ public class Handler {
 		{
 			return "login";
 		}
-		return "makeridepost";// TODO need to make html  for making a ridepost.
+		return "makeridepost";// TODO need to make html for making a ridepost.
 	}
 
 	@PostMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
@@ -263,7 +269,6 @@ public class Handler {
 		return "viewone";
 	}
 
-
 //	@GetMapping("/signup") // The sign-up  of the website.
 //	public String getSignUp(Data data) {
 //		// User enters in info to all boxes, clicks button. Button calls signup use case
@@ -275,7 +280,6 @@ public class Handler {
 //		userTransaction.saveUser(data);
 //		return "login";
 //	}
-
 
 	@RequestMapping("/home/currentuseraccount") // The account/profile for the currently logged in user.
 	public String loadCurrentUserAccount(Model model) {
@@ -323,10 +327,6 @@ public class Handler {
 
 	public void acceptedForRide(String username) {
 		passengerRequestTransaction.passengerAcceptedForRide(username);
-	}
-
-	public void editProfile(String username, String phoneNumber, String firstName, String lastName, String gender) {
-		userTransaction.updateProfile(username, phoneNumber, firstName, lastName, gender);
 	}
 
 	// ---------Mike Devitt's method zone--------------

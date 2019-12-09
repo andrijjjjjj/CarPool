@@ -21,10 +21,11 @@ public class UserTransaction {
 
 		return users.findById(userID).get();
 	}
+
 	@AssertTrue
 	public boolean verifyLogin(String userID, String password) {
-		if(users.existsById(userID)) {
-			if(users.findById(userID).get().getPassword().equals(password)) {
+		if (users.existsById(userID) && users.findById(userID).get().getStatus() == 1) {
+			if (users.findById(userID).get().getPassword().equals(password)) {
 				return true;
 			}
 		}
@@ -46,6 +47,25 @@ public class UserTransaction {
 		users.save(temp2);
 	}
 
+	public boolean emailconfirmation(String userID, Data data) {
+		System.out.println("id: "+userID);
+		if (users.existsById(userID)) {
+			User temp = users.findById(userID).get();
+			System.out.println("id: " + temp.getUserID() + " name: " + temp.getProfile().getfName() + " "
+					+ temp.getProfile().getlName() + " phone: " + temp.getProfile().getPhoneNumber() + " status: "
+					+ temp.getStatus() + " gender " + temp.getProfile().getGender() + " rating"
+					+ temp.getProfile().getRating());
+			temp.setStatus(1);
+			System.out.println("id: " + temp.getUserID() + " name: " + temp.getProfile().getfName() + " "
+					+ temp.getProfile().getlName() + " phone: " + temp.getProfile().getPhoneNumber() + " status: "
+					+ temp.getStatus() + " gender " + temp.getProfile().getGender() + " rating"
+					+ temp.getProfile().getRating());
+			users.save(temp);
+			return true;
+		}
+		return false;
+	}
+
 //	public boolean saveNewUser(User user_obj) {
 //		User temp = users.save(user_obj);
 //		if (temp.getUserID() == user_obj.getUserID()) {
@@ -57,11 +77,11 @@ public class UserTransaction {
 //		}
 //	}
 	public void saveUser(Data data) {
-		int status = 0;//Setting status to inactive. Awaiting email confirmation
-		User user = new User(data.getUserid(), data.getPassword(), data.getFirstname(), data.getLastname(), data.getGender(), data.getPhonenumber(), status);
+		int status = 0;// Setting status to inactive. Awaiting email confirmation
+		User user = new User(data.getUserid(), data.getPassword(), data.getFirstname(), data.getLastname(),
+				data.getGender(), data.getPhonenumber(), status);
 		users.save(user);
 		emailSender.emailSignUp(user);
 	}
-
 
 }
