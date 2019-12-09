@@ -32,12 +32,13 @@ public class CarPoolAppApplication {
 			repository.save(new User("dolunde", "1s", "David", "Lunde", "Male", "601-554-1234", 1));
 			repository.save(new User("rjroof", "lmao", "Ryan", "jack", "Male", "601-584-1154", 0));
 			repository.save(new User("mjdevi1", "1234", "Mike", "christmas", "Male", "601-522-1514", 1));
+			repository.save(new User("mj", "m", "Michael", "Reyes", "Male", "911", 1));
 			
 			//Save a couple of ridePosts
 			rideRepo.save(new RidePost(null, "dolunde", "My Home", "End Home", "1998-11-10", "16:05", "My car", "100", 2, false));
-			rideRepo.save(new RidePost(null, "rjroof", "Not my Home", "End Home", "2019-10-10", "17:05", "My car", "100", 2, true));
-			rideRepo.save(new RidePost(null, "mjdevi1", "Friends Home", "End Home", "2019-10-10", "12:05", "My car", "100", 2, false));
-			rideRepo.save(new RidePost(null, "dolunde", "My Home Again", "End Home", "2019-10-10", "09:05", "My car", "100", 2, true));
+			rideRepo.save(new RidePost(null, "rjroof", "Not my Home", "End Home", "2019-12-10", "17:05", "My car", "100", 2, true));
+			rideRepo.save(new RidePost(null, "mjdevi1", "Friends Home", "End Home", "2020-12-11", "12:05", "My car", "100", 2, false));
+			rideRepo.save(new RidePost(null, "dolunde", "My Home Again", "End Home", "2012-10-10", "09:05", "My car", "100", 2, true));
 
 			
 //			boolean workPlease=handleMe.signUp("Mjdevi1", "1234", "123-456-7890","Clunt", "TheChristmasBlunt","male");

@@ -141,14 +141,14 @@ public class RidePost {
 	public void setRidePostID(Integer ridePostID) {
 		this.ridePostID = ridePostID;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "RidePost [ridePostID=" + ridePostID + ", driverUsername=" + driverUsername + ", maxNumPassengers="
-				+ maxNumPassengers + ", time=" + time + ", car=" + car + ", startLocation=" + startLocation
-				+ ", endLocation=" + endLocation + ", cost=" + cost + ", luggageAllowance=" + luggage + "]";
+				+ maxNumPassengers + ", date=" + date + ", time=" + time + ", car=" + car + ", startLocation="
+				+ startLocation + ", endLocation=" + endLocation + ", cost=" + cost + ", luggage=" + luggage + "]";
 	}
-	
+
 	public void setUniqueID() {
 		// Generate unique ID
 		int n = 10;
