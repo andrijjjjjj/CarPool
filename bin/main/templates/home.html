@@ -79,7 +79,10 @@ body {
 <div class="content">
     <p th:text="'All ride Posts '" />
    	<ul th:each="ride : ${allrideposts}">
-    	<li th:text="${ride}"> </li> 
+   		<div id="list">
+    		<p th:text="${ride}"></p> 
+    		<a th:href="'/home/' + ${ride.ridePostID}"> View Ride</a>
+    	</div>
     </ul>
 </div>
 
