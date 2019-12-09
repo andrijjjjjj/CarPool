@@ -77,7 +77,10 @@ body {
 </div>
 
 <div class="content">
-    <p th:text="'All ride Posts ' + ${allrideposts}" />
+    <p th:text="'All ride Posts '" />
+   	<ul th:each="ride : ${allrideposts}">
+    	<li th:text="${ride}"> </li> 
+    </ul>
 </div>
 
 <script>

@@ -135,6 +135,7 @@ public class Handler {
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
 		model.addAttribute("allrideposts", viewAllRides()); // Puts arraylist of all ride posts in html .
+		
 		// variable. Can put methods in this call too.
 
 		return "home";
