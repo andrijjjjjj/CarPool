@@ -73,27 +73,27 @@ public class Handler {
 		String lastName = userTransaction.getUser(currentUserID).getProfile().getlName();
 		String gender = userTransaction.getUser(currentUserID).getProfile().getGender();
 		String username = userTransaction.getUser(currentUserID).getUserID();
-		
-		
-		if(data.getPhonenumber() != null && !data.getPhonenumber().isEmpty() && !data.getPhonenumber().trim().isEmpty()) {
+
+		if (data.getPhonenumber() != null && !data.getPhonenumber().isEmpty()
+				&& !data.getPhonenumber().trim().isEmpty()) {
 			phone = data.getPhonenumber();
 
 		}
-		
-		if(data.getFirstname() != null && !data.getFirstname().isEmpty() && !data.getFirstname().trim().isEmpty()) {
+
+		if (data.getFirstname() != null && !data.getFirstname().isEmpty() && !data.getFirstname().trim().isEmpty()) {
 			firstName = data.getFirstname();
 		}
-		
-		if(data.getLastname() != null && !data.getLastname().isEmpty() && !data.getLastname().trim().isEmpty()) {
+
+		if (data.getLastname() != null && !data.getLastname().isEmpty() && !data.getLastname().trim().isEmpty()) {
 			lastName = data.getLastname();
 		}
-		
-		if(data.getGender() != null && !data.getGender().isEmpty() && !data.getGender().trim().isEmpty()) {
+
+		if (data.getGender() != null && !data.getGender().isEmpty() && !data.getGender().trim().isEmpty()) {
 			gender = data.getGender();
 		}
-		
+
 		userTransaction.updateProfile(username, phone, firstName, lastName, gender, ratings, comments);
-		
+
 		return "login";
 	}
 
@@ -126,6 +126,18 @@ public class Handler {
 	@GetMapping("/emailconfirmation")
 	public String getemailconfirmation(Data data) {
 		return "emailconfirmation";
+	}
+
+	@GetMapping("/deleteaccountprompt")
+	public String loaddeleteaccount() {
+		return "deleteaccountprompt";
+	}
+
+	@PostMapping("/deleteaccountprompt")
+	public String postdeleteaccount(Data data) {
+		System.out.println("issa motherfucking miracle -sam l jackson");
+		userTransaction.deleteAccount(currentUserID);
+		return "login";
 	}
 
 	@RequestMapping("/login/forgotpassword") // The forgot password.
@@ -167,7 +179,7 @@ public class Handler {
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
 		model.addAttribute("allrideposts", viewAllRides()); // Puts arraylist of all ride posts in html .
-		
+
 		// variable. Can put methods in this call too.
 
 		return "home";
@@ -243,27 +255,28 @@ public class Handler {
 																			// html.
 		return "pastrides";// TODO need to make html for viewallrides.html.
 	}
-	
-	@RequestMapping("/home/pastrides/{ridepostid}") //TODO need to add @param or something in parameters to access ridepostID.
-	public String viewOnePastRidePost(Model model, @RequestParam("ridepostid") int ridepostid)
-	{
+
+	@RequestMapping("/home/pastrides/{ridepostid}") // TODO need to add @param or something in parameters to access
+													// ridepostID.
+	public String viewOnePastRidePost(Model model, @RequestParam("ridepostid") int ridepostid) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
-		 model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridepostid)); //TODO method to view past ride from url param.
-		return "viewridepost"; //TODO make html.
+		model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridepostid)); // TODO method to view past ride
+																						// from url param.
+		return "viewridepost"; // TODO make html.
 	}
 
-	@RequestMapping("/home/{ridepostid}") // A  for viewing a ridePost.
+	@RequestMapping("/home/{ridepostid}") // A for viewing a ridePost.
 	public String viewOneRidePost(@PathVariable("ridepostid") int ridepostid, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
-		 RidePost post =  ridePostTransaction.getRidePost(ridepostid);
-		 model.addAttribute("theRidePost", post);
-		 
+		RidePost post = ridePostTransaction.getRidePost(ridepostid);
+		model.addAttribute("theRidePost", post);
+
 		return "viewridepost";
 	}
 
@@ -353,9 +366,10 @@ public class Handler {
 	}
 
 	public void editProfile(String username, String phoneNumber, String firstName, String lastName, String gender) {
-		//userTransaction.updateProfile(username, phoneNumber, firstName, lastName, gender);
+		// userTransaction.updateProfile(username, phoneNumber, firstName, lastName,
+		// gender);
 	}
-	
+
 	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllPresentRidePosts();
