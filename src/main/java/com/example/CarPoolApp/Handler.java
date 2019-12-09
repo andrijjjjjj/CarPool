@@ -234,6 +234,9 @@ public class Handler {
 		if (currentUserID == null) {
 			return "login";
 		}
+		if (userTransaction.getUser(currentUserID).getBlockedList().size() != 0) {
+			model.addAttribute("blockedusers", userTransaction.getUser(currentUserID).getBlockedList());
+		}
 		return "blockuser";
 	}
 	@PostMapping("/home/blockuser") // The feedback page for users.
