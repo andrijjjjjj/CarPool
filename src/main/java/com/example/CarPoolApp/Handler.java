@@ -43,6 +43,7 @@ public class Handler {
 
 	@Autowired
 	ObjectFactory objFactory;
+	Profile profile = new Profile();
 	
 	@GetMapping("/login")
 	public String getlogin(Data data) {
@@ -147,15 +148,28 @@ public class Handler {
 		return "upcomingrides";
 	}
 
-	@RequestMapping("/home/feedback")//The feedback page for users.
-	public String viewFeedback(Model model) {
+	@GetMapping("/home/feedback")//The feedback page for users.
+	public String getFeedback(Data data) {
 		if(currentUserID == null)
 		{
 			return "login";
 		}
-		model.addAttribute("past", ridePostTransaction.viewPastRides(currentUserID)); //Puts arraylist of all ride posts in html .
-		
 		return "feedback";
+		}
+	@PostMapping("/home/feedback")//The feedback page for users.
+	public String postFeedback(Data data) {
+		if(currentUserID == null)
+		{
+			return "login";
+		}
+		User user = userTransaction.getUser(data.getUserid());
+		user.getProfile().addComment(data.getComments());
+		user.getProfile().setRating(data.getRating());
+		userTransaction.updateUser(user);
+		System.out.println(data.getUserid() + data.getComments() + data.getRating());
+		System.out.println("asdgsedrhsert");
+
+		return "home";
 		}
 
 	// ride in URL must be changed to the ridePostID

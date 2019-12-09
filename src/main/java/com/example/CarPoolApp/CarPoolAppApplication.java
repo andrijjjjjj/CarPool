@@ -26,7 +26,7 @@ public class CarPoolAppApplication {
 	}
 
 	@Bean
-	public CommandLineRunner loadData(UserRepository repository,Handler handleMe) {
+	public CommandLineRunner loadData(UserRepository repository, Handler handleMe) {
 		return (args) -> {
 			// save a couple of userAccounts
 			repository.save(new User("dolunde", "1s", "David", "Lunde", "Male", "601-554-1234", 1));

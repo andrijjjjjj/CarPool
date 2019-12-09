@@ -36,6 +36,9 @@ public class Data {
 	@NotEmpty
 	private boolean luggage;
 	
+	private Integer rating;
+	private String comments;
+	
 	public boolean isLuggage() {
 		return luggage;
 	}
@@ -138,6 +141,22 @@ public class Data {
 
 	public void setPhonenumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public Integer getRating() {
+		return rating;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	
 

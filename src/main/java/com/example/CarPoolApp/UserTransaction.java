@@ -46,6 +46,9 @@ public class UserTransaction {
 		User temp2 = new User(username, keep_pass, new_profile);
 		users.save(temp2);
 	}
+	public void updateUser(User user) {
+		users.save(user);
+	}
 
 //	public boolean saveNewUser(User user_obj) {
 //		User temp = users.save(user_obj);
