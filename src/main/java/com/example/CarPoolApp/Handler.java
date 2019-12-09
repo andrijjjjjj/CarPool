@@ -278,7 +278,7 @@ public class Handler {
 	@PostMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
 	public String postMakeRidePost(Integer ridePostID, String currentUserID, Data data) {
 		ridePostTransaction.createRidePost(ridePostID, currentUserID, data);
-		System.out.println(data.getTime());
+		//System.out.println(data.getTime());
 		// Have button on viewallrides that when clicked, moves to this . User
 		// will enter info into boxes. Pushes button that calls the make ridepost use
 		// case method, then redirects to viewallrideposts OR .
