@@ -218,7 +218,7 @@ public class Handler {
 		
 		return "feedback";
 	}
-	@PostMapping("/home/feedback") // The feedback page for users.
+	@RequestMapping("/home/feedback") // The feedback page for users.
 	public String postviewFeedback(Data data) {
 		if (currentUserID == null) {
 			return "login";
@@ -227,6 +227,30 @@ public class Handler {
 		user.getProfile().saveFeedback(data.getRating(), data.getComments());
 		userTransaction.updateUser(user);
 		return "feedback";
+	}
+	
+	@GetMapping("/home/blockuser") // The feedback page for users.
+	public String getblockUser(Model model, Data data) {
+		if (currentUserID == null) {
+			return "login";
+		}
+		return "blockuser";
+	}
+	@PostMapping("/home/blockuser") // The feedback page for users.
+	public String postblockUser(Model model, Data data) {
+		if (currentUserID == null) {
+			return "login";
+		}
+		User user = userTransaction.getUser(currentUserID);
+		user.blockUser(data.getBlockeduser());
+		userTransaction.updateUser(user);
+		model.addAttribute(user);
+		if (userTransaction.getUser(currentUserID).getBlockedList().size() != 0) {
+			model.addAttribute("blockedusers", userTransaction.getUser(currentUserID).getBlockedList());
+		} else {
+			model.addAttribute("blockedusers", "No Blocked Users");
+		}
+		return "blockuser";
 	}
 
 	@RequestMapping("/home/pendingrides") // The viewallrides of the website. Will show all rideposts.
