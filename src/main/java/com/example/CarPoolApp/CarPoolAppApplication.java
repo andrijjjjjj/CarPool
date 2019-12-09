@@ -31,7 +31,7 @@ public class CarPoolAppApplication {
 			// save a couple of userAccounts
 			repository.save(new User("dolunde", "1s", "David", "Lunde", "Male", "601-554-1234", 1));
 			repository.save(new User("rjroof", "lmao", "Ryan", "jack", "Male", "601-584-1154", 0));
-			repository.save(new User("mjdevi1", "1234", "Mike", "christmas", "Male", "601-522-1514", 1));
+			repository.save(new User("Mjdevi1", "1234", "Mike", "christmas", "Male", "601-522-1514", 1));
 			repository.save(new User("mj", "m", "Michael", "Reyes", "Male", "911", 1));
 			
 

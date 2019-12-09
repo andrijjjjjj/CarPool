@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,6 @@ public class Handler {
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
 	UserTransaction userTransaction;
-	
 
 	String currentUserID; // This instantiation is for tests. This variable should be set by calling the
 							// login method. Can use this method to determine if a user is logged in(null =
@@ -128,6 +128,44 @@ public class Handler {
 		return "emailconfirmation";
 	}
 
+	@PostMapping("/sendpasswordemail")
+	public String postforgotpasswordemail(Data data) {
+		currentUserID = data.getUserid();
+		boolean temp = userTransaction.emailreset(currentUserID);
+		if (temp == true) {
+			System.out.println("going to home");
+			return "welcome";
+		} else {
+			System.out.println("reload page");
+			return "forgotpassword";
+		}
+	}
+
+	@GetMapping("/sendpasswordemail")
+	public String getforgotpassword(Data data) {
+		return "sendpasswordemail";
+	}
+
+	@GetMapping("/forgotpassword")
+	public String getforgotpasswordemail(Data data) {
+		return "forgotpassword";
+	}
+
+	@PostMapping("/forgotpassword")
+	public String postforgotpassword(Data data) {
+		currentUserID = data.getUserid();
+		String new_password = data.getPassword();
+		if (currentUserID.isEmpty() != true && new_password.isEmpty() != true) {
+			boolean temp = userTransaction.passwordChange(currentUserID, new_password);
+			if (temp == true) {
+				System.out.println("going to home");
+				return "welcome";
+			}
+			System.out.println("reload page");
+		}
+		return "welcome";
+	}
+
 	@GetMapping("/deleteaccountprompt")
 	public String loaddeleteaccount() {
 		return "deleteaccountprompt";
@@ -138,35 +176,7 @@ public class Handler {
 		userTransaction.deleteAccount(currentUserID);
 		return "login";
 	}
-	
-	@RequestMapping("/login/forgotpassword") // The forgot password.
-	public String loadForgottenPassword() throws ServletException, IOException {
-		// This will have a form where the user enters their email. Then a button.
-		// Once button pressed, send email to that email.
-		// In the email, the link should be to a specific used to set a new
-		// password for the account.
-		// The email will also send a verification code to verify that user is who they
-		// say they are on the website. //TODO where do we store this in backend? User
-		// class?
 
-		return "login";// Go back to login .
-	}
-
-	@RequestMapping("/login/changeforgotpassword/useraccount") // The change forgot password .
-	public String loadChangeForgottenFassword(@RequestParam("useraccount") String useraccount) {// This request param
-																								// allows us to use this
-																								// variable to confirm
-																								// user.
-		// This will have a form where the user enters their verification code,
-		// enters a form their new password, and clicks a button.
-		// Once button pressed, if verification code is the same, call the change
-		// forgotten password use case method, return to login.
-		// If not, change verification code in User class to null, and redirect user
-		// back to home. They will have to resend the verification email and repeat the
-		// process.
-
-		return "login";// Go back to login .
-	}
 
 	@RequestMapping("/home") // The home of the website. Should have buttons for most use cases... EX: view
 								// all rides.
@@ -184,7 +194,7 @@ public class Handler {
 		return "home";
 	}
 
-	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
+	@RequestMapping("/home/upcomingrides") // The viewallrides of the website. Will show all rideposts.
 	public String getviewUpcomingRides(Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -193,12 +203,12 @@ public class Handler {
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
 		model.addAttribute("upcomingrides", viewUpcomingRides(currentUserID)); // Puts arraylist of all ride posts in
-																					// html .
+																				// html .
 		return "upcomingrides";
 	}
 
 	@RequestMapping("/home/upcomingrides/{ridepostid}")
-	public String getviewUpcomingRidePost(@PathVariable("ridepostid") int ridepostid, Model model){
+	public String getviewUpcomingRidePost(@PathVariable("ridepostid") int ridepostid, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
@@ -212,7 +222,7 @@ public class Handler {
 		
 		model.addAttribute("theRidePost", ridePostTransaction.getRidePost(ridepostid));
 		model.addAttribute("allpassengers", passengerRequestTransaction.getAllAcceptedPassengers(ridepostid));
-		
+
 		return "viewoneupcomingridepost";
 	}
 	
@@ -252,9 +262,10 @@ public class Handler {
 		if (currentUserID == null) {
 			return "login";
 		}
-		
+
 		return "feedback";
 	}
+
 	@RequestMapping("/home/feedback") // The feedback page for users.
 	public String postviewFeedback(Data data) {
 		if (currentUserID == null) {
@@ -265,7 +276,7 @@ public class Handler {
 		userTransaction.updateUser(user);
 		return "feedback";
 	}
-	
+
 	@GetMapping("/home/blockuser") // The feedback page for users.
 	public String getblockUser(Model model, Data data) {
 		if (currentUserID == null) {
@@ -276,6 +287,7 @@ public class Handler {
 		}
 		return "blockuser";
 	}
+
 	@PostMapping("/home/blockuser") // The feedback page for users.
 	public String postblockUser(Model model, Data data) {
 		if (currentUserID == null) {
@@ -314,10 +326,11 @@ public class Handler {
 			return "login";
 		}
 //		model.addAttribute("pastRides", viewPendingRides(currentUserID)); // Puts arraylist of all past ride posts in
-		
+
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
-		model.addAttribute("pastrides", viewPastRides(currentUserID)); // Puts arraylist of all ride posts in html .	// html.
+		model.addAttribute("pastrides", viewPastRides(currentUserID)); // Puts arraylist of all ride posts in html . //
+																		// html.
 		return "pastrides";
 	}
 
@@ -344,9 +357,9 @@ public class Handler {
 
 		return "viewridepost";
 	}
-	
+
 	@RequestMapping("/home/{ridepostid}/makepassengerrequest")
-	public String viewPassengerRequests(@PathVariable("ridepostid")int ridepostid, Model model) {
+	public String viewPassengerRequests(@PathVariable("ridepostid") int ridepostid, Model model) {
 		if (currentUserID == null)// User isn't logged in.
 		{
 			return "login";
@@ -484,6 +497,7 @@ public class Handler {
 		}
 		return "favorites";
 	}
+
 	@PostMapping("/favorites")
 	public String postFavorites(Model model, Data data) {
 		if (currentUserID == null) {
