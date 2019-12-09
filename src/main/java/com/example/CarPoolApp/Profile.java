@@ -58,6 +58,11 @@ public class Profile {
 
 	// Return combined rating
 	public double getRating() {
+		double ratingNumber = 0;
+		for (int temp : ratings) {
+			ratingNumber += temp;
+		}
+		rating = ratingNumber/ratings.size();
 		return rating;
 	}
 	
