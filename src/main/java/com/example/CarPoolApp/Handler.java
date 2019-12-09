@@ -440,6 +440,9 @@ public class Handler {
 		if (currentUserID == null) {
 			return "loginpage";
 		}
+		if (userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
+			model.addAttribute("favorite", userTransaction.getUser(currentUserID).getFavorites());
+		}
 		return "favorites";
 	}
 	@PostMapping("/favorites")
