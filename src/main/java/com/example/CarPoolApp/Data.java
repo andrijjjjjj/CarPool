@@ -37,7 +37,44 @@ public class Data {
 	private Integer maxpass;
 	@NotEmpty
 	private boolean luggage;
+	private String comments;
+	private Integer rating;
+	private String favorite;
+	private String blockeduser;
 	
+	public String getFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(String favorite) {
+		this.favorite = favorite;
+	}
+	
+	public String getBlockeduser() {
+		return blockeduser;
+	}
+
+	public void setBlockeduser(String blockeduser) {
+		this.blockeduser = blockeduser;
+		
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public Integer getRating() {
+		return rating;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+
 	public boolean isLuggage() {
 		return luggage;
 	}

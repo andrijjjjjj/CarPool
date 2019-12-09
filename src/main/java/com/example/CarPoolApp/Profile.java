@@ -4,8 +4,13 @@ import java.util.ArrayList;
 
 import javax.persistence.Embeddable;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Embeddable
 public class Profile {
+	
+//	@Autowired
+//	UserTransaction userTransaction;
 	
 	private String fName;
 	private String lName;
@@ -83,12 +88,18 @@ public class Profile {
 	
 	// Adds comment to comments list
 	public void addComment(String comment) {
+
 		comments.add(comment);
 	}
 	
 	// Gets all comments for user
 	public ArrayList<String> getComments() {
 		return comments;
+	}
+	public void saveFeedback(Integer rating, String comment) {
+		ratings.add(rating);
+		comments.add(comment);
+		
 	}
 
 	@Override

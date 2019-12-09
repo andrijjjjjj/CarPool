@@ -20,7 +20,6 @@ public class UserTransaction {
 	private static final Logger log = LoggerFactory.getLogger(UserTransaction.class);
 
 	public User getUser(String userID) {
-
 		return users.findById(userID).get();
 	}
 
@@ -46,6 +45,11 @@ public class UserTransaction {
 		user.getProfile().comments = comments;
 		user.getProfile().ratings = ratings;
 		users.save(user);
+	}
+
+	public User getFeedback(String username) {
+		
+		return users.findById(username).get();
 	}
 
 	public boolean emailconfirmation(String userID, Data data) {
@@ -77,6 +81,9 @@ public class UserTransaction {
 				data.getGender(), data.getPhonenumber(), status);
 		users.save(user);
 		emailSender.emailSignUp(user);
+	}
+	public void updateUser(User user) {
+		users.save(user);
 	}
 
 }

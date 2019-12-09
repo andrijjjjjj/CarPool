@@ -61,8 +61,7 @@ public class Email {
 	         String htmlText = 
 	        		  "<img src=\"cid:image\">"
 	         		+ "<H1>Hello "+user.getProfile().getfName()+",</H1>"
-	         		+ "<H2>Your next carpool is on: </H2>"
-	         		+ "<p>Tuesday, November 26 2019 @ 5:00 PM</p>"
+	         		+ "<H2>You have a carpool today!: </H2>"
 	         		+ "<H3>Thanks for using ISU Carpool!</H3>"
 	         		+ "<H3>http://illinoisstate.edu</H3>";
 	         messageBodyPart.setContent(htmlText, "text/html");
@@ -133,8 +132,7 @@ public class Email {
 	         String htmlText = 
 	        		  "<img src=\"cid:image\">"
 	         		+ "<H1>Hello "+user.getProfile().getfName()+",</H1>"
-	         		+ "<H2>Your carpool has been cancelled for: </H2>"
-	         		+ "<p>Tuesday, November 26 2019 @ 5:00 PM</p>"
+	         		+ "<H2>One of your carpool's have been cancelled: </H2>"
 	         		+ "<H3>Thanks for using ISU Carpool!</H3>"
 	         		+ "<H3>http://illinoisstate.edu</H3>";
 	         messageBodyPart.setContent(htmlText, "text/html");
@@ -205,8 +203,7 @@ public class Email {
 	         String htmlText = 
 	        		  "<img src=\"cid:image\">"
 	         		+ "<H1>Hello "+user.getProfile().getfName()+",</H1>"
-	         		+ "<H2>A person has requested to be a passenger of your carpool on: </H2>"
-	         		+ "<p>Tuesday, November 26 2019 @ 5:00 PM</p>"
+	         		+ "<H2>A person has requested to be a passenger of your carpool: </H2>"
 	         		+ "<H3>Thanks for using ISU Carpool!</H3>"
 	         		+ "<H3>http://illinoisstate.edu</H3>";
 	         messageBodyPart.setContent(htmlText, "text/html");
@@ -277,8 +274,7 @@ public class Email {
 	         String htmlText = 
 	        		  "<img src=\"cid:image\">"
 	         		+ "<H1>Hello "+user.getProfile().getfName()+",</H1>"
-	         		+ "<H2>A passenger has cancelled a carpool for: </H2>"
-	         		+ "<p>Tuesday, November 26 2019 @ 5:00 PM</p>"
+	         		+ "<H2>A passenger has cancelled a carpool of yours!: </H2>"
 	         		+ "<H3>Thanks for using ISU Carpool!</H3>"
 	         		+ "<H3>http://illinoisstate.edu</H3>";
 	         messageBodyPart.setContent(htmlText, "text/html");
@@ -309,6 +305,77 @@ public class Email {
 	       }
 	}
 
+	public void emailPassengerRequest(User user) {
+		this.user = user;
+		
+		// Gmail settings
+		Properties prop = new Properties();
+		prop.put("mail.smtp.host", "smtp.gmail.com");
+		prop.put("mail.smtp.port", "587");
+		prop.put("mail.smtp.auth", "true");
+		
+		// TLS Authentication (security)
+		prop.put("mail.smtp.starttls.enable", "true"); 
+	   
+		// Check email credentials
+		Session session = Session.getInstance(prop,
+	           new javax.mail.Authenticator() {
+	               protected PasswordAuthentication getPasswordAuthentication() {
+	                   return new PasswordAuthentication(username, password);
+	               }
+	           });
+	
+		// Try: Creating Message and Sending to User object's email address
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(
+	               Message.RecipientType.TO,
+	               InternetAddress.parse(user.getUserID()+"@ilstu.edu")
+	       );
+			
+			// Header/Subject of Email
+			message.setSubject("Passenger Cancellation: ISU Carpool");
+		
+	         // This email has 2 parts: the body and the embedded banner image
+	         MimeMultipart multipart = new MimeMultipart("related");
+
+	         // first part (the html)
+	         BodyPart messageBodyPart = new MimeBodyPart();
+	         String htmlText = 
+	        		  "<img src=\"cid:image\">"
+	         		+ "<H1>Hello "+user.getProfile().getfName()+",</H1>"
+	         		+ "<H2>A passenger has requested a carpool: </H2>"
+	         		+ "<H3>Thanks for using ISU Carpool!</H3>"
+	         		+ "<H3>http://illinoisstate.edu</H3>";
+	         messageBodyPart.setContent(htmlText, "text/html");
+	         
+	         // add it
+	         multipart.addBodyPart(messageBodyPart);
+
+	         // second part (the image)
+	         messageBodyPart = new MimeBodyPart();
+	         DataSource fds = new FileDataSource(
+	            "passCancel.png");
+
+	         messageBodyPart.setDataHandler(new DataHandler(fds));
+	         messageBodyPart.setHeader("Content-ID", "<image>");
+
+	         // add image to the multipart
+	         multipart.addBodyPart(messageBodyPart);
+
+	         // put everything together
+	         message.setContent(multipart);
+			
+			Transport.send(message);
+	
+			System.out.println("Passenger cancellation email sent to: \""+user.getUserID()+"@ilstu.edu"+"\" sucessfully.");
+	
+	       } catch (MessagingException e) {
+	           e.printStackTrace();
+	       }
+	}
+	
 	public void emailSignUp(User new_user) {
 		user = new_user;
 		// Gmail settings
@@ -422,7 +489,6 @@ public class Email {
 	         		+ "<H1>Unique ID has been generated for your carpool!</H1>"
 	         		+ "<H1>Your ID is: "+unique+",</H1>"
 	         		+ "<H2>Your next carpool is on: </H2>"
-	         		+ "<p>Tuesday, November 26 2019 @ 5:00 PM</p>"
 	         		+ "<H3>Thanks for using ISU Carpool!</H3>"
 	         		+ "<H3>http://illinoisstate.edu</H3>";
 	         messageBodyPart.setContent(htmlText, "text/html");

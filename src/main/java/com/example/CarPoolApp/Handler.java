@@ -29,6 +29,7 @@ public class Handler {
 	PassengerRequestTransaction passengerRequestTransaction;
 	@Autowired
 	UserTransaction userTransaction;
+	
 
 	String currentUserID; // This instantiation is for tests. This variable should be set by calling the
 							// login method. Can use this method to determine if a user is logged in(null =
@@ -135,11 +136,10 @@ public class Handler {
 
 	@PostMapping("/deleteaccountprompt")
 	public String postdeleteaccount(Data data) {
-		System.out.println("issa motherfucking miracle -sam l jackson");
 		userTransaction.deleteAccount(currentUserID);
 		return "login";
 	}
-
+	
 	@RequestMapping("/login/forgotpassword") // The forgot password.
 	public String loadForgottenPassword() throws ServletException, IOException {
 		// This will have a form where the user enters their email. Then a button.
@@ -217,15 +217,50 @@ public class Handler {
 		return "viewoneupcomingridepost";
 	}
 	
-	@RequestMapping("/home/feedback") // The feedback page for users.
-	public String viewFeedback(Model model) {
+	@GetMapping("/home/feedback") // The feedback page for users.
+	public String getviewFeedback(Data data) {
 		if (currentUserID == null) {
 			return "login";
 		}
-		model.addAttribute("past", ridePostTransaction.viewPastRides(currentUserID)); // Puts arraylist of all ride
-																						// posts in html .
-
+		
 		return "feedback";
+	}
+	@RequestMapping("/home/feedback") // The feedback page for users.
+	public String postviewFeedback(Data data) {
+		if (currentUserID == null) {
+			return "login";
+		}
+		User user = userTransaction.getUser(data.getUserid());
+		user.getProfile().saveFeedback(data.getRating(), data.getComments());
+		userTransaction.updateUser(user);
+		return "feedback";
+	}
+	
+	@GetMapping("/home/blockuser") // The feedback page for users.
+	public String getblockUser(Model model, Data data) {
+		if (currentUserID == null) {
+			return "login";
+		}
+		if (userTransaction.getUser(currentUserID).getBlockedList().size() != 0) {
+			model.addAttribute("blockedusers", userTransaction.getUser(currentUserID).getBlockedList());
+		}
+		return "blockuser";
+	}
+	@PostMapping("/home/blockuser") // The feedback page for users.
+	public String postblockUser(Model model, Data data) {
+		if (currentUserID == null) {
+			return "login";
+		}
+		User user = userTransaction.getUser(currentUserID);
+		user.blockUser(data.getBlockeduser());
+		userTransaction.updateUser(user);
+		model.addAttribute(user);
+		if (userTransaction.getUser(currentUserID).getBlockedList().size() != 0) {
+			model.addAttribute("blockedusers", userTransaction.getUser(currentUserID).getBlockedList());
+		} else {
+			model.addAttribute("blockedusers", "No Blocked Users");
+		}
+		return "blockuser";
 	}
 
 	@RequestMapping("/home/pendingrides") // The viewallrides of the website. Will show all rideposts.
@@ -298,8 +333,9 @@ public class Handler {
 	}
 
 	@PostMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
-	public String postMakeRidePost(Integer ridePostID, String currentUserID, Data data) {
-		ridePostTransaction.createRidePost(ridePostID, currentUserID, data);
+	public String postMakeRidePost(Integer ridePostID, Data data) {
+		String driverUserID = currentUserID;
+		ridePostTransaction.createRidePost(ridePostID, driverUserID, data);
 		System.out.println(data.getTime());
 		// Have button on viewallrides that when clicked, moves to this . User
 		// will enter info into boxes. Pushes button that calls the make ridepost use
@@ -406,17 +442,27 @@ public class Handler {
 		return passengerRequestTransaction.viewPassengerRequests(username, ridePostID);
 	}
 
-	@RequestMapping("/favorites")
-	public String getFavorites(Model model) {
-
+	@GetMapping("/favorites")
+	public String getFavorites(Model model, Data data) {
 		if (currentUserID == null) {
 			return "loginpage";
 		}
+		return "favorites";
+	}
+	@PostMapping("/favorites")
+	public String postFavorites(Model model, Data data) {
+		if (currentUserID == null) {
+			return "loginpage";
+		}
+		User user = userTransaction.getUser(currentUserID);
+		user.addToFavorites(data.getFavorite());
+		userTransaction.updateUser(user);
+		model.addAttribute(user);
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		if (userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
-			model.addAttribute("favorites", userTransaction.getUser(currentUserID).getFavorites());
+			model.addAttribute("favorite", userTransaction.getUser(currentUserID).getFavorites());
 		} else {
-			model.addAttribute("favorites", "You have no favorites!");
+			model.addAttribute("favorite", "You have no favorites!");
 		}
 
 		return "favorites";
