@@ -243,9 +243,11 @@ public class Handler {
 			return "login";
 		}
 		User user = userTransaction.getUser(currentUserID);
-		user.blockUser(data.getBlockeduser());
-		userTransaction.updateUser(user);
 		model.addAttribute(user);
+		if(userTransaction.users.existsById(data.getBlockeduser())) {
+			user.blockUser(data.getBlockeduser());
+			userTransaction.updateUser(user);
+		}
 		if (userTransaction.getUser(currentUserID).getBlockedList().size() != 0) {
 			model.addAttribute("blockedusers", userTransaction.getUser(currentUserID).getBlockedList());
 		} else {
@@ -446,8 +448,10 @@ public class Handler {
 			return "loginpage";
 		}
 		User user = userTransaction.getUser(currentUserID);
+		if(userTransaction.users.existsById(data.getFavorite())) {
 		user.addToFavorites(data.getFavorite());
 		userTransaction.updateUser(user);
+		}
 		model.addAttribute(user);
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		if (userTransaction.getUser(currentUserID).getFavorites().size() != 0) {
