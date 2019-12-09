@@ -39,7 +39,7 @@ public class Handler {
 	@Autowired
 	UserTransaction userTransaction;
 	 
-	String currentUserID; //This instantiation is for tests. This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
+	String currentUserID; //This variable should be set by calling the login method. Can use this method to determine if a user is logged in(null = not logged in).
 
 	@Autowired
 	ObjectFactory objFactory;
@@ -74,14 +74,6 @@ public class Handler {
 	public String postSignUp(Data data){
 		userTransaction.saveUser(data);
 		return "login";
-	}
-
-	@RequestMapping("/emailconfirmation") // The sign-up  of the website.
-	public String emailConfirmation() throws ServletException, IOException {
-
-		// User enters in info to all boxes, clicks button. Button calls signup use case
-		// method, then redirects to login .
-		return "emailconfirmation";// TODO Make html.
 	}
 
 	@RequestMapping("/login/forgotpassword") // The forgot password.
@@ -122,16 +114,6 @@ public class Handler {
 										// variable. Can put methods in this call too.
 
 		return "home";
-	}
-
-	@RequestMapping("/home/viewallrides") // The viewallrides  of the website. Will show all rideposts.
-	public String loadViewAllRides(@ModelAttribute RidePostTransaction ridePostTransaction) {
-		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
-		{
-			return "login";
-		} // Puts arraylist of all ride posts in html .
-
-		return "viewallrides";
 	}
 
 	@RequestMapping("/home/upcomingrides") // The viewallrides  of the website. Will show all rideposts.
@@ -205,7 +187,7 @@ public class Handler {
 		return "ridepost"; //TODO make html.
 	}
 
-	@RequestMapping("/home/viewallrides/{ridepostid}") // A  for viewing a ridePost. DO WE WANT THIS? OR JUST BUTTON
+	@RequestMapping("/home/{ridepostid}") // A  for viewing a ridePost.
 	public String viewOneRidePost(@RequestParam("ridepostid") int ridePostID, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
@@ -240,18 +222,6 @@ public class Handler {
 		
 		return "viewone";
 	}
-	
-//	@GetMapping("/signup") // The sign-up  of the website.
-//	public String getSignUp(Data data) {
-//		// User enters in info to all boxes, clicks button. Button calls signup use case
-//		// method, then redirects to login .
-//		return "signUp";
-//	}
-//	@PostMapping("/signup") // The sign-up  of the website.
-//	public String postSignUp(Data data){
-//		userTransaction.saveUser(data);
-//		return "login";
-//	}
 
 	@RequestMapping("/home/currentuseraccount") // The account/profile  for the currently logged in user.
 	public String loadCurrentUserAccount(Model model) {
