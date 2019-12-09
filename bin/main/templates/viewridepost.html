@@ -61,12 +61,12 @@ body {
 
 <div class="header">
 
-<h1><p th:text="'ISU Carpool'" /></h1>
+<h1><p th:text="${firstName} + 's Upcoming Rides'" /></h1>
 </div>
 
 <div id="navbar">
-	  <a href="/home">All Ride Posts</a>
-  	  <a href="/home/viewallrides/makeridepost">Create a Post</a>
+<a href="/home">All Ride Posts</a>
+  	<a href="/home/viewallrides/makeridepost">Create a Post</a>
       <a href="/home/upcomingrides">Upcoming Rides</a>
       <a href="/home/pendingrides">Pending Rides</a>
       <a href="/home/pastrides">Past Rides</a>
@@ -77,10 +77,21 @@ body {
 </div>
 
 <div class="content">
-    <p th:text="'All ride Posts '" />
-   	<ul th:each="ride : ${allrideposts}">
-    	<li th:text="${ride}"> </li> 
-    </ul>
+    <table>
+<body>
+	<h1>Post Details</h1>
+	<p th:text="'Driver Username: ' + ${theRidePost.getDriverUsername()}" />	
+	<p th:text="'start Location: ' + ${theRidePost.getStartLocation()}" />
+	<p th:text="'End location: ' + ${theRidePost.getEndLocation()}" />
+	<p th:text="'Date: ' + ${theRidePost.getDate()}" />
+	<p th:text="'Time: ' + ${theRidePost.getTime()}" />
+	<p th:text="'Car: $' + ${theRidePost.getCar()}" />
+	<p th:text="'Ride cost: ' + ${theRidePost.getCost()}" />
+	<p th:text="'Max passengers: ' + ${theRidePost.getMaxNumPassengers()}" />
+	<p th:text="'Luggage?: ' + ${theRidePost.getLuggage()}" />
+</body>
+
+    </table>
 </div>
 
 <script>

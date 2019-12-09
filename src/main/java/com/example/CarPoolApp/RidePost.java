@@ -24,7 +24,7 @@ public class RidePost {
 	private String startLocation;
 	private String endLocation;
 	private String cost;
-	private String currentUserID;
+	//private String currentUserID;
 	private boolean luggage;
 	
 	protected RidePost() {}
@@ -41,8 +41,9 @@ public class RidePost {
 //		this.hasLuggageAllowance = luggageAllowance;
 //	}
 //	@NotEmpty
-	public RidePost(Integer ridePostID,String currentUserID, String startLocation, String endLocation, String date, String time, String car, String cost, Integer maxpass,boolean luggage) {
-		this.currentUserID = currentUserID;
+	public RidePost(Integer ridePostID,String driverUserID, String startLocation, String endLocation, String date, String time, String car, String cost, Integer maxpass,boolean luggage) {
+		this.driverUsername = driverUserID;
+		//this.currentUserID = currentUserID;
 		this.startLocation = startLocation;
 		this.endLocation = endLocation;
 		this.date = date;
@@ -57,13 +58,13 @@ public class RidePost {
 		return ridePostID;
 	}
 
-	public String getCurrentUserID() {
-		return currentUserID;
-	}
-
-	public void setCurrentUserID(String currentUserID) {
-		this.currentUserID = currentUserID;
-	}
+//	public String getCurrentUserID() {
+//		return currentUserID;
+//	}
+//
+//	public void setCurrentUserID(String currentUserID) {
+//		this.currentUserID = currentUserID;
+//	}
 
 	public boolean getLuggage() {
 		return luggage;
@@ -140,14 +141,14 @@ public class RidePost {
 	public void setRidePostID(Integer ridePostID) {
 		this.ridePostID = ridePostID;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "RidePost [ridePostID=" + ridePostID + ", driverUsername=" + driverUsername + ", maxNumPassengers="
-				+ maxNumPassengers + ", time=" + time + ", car=" + car + ", startLocation=" + startLocation
-				+ ", endLocation=" + endLocation + ", cost=" + cost + ", luggageAllowance=" + luggage + "]";
+				+ maxNumPassengers + ", date=" + date + ", time=" + time + ", car=" + car + ", startLocation="
+				+ startLocation + ", endLocation=" + endLocation + ", cost=" + cost + ", luggage=" + luggage + "]";
 	}
-	
+
 	public void setUniqueID() {
 		// Generate unique ID
 		int n = 10;

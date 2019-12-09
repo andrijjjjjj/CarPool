@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,13 +66,35 @@ public class Handler {
 
 	@PostMapping("/updateprofile")
 	public String postupdateProfile(Data data) {
-		if (data.getPhonenumber().isEmpty() != true && data.getFirstname().isEmpty() != true
-				&& data.getLastname().isEmpty() != true && data.getGender().isEmpty() != true) {
-			userTransaction.updateProfile(currentUserID, data.getPhonenumber(), data.getFirstname(), data.getLastname(),
-					data.getGender());
-			return "home";
+		ArrayList<Integer> ratings = userTransaction.getUser(currentUserID).getProfile().getRatings();
+		ArrayList<String> comments = userTransaction.getUser(currentUserID).getProfile().getComments();
+		String phone = userTransaction.getUser(currentUserID).getProfile().getPhoneNumber();
+		String firstName = userTransaction.getUser(currentUserID).getProfile().getfName();
+		String lastName = userTransaction.getUser(currentUserID).getProfile().getlName();
+		String gender = userTransaction.getUser(currentUserID).getProfile().getGender();
+		String username = userTransaction.getUser(currentUserID).getUserID();
+		
+		
+		if(data.getPhonenumber() != null && !data.getPhonenumber().isEmpty() && !data.getPhonenumber().trim().isEmpty()) {
+			phone = data.getPhonenumber();
+
 		}
-		return "updateprofile";
+		
+		if(data.getFirstname() != null && !data.getFirstname().isEmpty() && !data.getFirstname().trim().isEmpty()) {
+			firstName = data.getFirstname();
+		}
+		
+		if(data.getLastname() != null && !data.getLastname().isEmpty() && !data.getLastname().trim().isEmpty()) {
+			lastName = data.getLastname();
+		}
+		
+		if(data.getGender() != null && !data.getGender().isEmpty() && !data.getGender().trim().isEmpty()) {
+			gender = data.getGender();
+		}
+		
+		userTransaction.updateProfile(username, phone, firstName, lastName, gender, ratings, comments);
+		
+		return "login";
 	}
 
 	@GetMapping("/signup") // The sign-up of the website.
@@ -144,6 +167,7 @@ public class Handler {
 		model.addAttribute("firstName", userTransaction.getUser(currentUserID).getProfile().getfName());
 		model.addAttribute("currentUserID", currentUserID); // This allows the html to access the currentUserID
 		model.addAttribute("allrideposts", viewAllRides()); // Puts arraylist of all ride posts in html .
+		
 		// variable. Can put methods in this call too.
 
 		return "home";
@@ -219,29 +243,28 @@ public class Handler {
 																			// html.
 		return "pastrides";// TODO need to make html for viewallrides.html.
 	}
-
-	@RequestMapping("/home/pastrides/{ridepostid}") // TODO need to add @param or something in parameters to access
-													// ridepostID.
-	public String viewOnePastRidePost(Model model) {
+	
+	@RequestMapping("/home/pastrides/{ridepostid}") //TODO need to add @param or something in parameters to access ridepostID.
+	public String viewOnePastRidePost(Model model, @RequestParam("ridepostid") int ridepostid)
+	{
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
-		// model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID));
-		// //TODO method to view past ride from url param.
-		return "ridepost"; // TODO make html.
+		 model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridepostid)); //TODO method to view past ride from url param.
+		return "viewridepost"; //TODO make html.
 	}
 
-	@RequestMapping("/home/{ridepostid}") // A for viewing a ridePost.
-	public String viewOneRidePost(@RequestParam("ridepostid") int ridePostID, Model model) {
+	@RequestMapping("/home/{ridepostid}") // A  for viewing a ridePost.
+	public String viewOneRidePost(@PathVariable("ridepostid") int ridepostid, Model model) {
 		if (currentUserID == null)// User isn't logged in. Shouldn't be able to access this method/.
 		{
 			return "login";
 		}
-		// model.addAttribute("ridepost", ridePostTransaction.getRidePost(ridePostID));
-		// //TODO ^^^
-
-		return "ridepost";// replace with "viewonepastridepost"
+		 RidePost post =  ridePostTransaction.getRidePost(ridepostid);
+		 model.addAttribute("theRidePost", post);
+		 
+		return "viewridepost";
 	}
 
 	@GetMapping("/home/viewallrides/makeridepost") // A for making a ridePost.
@@ -329,6 +352,10 @@ public class Handler {
 		passengerRequestTransaction.passengerAcceptedForRide(username);
 	}
 
+	public void editProfile(String username, String phoneNumber, String firstName, String lastName, String gender) {
+		//userTransaction.updateProfile(username, phoneNumber, firstName, lastName, gender);
+	}
+	
 	// ---------Mike Devitt's method zone--------------
 	public ArrayList<RidePost> viewAllRides() {
 		return ridePostTransaction.getAllPresentRidePosts();

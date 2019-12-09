@@ -18,22 +18,33 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories()
 public class CarPoolAppApplication {
- 
+
 	private static final Logger log = LoggerFactory.getLogger(CarPoolAppApplication.class);
-	
-	public static void main(String[] args) { 
+
+	public static void main(String[] args) {
 		SpringApplication.run(CarPoolAppApplication.class);
 	}
 
 	@Bean
-	public CommandLineRunner loadData(UserRepository repository,Handler handleMe) {
+	public CommandLineRunner loadData(UserRepository repository, Handler handleMe, RidePostRepository rideRepo) {
 		return (args) -> {
 			// save a couple of userAccounts
 			repository.save(new User("dolunde", "1s", "David", "Lunde", "Male", "601-554-1234", 1));
 			repository.save(new User("rjroof", "lmao", "Ryan", "jack", "Male", "601-584-1154", 0));
 			repository.save(new User("mjdevi1", "1234", "Mike", "christmas", "Male", "601-522-1514", 1));
-
+			repository.save(new User("mj", "m", "Michael", "Reyes", "Male", "911", 1));
 			
+
+			// Save a couple of ridePosts
+			rideRepo.save(new RidePost(null, "dolunde", "My Home", "End Home", "1998-11-10", "16:05", "My car", "100",
+					2, false));
+			rideRepo.save(new RidePost(null, "rjroof", "Not my Home", "End Home", "2019-12-10", "17:05", "My car",
+					"100", 2, true));
+			rideRepo.save(new RidePost(null, "mjdevi1", "Friends Home", "End Home", "2020-12-11", "12:05", "My car",
+					"100", 2, false));
+			rideRepo.save(new RidePost(null, "dolunde", "My Home Again", "End Home", "2012-10-10", "09:05", "My car",
+					"100", 2, true));
+
 //			boolean workPlease=handleMe.signUp("Mjdevi1", "1234", "123-456-7890","Clunt", "TheChristmasBlunt","male");
 //			System.out.println(workPlease);
 //			handleMe.editProfile("Mjdevi1", "630-137-5309", "Dave", "isGay","female");
@@ -49,9 +60,17 @@ public class CarPoolAppApplication {
 
 			// fetch an individual userAccount by ID
 			User userAccount = repository.findById("dolunde").get();
-			log.info("User found in database findOne(\"Nick\"):");
+			log.info("User found in database findOne(\"dolunde\"):");
 			log.info(userAccount.toString());
 			log.info("");
+
+			// Test recieve ride posts in database.
+			log.info("All rideposts posted");
+			log.info("-------------------------------");
+			for (RidePost ride : rideRepo.findAll()) {
+				log.info(ride.toString());
+			}
+			log.info("\n");
 
 			// fetch userAccounts by last name
 //			log.info("Username found with adeptdave:");
@@ -86,28 +105,27 @@ public class CarPoolAppApplication {
 //			for (String temp : comments) {
 //				System.out.println(temp);
 //			}
-			
-			
+
 			// POPULATE WEBPAGE WITH INFORMATION
 			User user = new User("dschrute", "beets", "Dwight", "Schrute", "Male", "1234567890", 1);
-			
-			user.getProfile().setRating(5);
-			user.getProfile().setRating(4);
-			user.getProfile().setRating(3);
-			user.getProfile().setRating(2);
-			user.getProfile().setRating(1);
-			user.getProfile().addComment("cool driver");
-			user.getProfile().addComment("bad driver");
-			user.getProfile().addComment("i like this guy");
-			user.getProfile().addComment("this guy sucks");
-			user.addToFavorites("Michael Scott - mscott");
-			user.addToFavorites("Angela Martin - amartin");
-			user.addToFavorites("Jim Halpert - jhalpert");
-			user.addToFavorites("Pam Beesly - pbeesly");
-			user.addToFavorites("Kevin Malone - kmalone");
-			user.addToFavorites("Andy Bernard - abernard");
-			repository.save(user);
-			
+
+//			user.getProfile().setRating(5);
+//			user.getProfile().setRating(4);
+//			user.getProfile().setRating(3);
+//			user.getProfile().setRating(2);
+//			user.getProfile().setRating(1);
+//			user.getProfile().addComment("cool driver");
+//			user.getProfile().addComment("bad driver");
+//			user.getProfile().addComment("i like this guy");
+//			user.getProfile().addComment("this guy sucks");
+//			user.addToFavorites("Michael Scott - mscott");
+//			user.addToFavorites("Angela Martin - amartin");
+//			user.addToFavorites("Jim Halpert - jhalpert");
+//			user.addToFavorites("Pam Beesly - pbeesly");
+//			user.addToFavorites("Kevin Malone - kmalone");
+//			user.addToFavorites("Andy Bernard - abernard");
+//			repository.save(user);
+
 			user.getProfile().setRating(1);
 			user.getProfile().setRating(2);
 			user.getProfile().setRating(3);
@@ -122,7 +140,6 @@ public class CarPoolAppApplication {
 			repository.save(user);
 		};
 	}
-	
 
 //	//Testing email notifications.
 //	@EventListener(ApplicationReadyEvent.class)
